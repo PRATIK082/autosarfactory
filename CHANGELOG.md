@@ -70,3 +70,8 @@ Fixed issues with referenced elements not saved in the model. Was a side-effect 
 
 ## [0.7.0]() - 2026-03-20
 Added MCP server for autosarfactory
+
+## [0.7.1]() - 2026-08-05
+- Major UI updates. Autosar viewer can now be opened as standalone tool and file(s) can loaded.
+- UI allows to update the Autosar model and saves the changes to the file.
+- Interactive graph can be generated for the Autosar Arxml files. Please refer the README for more information.

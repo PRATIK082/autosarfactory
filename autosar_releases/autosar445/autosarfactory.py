@@ -10,8 +10,8 @@ from lxml import etree
 from enum import Enum, unique
 import logging, os.path, sys
 from typing import Type, Any
-from . import datatype_utils
-from .XmlElementDirtyTracker import XmlElementDirtyTracker
+from .utils import datatype_utils
+from .utils.XmlElementDirtyTracker import XmlElementDirtyTracker
 
 # dict supposed to be used internally by the module to store the path and its corresponding autosar node
 __pathsToNodeDict__ = {}
@@ -994,9 +994,6 @@ class Describable(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def get_introduction(self) -> DocumentationBlock:
@@ -1022,9 +1019,6 @@ class Describable(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_adminData(self) -> AdminData:
@@ -1050,9 +1044,6 @@ class Describable(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AdminData_@' + str(len(self.get_children()))) #updates the path
         elif self.__adminData is not None:
             self.__adminData = None
-            self.__adminData._parent = None #No parent
-            self.__adminData._update_path() #updates the path
-            self.__adminData._node.getparent().remove(self.__adminData._node)
         XDT.mark_dirty(self.__adminData, self)
 
     def new_AdminData(self, name: str=None) -> AdminData:
@@ -1398,9 +1389,6 @@ class HwElementConnector(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_HwPinConnection(self, name: str=None) -> HwPinConnector:
@@ -1624,9 +1612,6 @@ class HwPinConnector(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -1736,9 +1721,6 @@ class MultilanguageReferrable(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'MultilanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__longName is not None:
             self.__longName = None
-            self.__longName._parent = None #No parent
-            self.__longName._update_path() #updates the path
-            self.__longName._node.getparent().remove(self.__longName._node)
         XDT.mark_dirty(self.__longName, self)
 
     def new_LongName(self, name: str=None) -> MultilanguageLongName:
@@ -1887,9 +1869,6 @@ class Identifiable(MultilanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def get_adminData(self) -> AdminData:
@@ -1915,9 +1894,6 @@ class Identifiable(MultilanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'AdminData_@' + str(len(self.get_children()))) #updates the path
         elif self.__adminData is not None:
             self.__adminData = None
-            self.__adminData._parent = None #No parent
-            self.__adminData._update_path() #updates the path
-            self.__adminData._node.getparent().remove(self.__adminData._node)
         XDT.mark_dirty(self.__adminData, self)
 
     def get_introduction(self) -> DocumentationBlock:
@@ -1943,9 +1919,6 @@ class Identifiable(MultilanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_annotations(self) -> list[Annotation]:
@@ -2198,9 +2171,6 @@ class HwPin(Identifiable,HwDescriptionEntity):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -2435,9 +2405,6 @@ class HwPinGroupConnector(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_HwPinConnection(self, name: str=None) -> HwPinConnector:
@@ -2582,9 +2549,6 @@ class HwPinGroup(Identifiable,HwDescriptionEntity):
                 value._build_path(elementNameIfShortNameMissing = 'HwPinGroupContent_@' + str(len(self.get_children()))) #updates the path
         elif self.__hwPinGroupContent is not None:
             self.__hwPinGroupContent = None
-            self.__hwPinGroupContent._parent = None #No parent
-            self.__hwPinGroupContent._update_path() #updates the path
-            self.__hwPinGroupContent._node.getparent().remove(self.__hwPinGroupContent._node)
         XDT.mark_dirty(self.__hwPinGroupContent, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -2610,9 +2574,6 @@ class HwPinGroup(Identifiable,HwDescriptionEntity):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_HwPinGroupContent(self, name: str=None) -> HwPinGroupContent:
@@ -2996,9 +2957,6 @@ class HwElementRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -3140,9 +3098,6 @@ class PackageableElement(CollectableElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -3852,9 +3807,6 @@ class HwAttributeValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Annotation_@' + str(len(self.get_children()))) #updates the path
         elif self.__annotation is not None:
             self.__annotation = None
-            self.__annotation._parent = None #No parent
-            self.__annotation._update_path() #updates the path
-            self.__annotation._node.getparent().remove(self.__annotation._node)
         XDT.mark_dirty(self.__annotation, self)
 
     def get_hwAttributeDef(self) -> HwAttributeDef:
@@ -3902,9 +3854,6 @@ class HwAttributeValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__v is not None:
             self.__v = None
-            self.__v._parent = None #No parent
-            self.__v._update_path() #updates the path
-            self.__v._node.getparent().remove(self.__v._node)
         XDT.mark_dirty(self.__v, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -3930,9 +3879,6 @@ class HwAttributeValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -4682,9 +4628,6 @@ class PostBuildVariantCondition(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'IntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_Value(self, name: str=None) -> IntegerValueVariationPoint:
@@ -5133,9 +5076,6 @@ class SwSystemconstValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def get_annotations(self) -> list[Annotation]:
@@ -5951,9 +5891,6 @@ class PostBuildVariantCriterionValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'IntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def get_annotations(self) -> list[Annotation]:
@@ -6202,9 +6139,6 @@ class VariationPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def get_blueprintCondition(self) -> DocumentationBlock:
@@ -6230,9 +6164,6 @@ class VariationPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__blueprintCondition is not None:
             self.__blueprintCondition = None
-            self.__blueprintCondition._parent = None #No parent
-            self.__blueprintCondition._update_path() #updates the path
-            self.__blueprintCondition._node.getparent().remove(self.__blueprintCondition._node)
         XDT.mark_dirty(self.__blueprintCondition, self)
 
     def get_formalBlueprintCondition(self) -> BlueprintFormula:
@@ -6258,9 +6189,6 @@ class VariationPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'BlueprintFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__formalBlueprintCondition is not None:
             self.__formalBlueprintCondition = None
-            self.__formalBlueprintCondition._parent = None #No parent
-            self.__formalBlueprintCondition._update_path() #updates the path
-            self.__formalBlueprintCondition._node.getparent().remove(self.__formalBlueprintCondition._node)
         XDT.mark_dirty(self.__formalBlueprintCondition, self)
 
     def get_formalBlueprintGenerator(self) -> BlueprintGenerator:
@@ -6286,9 +6214,6 @@ class VariationPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'BlueprintGenerator_@' + str(len(self.get_children()))) #updates the path
         elif self.__formalBlueprintGenerator is not None:
             self.__formalBlueprintGenerator = None
-            self.__formalBlueprintGenerator._parent = None #No parent
-            self.__formalBlueprintGenerator._update_path() #updates the path
-            self.__formalBlueprintGenerator._node.getparent().remove(self.__formalBlueprintGenerator._node)
         XDT.mark_dirty(self.__formalBlueprintGenerator, self)
 
     def get_swSyscond(self) -> ConditionByFormula:
@@ -6314,9 +6239,6 @@ class VariationPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ConditionByFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__swSyscond is not None:
             self.__swSyscond = None
-            self.__swSyscond._parent = None #No parent
-            self.__swSyscond._update_path() #updates the path
-            self.__swSyscond._node.getparent().remove(self.__swSyscond._node)
         XDT.mark_dirty(self.__swSyscond, self)
 
     def get_postBuildVariantConditions(self) -> list[PostBuildVariantCondition]:
@@ -6392,9 +6314,6 @@ class VariationPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Sdg_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdg is not None:
             self.__sdg = None
-            self.__sdg._parent = None #No parent
-            self.__sdg._update_path() #updates the path
-            self.__sdg._node.getparent().remove(self.__sdg._node)
         XDT.mark_dirty(self.__sdg, self)
 
     def new_Desc(self, name: str=None) -> MultiLanguageOverviewParagraph:
@@ -8675,9 +8594,6 @@ class BuildActionEntity(AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'BuildActionInvocator_@' + str(len(self.get_children()))) #updates the path
         elif self.__invocation is not None:
             self.__invocation = None
-            self.__invocation._parent = None #No parent
-            self.__invocation._update_path() #updates the path
-            self.__invocation._node.getparent().remove(self.__invocation._node)
         XDT.mark_dirty(self.__invocation, self)
 
     def new_DeliveryArtifact(self, name: str=None) -> AutosarEngineeringObject:
@@ -9144,9 +9060,6 @@ class BuildAction(BuildActionEntity):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ModifiedData(self, name: str=None) -> BuildActionIoElement:
@@ -9561,9 +9474,6 @@ class BuildActionEnvironment(AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Sdg(self, name: str=None) -> Sdg:
@@ -9833,9 +9743,6 @@ class BuildActionIoElement(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'BuildEngineeringObject_@' + str(len(self.get_children()))) #updates the path
         elif self.__engineeringObject is not None:
             self.__engineeringObject = None
-            self.__engineeringObject._parent = None #No parent
-            self.__engineeringObject._update_path() #updates the path
-            self.__engineeringObject._node.getparent().remove(self.__engineeringObject._node)
         XDT.mark_dirty(self.__engineeringObject, self)
 
     def get_foreignModelReference(self) -> ForeignModelReference:
@@ -9861,9 +9768,6 @@ class BuildActionIoElement(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ForeignModelReference_@' + str(len(self.get_children()))) #updates the path
         elif self.__foreignModelReference is not None:
             self.__foreignModelReference = None
-            self.__foreignModelReference._parent = None #No parent
-            self.__foreignModelReference._update_path() #updates the path
-            self.__foreignModelReference._node.getparent().remove(self.__foreignModelReference._node)
         XDT.mark_dirty(self.__foreignModelReference, self)
 
     def get_modelObjectReference(self) -> GenericModelReference:
@@ -9889,9 +9793,6 @@ class BuildActionIoElement(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'GenericModelReference_@' + str(len(self.get_children()))) #updates the path
         elif self.__modelObjectReference is not None:
             self.__modelObjectReference = None
-            self.__modelObjectReference._parent = None #No parent
-            self.__modelObjectReference._update_path() #updates the path
-            self.__modelObjectReference._node.getparent().remove(self.__modelObjectReference._node)
         XDT.mark_dirty(self.__modelObjectReference, self)
 
     def new_Sdg(self, name: str=None) -> Sdg:
@@ -11018,9 +10919,6 @@ class BuildActionManifestRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -11148,9 +11046,6 @@ class DocumentationContext(MultilanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'AnyInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__feature is not None:
             self.__feature = None
-            self.__feature._parent = None #No parent
-            self.__feature._update_path() #updates the path
-            self.__feature._node.getparent().remove(self.__feature._node)
         XDT.mark_dirty(self.__feature, self)
 
     def get_identifiable(self) -> Identifiable:
@@ -11344,9 +11239,6 @@ class Documentation(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'PredefinedChapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__documentationContent is not None:
             self.__documentationContent = None
-            self.__documentationContent._parent = None #No parent
-            self.__documentationContent._update_path() #updates the path
-            self.__documentationContent._node.getparent().remove(self.__documentationContent._node)
         XDT.mark_dirty(self.__documentationContent, self)
 
     def new_DocumentationContent(self, name: str=None) -> PredefinedChapter:
@@ -11590,9 +11482,6 @@ class LifeCycleInfo(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LifeCyclePeriod_@' + str(len(self.get_children()))) #updates the path
         elif self.__periodBegin is not None:
             self.__periodBegin = None
-            self.__periodBegin._parent = None #No parent
-            self.__periodBegin._update_path() #updates the path
-            self.__periodBegin._node.getparent().remove(self.__periodBegin._node)
         XDT.mark_dirty(self.__periodBegin, self)
 
     def get_periodEnd(self) -> LifeCyclePeriod:
@@ -11618,9 +11507,6 @@ class LifeCycleInfo(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LifeCyclePeriod_@' + str(len(self.get_children()))) #updates the path
         elif self.__periodEnd is not None:
             self.__periodEnd = None
-            self.__periodEnd._parent = None #No parent
-            self.__periodEnd._update_path() #updates the path
-            self.__periodEnd._node.getparent().remove(self.__periodEnd._node)
         XDT.mark_dirty(self.__periodEnd, self)
 
     def get_remark(self) -> DocumentationBlock:
@@ -11646,9 +11532,6 @@ class LifeCycleInfo(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__remark is not None:
             self.__remark = None
-            self.__remark._parent = None #No parent
-            self.__remark._update_path() #updates the path
-            self.__remark._node.getparent().remove(self.__remark._node)
         XDT.mark_dirty(self.__remark, self)
 
     def get_useInsteads(self) -> list[Referrable]:
@@ -12073,9 +11956,6 @@ class LifeCycleInfoSet(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'LifeCyclePeriod_@' + str(len(self.get_children()))) #updates the path
         elif self.__defaultPeriodBegin is not None:
             self.__defaultPeriodBegin = None
-            self.__defaultPeriodBegin._parent = None #No parent
-            self.__defaultPeriodBegin._update_path() #updates the path
-            self.__defaultPeriodBegin._node.getparent().remove(self.__defaultPeriodBegin._node)
         XDT.mark_dirty(self.__defaultPeriodBegin, self)
 
     def get_defaultPeriodEnd(self) -> LifeCyclePeriod:
@@ -12101,9 +11981,6 @@ class LifeCycleInfoSet(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'LifeCyclePeriod_@' + str(len(self.get_children()))) #updates the path
         elif self.__defaultPeriodEnd is not None:
             self.__defaultPeriodEnd = None
-            self.__defaultPeriodEnd._parent = None #No parent
-            self.__defaultPeriodEnd._update_path() #updates the path
-            self.__defaultPeriodEnd._node.getparent().remove(self.__defaultPeriodEnd._node)
         XDT.mark_dirty(self.__defaultPeriodEnd, self)
 
     def get_lifeCycleInfos(self) -> list[LifeCycleInfo]:
@@ -13077,9 +12954,6 @@ class SingleLanguageReferrable(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'SingleLanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__longName1 is not None:
             self.__longName1 = None
-            self.__longName1._parent = None #No parent
-            self.__longName1._update_path() #updates the path
-            self.__longName1._node.getparent().remove(self.__longName1._node)
         XDT.mark_dirty(self.__longName1, self)
 
     def new_LongName1(self, name: str=None) -> SingleLanguageLongName:
@@ -13218,9 +13092,6 @@ class ReferrableRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -14535,9 +14406,6 @@ class Caption(MultilanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def new_Desc(self, name: str=None) -> MultiLanguageOverviewParagraph:
@@ -15005,9 +14873,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__description is not None:
             self.__description = None
-            self.__description._parent = None #No parent
-            self.__description._update_path() #updates the path
-            self.__description._node.getparent().remove(self.__description._node)
         XDT.mark_dirty(self.__description, self)
 
     def get_rationale(self) -> DocumentationBlock:
@@ -15033,9 +14898,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__rationale is not None:
             self.__rationale = None
-            self.__rationale._parent = None #No parent
-            self.__rationale._update_path() #updates the path
-            self.__rationale._node.getparent().remove(self.__rationale._node)
         XDT.mark_dirty(self.__rationale, self)
 
     def get_dependencies(self) -> DocumentationBlock:
@@ -15061,9 +14923,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__dependencies is not None:
             self.__dependencies = None
-            self.__dependencies._parent = None #No parent
-            self.__dependencies._update_path() #updates the path
-            self.__dependencies._node.getparent().remove(self.__dependencies._node)
         XDT.mark_dirty(self.__dependencies, self)
 
     def get_useCase(self) -> DocumentationBlock:
@@ -15089,9 +14948,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__useCase is not None:
             self.__useCase = None
-            self.__useCase._parent = None #No parent
-            self.__useCase._update_path() #updates the path
-            self.__useCase._node.getparent().remove(self.__useCase._node)
         XDT.mark_dirty(self.__useCase, self)
 
     def get_conflicts(self) -> DocumentationBlock:
@@ -15117,9 +14973,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__conflicts is not None:
             self.__conflicts = None
-            self.__conflicts._parent = None #No parent
-            self.__conflicts._update_path() #updates the path
-            self.__conflicts._node.getparent().remove(self.__conflicts._node)
         XDT.mark_dirty(self.__conflicts, self)
 
     def get_supportingMaterial(self) -> DocumentationBlock:
@@ -15145,9 +14998,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__supportingMaterial is not None:
             self.__supportingMaterial = None
-            self.__supportingMaterial._parent = None #No parent
-            self.__supportingMaterial._update_path() #updates the path
-            self.__supportingMaterial._node.getparent().remove(self.__supportingMaterial._node)
         XDT.mark_dirty(self.__supportingMaterial, self)
 
     def get_remark(self) -> DocumentationBlock:
@@ -15173,9 +15023,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__remark is not None:
             self.__remark = None
-            self.__remark._parent = None #No parent
-            self.__remark._update_path() #updates the path
-            self.__remark._node.getparent().remove(self.__remark._node)
         XDT.mark_dirty(self.__remark, self)
 
     def get_testedItems(self) -> list[Traceable]:
@@ -15243,9 +15090,6 @@ class StructuredReq(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Dependencies(self, name: str=None) -> DocumentationBlock:
@@ -16260,9 +16104,6 @@ class TraceableText(Identifiable,Paginateable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Formula(self, name: str=None) -> MlFormula:
@@ -17012,9 +16853,6 @@ class LGraphic(LanguageSpecific):
                 value._build_path(elementNameIfShortNameMissing = 'Graphic_@' + str(len(self.get_children()))) #updates the path
         elif self.__graphic is not None:
             self.__graphic = None
-            self.__graphic._parent = None #No parent
-            self.__graphic._update_path() #updates the path
-            self.__graphic._node.getparent().remove(self.__graphic._node)
         XDT.mark_dirty(self.__graphic, self)
 
     def get_map(self) -> Map:
@@ -17040,9 +16878,6 @@ class LGraphic(LanguageSpecific):
                 value._build_path(elementNameIfShortNameMissing = 'Map_@' + str(len(self.get_children()))) #updates the path
         elif self.__map is not None:
             self.__map = None
-            self.__map._parent = None #No parent
-            self.__map._update_path() #updates the path
-            self.__map._node.getparent().remove(self.__map._node)
         XDT.mark_dirty(self.__map, self)
 
     def new_Graphic(self, name: str=None) -> Graphic:
@@ -18011,9 +17846,6 @@ class MlFigure(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'Caption_@' + str(len(self.get_children()))) #updates the path
         elif self.__figureCaption is not None:
             self.__figureCaption = None
-            self.__figureCaption._parent = None #No parent
-            self.__figureCaption._update_path() #updates the path
-            self.__figureCaption._node.getparent().remove(self.__figureCaption._node)
         XDT.mark_dirty(self.__figureCaption, self)
 
     def get_lGraphics(self) -> list[LGraphic]:
@@ -18089,9 +17921,6 @@ class MlFigure(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageVerbatim_@' + str(len(self.get_children()))) #updates the path
         elif self.__verbatim is not None:
             self.__verbatim = None
-            self.__verbatim._parent = None #No parent
-            self.__verbatim._update_path() #updates the path
-            self.__verbatim._node.getparent().remove(self.__verbatim._node)
         XDT.mark_dirty(self.__verbatim, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -18117,9 +17946,6 @@ class MlFigure(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_FigureCaption(self, name: str=None) -> Caption:
@@ -19732,9 +19558,6 @@ class Row(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -19987,9 +19810,6 @@ class Table(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'Caption_@' + str(len(self.get_children()))) #updates the path
         elif self.__tableCaption is not None:
             self.__tableCaption = None
-            self.__tableCaption._parent = None #No parent
-            self.__tableCaption._update_path() #updates the path
-            self.__tableCaption._node.getparent().remove(self.__tableCaption._node)
         XDT.mark_dirty(self.__tableCaption, self)
 
     def get_tgroups(self) -> list[Tgroup]:
@@ -20065,9 +19885,6 @@ class Table(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_TableCaption(self, name: str=None) -> Caption:
@@ -20387,9 +20204,6 @@ class Tgroup(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Tbody_@' + str(len(self.get_children()))) #updates the path
         elif self.__thead is not None:
             self.__thead = None
-            self.__thead._parent = None #No parent
-            self.__thead._update_path() #updates the path
-            self.__thead._node.getparent().remove(self.__thead._node)
         XDT.mark_dirty(self.__thead, self)
 
     def get_tfoot(self) -> Tbody:
@@ -20415,9 +20229,6 @@ class Tgroup(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Tbody_@' + str(len(self.get_children()))) #updates the path
         elif self.__tfoot is not None:
             self.__tfoot = None
-            self.__tfoot._parent = None #No parent
-            self.__tfoot._update_path() #updates the path
-            self.__tfoot._node.getparent().remove(self.__tfoot._node)
         XDT.mark_dirty(self.__tfoot, self)
 
     def get_tbody(self) -> Tbody:
@@ -20443,9 +20254,6 @@ class Tgroup(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Tbody_@' + str(len(self.get_children()))) #updates the path
         elif self.__tbody is not None:
             self.__tbody = None
-            self.__tbody._parent = None #No parent
-            self.__tbody._update_path() #updates the path
-            self.__tbody._node.getparent().remove(self.__tbody._node)
         XDT.mark_dirty(self.__tbody, self)
 
     def new_Tfoot(self, name: str=None) -> Tbody:
@@ -20835,9 +20643,6 @@ class MlFormula(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'Caption_@' + str(len(self.get_children()))) #updates the path
         elif self.__formulaCaption is not None:
             self.__formulaCaption = None
-            self.__formulaCaption._parent = None #No parent
-            self.__formulaCaption._update_path() #updates the path
-            self.__formulaCaption._node.getparent().remove(self.__formulaCaption._node)
         XDT.mark_dirty(self.__formulaCaption, self)
 
     def get_lGraphics(self) -> list[LGraphic]:
@@ -20913,9 +20718,6 @@ class MlFormula(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageVerbatim_@' + str(len(self.get_children()))) #updates the path
         elif self.__verbatim is not None:
             self.__verbatim = None
-            self.__verbatim._parent = None #No parent
-            self.__verbatim._update_path() #updates the path
-            self.__verbatim._node.getparent().remove(self.__verbatim._node)
         XDT.mark_dirty(self.__verbatim, self)
 
     def get_texMath(self) -> MultiLanguagePlainText:
@@ -20941,9 +20743,6 @@ class MlFormula(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguagePlainText_@' + str(len(self.get_children()))) #updates the path
         elif self.__texMath is not None:
             self.__texMath = None
-            self.__texMath._parent = None #No parent
-            self.__texMath._update_path() #updates the path
-            self.__texMath._node.getparent().remove(self.__texMath._node)
         XDT.mark_dirty(self.__texMath, self)
 
     def get_genericMath(self) -> MultiLanguagePlainText:
@@ -20969,9 +20768,6 @@ class MlFormula(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguagePlainText_@' + str(len(self.get_children()))) #updates the path
         elif self.__genericMath is not None:
             self.__genericMath = None
-            self.__genericMath._parent = None #No parent
-            self.__genericMath._update_path() #updates the path
-            self.__genericMath._node.getparent().remove(self.__genericMath._node)
         XDT.mark_dirty(self.__genericMath, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -20997,9 +20793,6 @@ class MlFormula(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_TexMath(self, name: str=None) -> MultiLanguagePlainText:
@@ -21252,9 +21045,6 @@ class DefItem(MultilanguageReferrable,Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__def is not None:
             self.__def = None
-            self.__def._parent = None #No parent
-            self.__def._update_path() #updates the path
-            self.__def._node.getparent().remove(self.__def._node)
         XDT.mark_dirty(self.__def, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -21280,9 +21070,6 @@ class DefItem(MultilanguageReferrable,Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Def(self, name: str=None) -> DocumentationBlock:
@@ -22234,9 +22021,6 @@ class Item(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Formula(self, name: str=None) -> MlFormula:
@@ -22755,9 +22539,6 @@ class LabeledItem(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__itemLabel is not None:
             self.__itemLabel = None
-            self.__itemLabel._parent = None #No parent
-            self.__itemLabel._update_path() #updates the path
-            self.__itemLabel._node.getparent().remove(self.__itemLabel._node)
         XDT.mark_dirty(self.__itemLabel, self)
 
     def get_defLists(self) -> list[DefList]:
@@ -23333,9 +23114,6 @@ class LabeledItem(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DefList(self, name: str=None) -> DefList:
@@ -23764,9 +23542,6 @@ class LabeledList(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'IndentSample_@' + str(len(self.get_children()))) #updates the path
         elif self.__indentSample is not None:
             self.__indentSample = None
-            self.__indentSample._parent = None #No parent
-            self.__indentSample._update_path() #updates the path
-            self.__indentSample._node.getparent().remove(self.__indentSample._node)
         XDT.mark_dirty(self.__indentSample, self)
 
     def get_labeledItems(self) -> list[LabeledItem]:
@@ -23842,9 +23617,6 @@ class LabeledList(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_IndentSample(self, name: str=None) -> IndentSample:
@@ -24072,9 +23844,6 @@ class List(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Item(self, name: str=None) -> Item:
@@ -24268,9 +24037,6 @@ class DefList(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DefItem(self, name: str=None) -> DefItem:
@@ -24539,9 +24305,6 @@ class Note(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MultilanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__label is not None:
             self.__label = None
-            self.__label._parent = None #No parent
-            self.__label._update_path() #updates the path
-            self.__label._node.getparent().remove(self.__label._node)
         XDT.mark_dirty(self.__label, self)
 
     def get_defLists(self) -> list[DefList]:
@@ -25117,9 +24880,6 @@ class Note(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DefList(self, name: str=None) -> DefList:
@@ -25672,9 +25432,6 @@ class PrmChar(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__cond is not None:
             self.__cond = None
-            self.__cond._parent = None #No parent
-            self.__cond._update_path() #updates the path
-            self.__cond._node.getparent().remove(self.__cond._node)
         XDT.mark_dirty(self.__cond, self)
 
     def get_prmCharContents(self) -> PrmCharContents:
@@ -25700,9 +25457,6 @@ class PrmChar(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PrmCharContents_@' + str(len(self.get_children()))) #updates the path
         elif self.__prmCharContents is not None:
             self.__prmCharContents = None
-            self.__prmCharContents._parent = None #No parent
-            self.__prmCharContents._update_path() #updates the path
-            self.__prmCharContents._node.getparent().remove(self.__prmCharContents._node)
         XDT.mark_dirty(self.__prmCharContents, self)
 
     def get_remark(self) -> DocumentationBlock:
@@ -25728,9 +25482,6 @@ class PrmChar(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__remark is not None:
             self.__remark = None
-            self.__remark._parent = None #No parent
-            self.__remark._update_path() #updates the path
-            self.__remark._node.getparent().remove(self.__remark._node)
         XDT.mark_dirty(self.__remark, self)
 
     def new_PrmCharTextualContents(self, name: str=None) -> PrmCharTextualContents:
@@ -25843,7 +25594,7 @@ class PrmChar(ARObject):
         else:
             AutosarNode._remove_xml_node_if_exists(self._node, 'COND')
 
-        if XDT.is_dirty(self.__prmCharContents):
+        if self.__prmCharContents is not None and XDT.is_dirty(self.__prmCharContents):
             self.__prmCharContents._insert_after_tags = ['COND', 'T', 'S']
             self.__prmCharContents._save_contents()
 
@@ -26133,9 +25884,6 @@ class PrmCharNumericalContents(PrmCharContents):
                 value._build_path(elementNameIfShortNameMissing = 'PrmCharNumericalValue_@' + str(len(self.get_children()))) #updates the path
         elif self.__prmCharNumericalValueType is not None:
             self.__prmCharNumericalValueType = None
-            self.__prmCharNumericalValueType._parent = None #No parent
-            self.__prmCharNumericalValueType._update_path() #updates the path
-            self.__prmCharNumericalValueType._node.getparent().remove(self.__prmCharNumericalValueType._node)
         XDT.mark_dirty(self.__prmCharNumericalValueType, self)
 
     def get_prmUnit(self) -> SingleLanguageUnitNames:
@@ -26161,9 +25909,6 @@ class PrmCharNumericalContents(PrmCharContents):
                 value._build_path(elementNameIfShortNameMissing = 'SingleLanguageUnitNames_@' + str(len(self.get_children()))) #updates the path
         elif self.__prmUnit is not None:
             self.__prmUnit = None
-            self.__prmUnit._parent = None #No parent
-            self.__prmUnit._update_path() #updates the path
-            self.__prmUnit._node.getparent().remove(self.__prmUnit._node)
         XDT.mark_dirty(self.__prmUnit, self)
 
     def new_PrmUnit(self, name: str=None) -> SingleLanguageUnitNames:
@@ -26247,7 +25992,7 @@ class PrmCharNumericalContents(PrmCharContents):
         if XDT.is_dirty(self) is False:
             return
         super()._save_PrmCharContents()
-        if XDT.is_dirty(self.__prmCharNumericalValueType):
+        if self.__prmCharNumericalValueType is not None and XDT.is_dirty(self.__prmCharNumericalValueType):
             self.__prmCharNumericalValueType._insert_after_tags = ['T', 'S']
             self.__prmCharNumericalValueType._save_contents()
 
@@ -26373,9 +26118,6 @@ class Prms(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MultilanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__label is not None:
             self.__label = None
-            self.__label._parent = None #No parent
-            self.__label._update_path() #updates the path
-            self.__label._node.getparent().remove(self.__label._node)
         XDT.mark_dirty(self.__label, self)
 
     def get_prms(self) -> list[GeneralParameter]:
@@ -26633,9 +26375,6 @@ class MsrQueryChapter(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MsrQueryProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryProps is not None:
             self.__msrQueryProps = None
-            self.__msrQueryProps._parent = None #No parent
-            self.__msrQueryProps._update_path() #updates the path
-            self.__msrQueryProps._node.getparent().remove(self.__msrQueryProps._node)
         XDT.mark_dirty(self.__msrQueryProps, self)
 
     def get_msrQueryResultChapter(self) -> MsrQueryResultChapter:
@@ -26661,9 +26400,6 @@ class MsrQueryChapter(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MsrQueryResultChapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryResultChapter is not None:
             self.__msrQueryResultChapter = None
-            self.__msrQueryResultChapter._parent = None #No parent
-            self.__msrQueryResultChapter._update_path() #updates the path
-            self.__msrQueryResultChapter._node.getparent().remove(self.__msrQueryResultChapter._node)
         XDT.mark_dirty(self.__msrQueryResultChapter, self)
 
     def new_MsrQueryProps(self, name: str=None) -> MsrQueryProps:
@@ -26928,9 +26664,6 @@ class MsrQueryP1(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MsrQueryProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryProps is not None:
             self.__msrQueryProps = None
-            self.__msrQueryProps._parent = None #No parent
-            self.__msrQueryProps._update_path() #updates the path
-            self.__msrQueryProps._node.getparent().remove(self.__msrQueryProps._node)
         XDT.mark_dirty(self.__msrQueryProps, self)
 
     def get_msrQueryResultP1(self) -> TopicContent:
@@ -26956,9 +26689,6 @@ class MsrQueryP1(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'TopicContent_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryResultP1 is not None:
             self.__msrQueryResultP1 = None
-            self.__msrQueryResultP1._parent = None #No parent
-            self.__msrQueryResultP1._update_path() #updates the path
-            self.__msrQueryResultP1._node.getparent().remove(self.__msrQueryResultP1._node)
         XDT.mark_dirty(self.__msrQueryResultP1, self)
 
     def new_MsrQueryResultP1(self, name: str=None) -> TopicContent:
@@ -27263,9 +26993,6 @@ class MsrQueryTopic1(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MsrQueryProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryProps is not None:
             self.__msrQueryProps = None
-            self.__msrQueryProps._parent = None #No parent
-            self.__msrQueryProps._update_path() #updates the path
-            self.__msrQueryProps._node.getparent().remove(self.__msrQueryProps._node)
         XDT.mark_dirty(self.__msrQueryProps, self)
 
     def get_msrQueryResultTopic1(self) -> MsrQueryResultTopic1:
@@ -27291,9 +27018,6 @@ class MsrQueryTopic1(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'MsrQueryResultTopic1_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryResultTopic1 is not None:
             self.__msrQueryResultTopic1 = None
-            self.__msrQueryResultTopic1._parent = None #No parent
-            self.__msrQueryResultTopic1._update_path() #updates the path
-            self.__msrQueryResultTopic1._node.getparent().remove(self.__msrQueryResultTopic1._node)
         XDT.mark_dirty(self.__msrQueryResultTopic1, self)
 
     def new_MsrQueryResultTopic1(self, name: str=None) -> MsrQueryResultTopic1:
@@ -27558,9 +27282,6 @@ class MsrQueryP2(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MsrQueryProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryProps is not None:
             self.__msrQueryProps = None
-            self.__msrQueryProps._parent = None #No parent
-            self.__msrQueryProps._update_path() #updates the path
-            self.__msrQueryProps._node.getparent().remove(self.__msrQueryProps._node)
         XDT.mark_dirty(self.__msrQueryProps, self)
 
     def get_msrQueryResultP2(self) -> DocumentationBlock:
@@ -27586,9 +27307,6 @@ class MsrQueryP2(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__msrQueryResultP2 is not None:
             self.__msrQueryResultP2 = None
-            self.__msrQueryResultP2._parent = None #No parent
-            self.__msrQueryResultP2._update_path() #updates the path
-            self.__msrQueryResultP2._node.getparent().remove(self.__msrQueryResultP2._node)
         XDT.mark_dirty(self.__msrQueryResultP2, self)
 
     def new_MsrQueryProps(self, name: str=None) -> MsrQueryProps:
@@ -30126,9 +29844,6 @@ class Topic1(Identifiable,Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_MsrQueryP1(self, name: str=None) -> MsrQueryP1:
@@ -31437,9 +31152,6 @@ class Chapter(Identifiable,Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Topic1(self, name: str=None) -> Topic1:
@@ -31732,9 +31444,6 @@ class GeneralAnnotation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultilanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__label is not None:
             self.__label = None
-            self.__label._parent = None #No parent
-            self.__label._update_path() #updates the path
-            self.__label._node.getparent().remove(self.__label._node)
         XDT.mark_dirty(self.__label, self)
 
     def get_annotationText(self) -> DocumentationBlock:
@@ -31760,9 +31469,6 @@ class GeneralAnnotation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__annotationText is not None:
             self.__annotationText = None
-            self.__annotationText._parent = None #No parent
-            self.__annotationText._update_path() #updates the path
-            self.__annotationText._node.getparent().remove(self.__annotationText._node)
         XDT.mark_dirty(self.__annotationText, self)
 
     def new_Label(self, name: str=None) -> MultilanguageLongName:
@@ -32127,9 +31833,6 @@ class MultiLanguageParagraph(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -32371,9 +32074,6 @@ class MultiLanguageVerbatim(Paginateable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_L5(self, name: str=None) -> LVerbatim:
@@ -35583,9 +35283,6 @@ class Std(SingleLanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'Url_@' + str(len(self.get_children()))) #updates the path
         elif self.__url is not None:
             self.__url = None
-            self.__url._parent = None #No parent
-            self.__url._update_path() #updates the path
-            self.__url._node.getparent().remove(self.__url._node)
         XDT.mark_dirty(self.__url, self)
 
     def new_Url(self, name: str=None) -> Url:
@@ -35869,9 +35566,6 @@ class Xdoc(SingleLanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'Url_@' + str(len(self.get_children()))) #updates the path
         elif self.__url is not None:
             self.__url = None
-            self.__url._parent = None #No parent
-            self.__url._update_path() #updates the path
-            self.__url._node.getparent().remove(self.__url._node)
         XDT.mark_dirty(self.__url, self)
 
     def new_Url(self, name: str=None) -> Url:
@@ -36037,9 +35731,6 @@ class Xfile(SingleLanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'Url_@' + str(len(self.get_children()))) #updates the path
         elif self.__url is not None:
             self.__url = None
-            self.__url._parent = None #No parent
-            self.__url._update_path() #updates the path
-            self.__url._node.getparent().remove(self.__url._node)
         XDT.mark_dirty(self.__url, self)
 
     def new_Url(self, name: str=None) -> Url:
@@ -36295,9 +35986,6 @@ class Xref(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SingleLanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__label1 is not None:
             self.__label1 = None
-            self.__label1._parent = None #No parent
-            self.__label1._update_path() #updates the path
-            self.__label1._node.getparent().remove(self.__label1._node)
         XDT.mark_dirty(self.__label1, self)
 
     def get_referrable(self) -> Referrable:
@@ -37373,9 +37061,6 @@ class AnyInstanceRef(AtpInstanceRef):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -38017,9 +37702,6 @@ class ARPackage(CollectableElement,AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwBaseType(self, name: str=None) -> SwBaseType:
@@ -44515,9 +44197,6 @@ class Sdf(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_Value(self, name: str=None) -> NumericalValueVariationPoint:
@@ -44624,9 +44303,6 @@ class SdgCaption(MultilanguageReferrable):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def new_Desc(self, name: str=None) -> MultiLanguageOverviewParagraph:
@@ -45285,9 +44961,6 @@ class Sdg(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SdgCaption_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdgCaption is not None:
             self.__sdgCaption = None
-            self.__sdgCaption._parent = None #No parent
-            self.__sdgCaption._update_path() #updates the path
-            self.__sdgCaption._node.getparent().remove(self.__sdgCaption._node)
         XDT.mark_dirty(self.__sdgCaption, self)
 
     def get_sdgCaptionRef(self) -> SdgCaption:
@@ -45577,9 +45250,6 @@ class Sdg(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SdgCaption(self, name: str=None) -> SdgCaption:
@@ -47279,9 +46949,6 @@ class Modification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__change is not None:
             self.__change = None
-            self.__change._parent = None #No parent
-            self.__change._update_path() #updates the path
-            self.__change._node.getparent().remove(self.__change._node)
         XDT.mark_dirty(self.__change, self)
 
     def get_reason(self) -> MultiLanguageOverviewParagraph:
@@ -47307,9 +46974,6 @@ class Modification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__reason is not None:
             self.__reason = None
-            self.__reason._parent = None #No parent
-            self.__reason._update_path() #updates the path
-            self.__reason._node.getparent().remove(self.__reason._node)
         XDT.mark_dirty(self.__reason, self)
 
     def new_Reason(self, name: str=None) -> MultiLanguageOverviewParagraph:
@@ -47473,9 +47137,6 @@ class AdminData(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguagePlainText_@' + str(len(self.get_children()))) #updates the path
         elif self.__usedLanguages is not None:
             self.__usedLanguages = None
-            self.__usedLanguages._parent = None #No parent
-            self.__usedLanguages._update_path() #updates the path
-            self.__usedLanguages._node.getparent().remove(self.__usedLanguages._node)
         XDT.mark_dirty(self.__usedLanguages, self)
 
     def get_docRevisions(self) -> list[DocRevision]:
@@ -47968,9 +47629,6 @@ class AliasNameAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultilanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__label is not None:
             self.__label = None
-            self.__label._parent = None #No parent
-            self.__label._update_path() #updates the path
-            self.__label._node.getparent().remove(self.__label._node)
         XDT.mark_dirty(self.__label, self)
 
     def get_identifiable(self) -> Identifiable:
@@ -48040,9 +47698,6 @@ class AliasNameAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -48233,9 +47888,6 @@ class FlatInstanceDescriptor(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_upstreamReference(self) -> AnyInstanceRef:
@@ -48261,9 +47913,6 @@ class FlatInstanceDescriptor(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'AnyInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__upstreamReference is not None:
             self.__upstreamReference = None
-            self.__upstreamReference._parent = None #No parent
-            self.__upstreamReference._update_path() #updates the path
-            self.__upstreamReference._node.getparent().remove(self.__upstreamReference._node)
         XDT.mark_dirty(self.__upstreamReference, self)
 
     def get_ecuExtractReference(self) -> AnyInstanceRef:
@@ -48289,9 +47938,6 @@ class FlatInstanceDescriptor(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'AnyInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__ecuExtractReference is not None:
             self.__ecuExtractReference = None
-            self.__ecuExtractReference._parent = None #No parent
-            self.__ecuExtractReference._update_path() #updates the path
-            self.__ecuExtractReference._node.getparent().remove(self.__ecuExtractReference._node)
         XDT.mark_dirty(self.__ecuExtractReference, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -48317,9 +47963,6 @@ class FlatInstanceDescriptor(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -49018,9 +48661,6 @@ class SwDataDependency(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuGenericMath_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDependencyFormula is not None:
             self.__swDataDependencyFormula = None
-            self.__swDataDependencyFormula._parent = None #No parent
-            self.__swDataDependencyFormula._update_path() #updates the path
-            self.__swDataDependencyFormula._node.getparent().remove(self.__swDataDependencyFormula._node)
         XDT.mark_dirty(self.__swDataDependencyFormula, self)
 
     def get_swDataDependencyArgs(self) -> SwDataDependencyArgs:
@@ -49046,9 +48686,6 @@ class SwDataDependency(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDependencyArgs_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDependencyArgs is not None:
             self.__swDataDependencyArgs = None
-            self.__swDataDependencyArgs._parent = None #No parent
-            self.__swDataDependencyArgs._update_path() #updates the path
-            self.__swDataDependencyArgs._node.getparent().remove(self.__swDataDependencyArgs._node)
         XDT.mark_dirty(self.__swDataDependencyArgs, self)
 
     def new_SwDataDependencyFormula(self, name: str=None) -> CompuGenericMath:
@@ -49218,9 +48855,6 @@ class SwDataDependencyArgs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarParameterRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__arParameter is not None:
             self.__arParameter = None
-            self.__arParameter._parent = None #No parent
-            self.__arParameter._update_path() #updates the path
-            self.__arParameter._node.getparent().remove(self.__arParameter._node)
         XDT.mark_dirty(self.__arParameter, self)
 
     def get_mcDataInstance(self) -> McDataInstance:
@@ -49268,9 +48902,6 @@ class SwDataDependencyArgs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__autosarVariable is not None:
             self.__autosarVariable = None
-            self.__autosarVariable._parent = None #No parent
-            self.__autosarVariable._update_path() #updates the path
-            self.__autosarVariable._node.getparent().remove(self.__autosarVariable._node)
         XDT.mark_dirty(self.__autosarVariable, self)
 
     def get_mcDataInstanceVar(self) -> McDataInstance:
@@ -49467,9 +49098,6 @@ class SwPointerTargetProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_functionPointerSignature(self) -> BswModuleEntry:
@@ -49651,9 +49279,6 @@ class SwTextProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'IntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__swMaxTextSize is not None:
             self.__swMaxTextSize = None
-            self.__swMaxTextSize._parent = None #No parent
-            self.__swMaxTextSize._update_path() #updates the path
-            self.__swMaxTextSize._node.getparent().remove(self.__swMaxTextSize._node)
         XDT.mark_dirty(self.__swMaxTextSize, self)
 
     def get_baseType(self) -> SwBaseType:
@@ -50235,9 +49860,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwBitRepresentation_@' + str(len(self.get_children()))) #updates the path
         elif self.__swBitRepresentation is not None:
             self.__swBitRepresentation = None
-            self.__swBitRepresentation._parent = None #No parent
-            self.__swBitRepresentation._update_path() #updates the path
-            self.__swBitRepresentation._node.getparent().remove(self.__swBitRepresentation._node)
         XDT.mark_dirty(self.__swBitRepresentation, self)
 
     def get_swValueBlockSize(self) -> NumericalValueVariationPoint:
@@ -50263,9 +49885,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__swValueBlockSize is not None:
             self.__swValueBlockSize = None
-            self.__swValueBlockSize._parent = None #No parent
-            self.__swValueBlockSize._update_path() #updates the path
-            self.__swValueBlockSize._node.getparent().remove(self.__swValueBlockSize._node)
         XDT.mark_dirty(self.__swValueBlockSize, self)
 
     def get_swCalprmAxisSet(self) -> SwCalprmAxisSet:
@@ -50291,9 +49910,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwCalprmAxisSet_@' + str(len(self.get_children()))) #updates the path
         elif self.__swCalprmAxisSet is not None:
             self.__swCalprmAxisSet = None
-            self.__swCalprmAxisSet._parent = None #No parent
-            self.__swCalprmAxisSet._update_path() #updates the path
-            self.__swCalprmAxisSet._node.getparent().remove(self.__swCalprmAxisSet._node)
         XDT.mark_dirty(self.__swCalprmAxisSet, self)
 
     def get_swTextProps(self) -> SwTextProps:
@@ -50319,9 +49935,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwTextProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swTextProps is not None:
             self.__swTextProps = None
-            self.__swTextProps._parent = None #No parent
-            self.__swTextProps._update_path() #updates the path
-            self.__swTextProps._node.getparent().remove(self.__swTextProps._node)
         XDT.mark_dirty(self.__swTextProps, self)
 
     def get_swComparisonVariables(self) -> list[SwVariableRefProxy]:
@@ -50441,9 +50054,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDependency_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDependency is not None:
             self.__swDataDependency = None
-            self.__swDataDependency._parent = None #No parent
-            self.__swDataDependency._update_path() #updates the path
-            self.__swDataDependency._node.getparent().remove(self.__swDataDependency._node)
         XDT.mark_dirty(self.__swDataDependency, self)
 
     def get_implementationDataType(self) -> AbstractImplementationDataType:
@@ -50491,9 +50101,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwVariableRefProxy_@' + str(len(self.get_children()))) #updates the path
         elif self.__swHostVariable is not None:
             self.__swHostVariable = None
-            self.__swHostVariable._parent = None #No parent
-            self.__swHostVariable._update_path() #updates the path
-            self.__swHostVariable._node.getparent().remove(self.__swHostVariable._node)
         XDT.mark_dirty(self.__swHostVariable, self)
 
     def get_invalidValue(self) -> ValueSpecification:
@@ -50519,9 +50126,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__invalidValue is not None:
             self.__invalidValue = None
-            self.__invalidValue._parent = None #No parent
-            self.__invalidValue._update_path() #updates the path
-            self.__invalidValue._node.getparent().remove(self.__invalidValue._node)
         XDT.mark_dirty(self.__invalidValue, self)
 
     def get_swPointerTargetProps(self) -> SwPointerTargetProps:
@@ -50547,9 +50151,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwPointerTargetProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swPointerTargetProps is not None:
             self.__swPointerTargetProps = None
-            self.__swPointerTargetProps._parent = None #No parent
-            self.__swPointerTargetProps._update_path() #updates the path
-            self.__swPointerTargetProps._node.getparent().remove(self.__swPointerTargetProps._node)
         XDT.mark_dirty(self.__swPointerTargetProps, self)
 
     def get_swRecordLayout(self) -> SwRecordLayout:
@@ -50597,9 +50198,6 @@ class SwDataDefPropsContent(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__swRefreshTiming is not None:
             self.__swRefreshTiming = None
-            self.__swRefreshTiming._parent = None #No parent
-            self.__swRefreshTiming._update_path() #updates the path
-            self.__swRefreshTiming._node.getparent().remove(self.__swRefreshTiming._node)
         XDT.mark_dirty(self.__swRefreshTiming, self)
 
     def get_unit(self) -> Unit:
@@ -51313,9 +50911,6 @@ class SwDataDefPropsConditional(SwDataDefPropsContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -51678,9 +51273,6 @@ class ModeDeclarationGroup(ARElement,AtpBlueprint,AtpBlueprintable,AtpType):
                 value._build_path(elementNameIfShortNameMissing = 'ModeErrorBehavior_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeManagerErrorBehavior is not None:
             self.__modeManagerErrorBehavior = None
-            self.__modeManagerErrorBehavior._parent = None #No parent
-            self.__modeManagerErrorBehavior._update_path() #updates the path
-            self.__modeManagerErrorBehavior._node.getparent().remove(self.__modeManagerErrorBehavior._node)
         XDT.mark_dirty(self.__modeManagerErrorBehavior, self)
 
     def get_modeTransitions(self) -> list[ModeTransition]:
@@ -51756,9 +51348,6 @@ class ModeDeclarationGroup(ARElement,AtpBlueprint,AtpBlueprintable,AtpType):
                 value._build_path(elementNameIfShortNameMissing = 'ModeErrorBehavior_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeUserErrorBehavior is not None:
             self.__modeUserErrorBehavior = None
-            self.__modeUserErrorBehavior._parent = None #No parent
-            self.__modeUserErrorBehavior._update_path() #updates the path
-            self.__modeUserErrorBehavior._node.getparent().remove(self.__modeUserErrorBehavior._node)
         XDT.mark_dirty(self.__modeUserErrorBehavior, self)
 
     def new_ModeDeclaration(self, name: str=None) -> ModeDeclaration:
@@ -52143,9 +51732,6 @@ class ModeDeclarationGroupPrototype(AtpPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -52305,9 +51891,6 @@ class ModeDeclarationGroupPrototypeRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -52830,9 +52413,6 @@ class ModeDeclaration(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -53108,9 +52688,6 @@ class TriggerRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -53240,9 +52817,6 @@ class Trigger(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__triggerPeriod is not None:
             self.__triggerPeriod = None
-            self.__triggerPeriod._parent = None #No parent
-            self.__triggerPeriod._update_path() #updates the path
-            self.__triggerPeriod._node.getparent().remove(self.__triggerPeriod._node)
         XDT.mark_dirty(self.__triggerPeriod, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -53268,9 +52842,6 @@ class Trigger(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -53407,9 +52978,6 @@ class AutosarDataType(ARElement,AtpType):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -53625,9 +53193,6 @@ class ImplementationDataType(AbstractImplementationDataType):
                 value._build_path(elementNameIfShortNameMissing = 'SymbolProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__symbolProps is not None:
             self.__symbolProps = None
-            self.__symbolProps._parent = None #No parent
-            self.__symbolProps._update_path() #updates the path
-            self.__symbolProps._node.getparent().remove(self.__symbolProps._node)
         XDT.mark_dirty(self.__symbolProps, self)
 
     def new_SymbolProps(self, name: str=None) -> SymbolProps:
@@ -53829,9 +53394,6 @@ class ImplementationDataTypeElement(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__arraySize is not None:
             self.__arraySize = None
-            self.__arraySize._parent = None #No parent
-            self.__arraySize._update_path() #updates the path
-            self.__arraySize._node.getparent().remove(self.__arraySize._node)
         XDT.mark_dirty(self.__arraySize, self)
 
     def get_subElements(self) -> list[ImplementationDataTypeElement]:
@@ -53907,9 +53469,6 @@ class ImplementationDataTypeElement(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -53935,9 +53494,6 @@ class ImplementationDataTypeElement(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -54354,9 +53910,6 @@ class DependencyOnArtifact(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarEngineeringObject_@' + str(len(self.get_children()))) #updates the path
         elif self.__artifactDescriptor is not None:
             self.__artifactDescriptor = None
-            self.__artifactDescriptor._parent = None #No parent
-            self.__artifactDescriptor._update_path() #updates the path
-            self.__artifactDescriptor._node.getparent().remove(self.__artifactDescriptor._node)
         XDT.mark_dirty(self.__artifactDescriptor, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -54382,9 +53935,6 @@ class DependencyOnArtifact(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ArtifactDescriptor(self, name: str=None) -> AutosarEngineeringObject:
@@ -54980,9 +54530,6 @@ class Implementation(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'McSupportData_@' + str(len(self.get_children()))) #updates the path
         elif self.__mcSupport is not None:
             self.__mcSupport = None
-            self.__mcSupport._parent = None #No parent
-            self.__mcSupport._update_path() #updates the path
-            self.__mcSupport._node.getparent().remove(self.__mcSupport._node)
         XDT.mark_dirty(self.__mcSupport, self)
 
     def get_requiredArtifacts(self) -> list[DependencyOnArtifact]:
@@ -55108,9 +54655,6 @@ class Implementation(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'ResourceConsumption_@' + str(len(self.get_children()))) #updates the path
         elif self.__resourceConsumption is not None:
             self.__resourceConsumption = None
-            self.__resourceConsumption._parent = None #No parent
-            self.__resourceConsumption._update_path() #updates the path
-            self.__resourceConsumption._node.getparent().remove(self.__resourceConsumption._node)
         XDT.mark_dirty(self.__resourceConsumption, self)
 
     def get_swcBswMapping(self) -> SwcBswMapping:
@@ -55968,9 +55512,6 @@ class TracedFailure(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -57061,9 +56602,6 @@ class DiagnosticEventNeeds(DiagnosticCapabilityElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagEventDebounceAlgorithm_@' + str(len(self.get_children()))) #updates the path
         elif self.__diagEventDebounceAlgorithm is not None:
             self.__diagEventDebounceAlgorithm = None
-            self.__diagEventDebounceAlgorithm._parent = None #No parent
-            self.__diagEventDebounceAlgorithm._update_path() #updates the path
-            self.__diagEventDebounceAlgorithm._node.getparent().remove(self.__diagEventDebounceAlgorithm._node)
         XDT.mark_dirty(self.__diagEventDebounceAlgorithm, self)
 
     def get_inhibitingFid(self) -> FunctionInhibitionNeeds:
@@ -59331,9 +58869,6 @@ class ServiceDependency(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SymbolicNameProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__symbolicNameProps is not None:
             self.__symbolicNameProps = None
-            self.__symbolicNameProps._parent = None #No parent
-            self.__symbolicNameProps._update_path() #updates the path
-            self.__symbolicNameProps._node.getparent().remove(self.__symbolicNameProps._node)
         XDT.mark_dirty(self.__symbolicNameProps, self)
 
     def new_SymbolicNameProps(self, name: str=None) -> SymbolicNameProps:
@@ -59532,9 +59067,6 @@ class RoleBasedDataAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__usedDataElement is not None:
             self.__usedDataElement = None
-            self.__usedDataElement._parent = None #No parent
-            self.__usedDataElement._update_path() #updates the path
-            self.__usedDataElement._node.getparent().remove(self.__usedDataElement._node)
         XDT.mark_dirty(self.__usedDataElement, self)
 
     def get_usedParameterElement(self) -> AutosarParameterRef:
@@ -59560,9 +59092,6 @@ class RoleBasedDataAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarParameterRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__usedParameterElement is not None:
             self.__usedParameterElement = None
-            self.__usedParameterElement._parent = None #No parent
-            self.__usedParameterElement._update_path() #updates the path
-            self.__usedParameterElement._node.getparent().remove(self.__usedParameterElement._node)
         XDT.mark_dirty(self.__usedParameterElement, self)
 
     def get_usedPim(self) -> PerInstanceMemory:
@@ -59610,9 +59139,6 @@ class RoleBasedDataAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_UsedDataElement(self, name: str=None) -> AutosarVariableRef:
@@ -60798,9 +60324,6 @@ class SupervisedEntityCheckpointNeedsRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -61325,9 +60848,6 @@ class ExclusiveArea(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -61493,9 +61013,6 @@ class ExclusiveAreaNestingOrder(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -62679,9 +62196,6 @@ class ValueSpecification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -62886,9 +62400,6 @@ class ApplicationRuleBasedValueSpecification(AbstractRuleBasedValueSpecification
                 value._build_path(elementNameIfShortNameMissing = 'RuleBasedValueCont_@' + str(len(self.get_children()))) #updates the path
         elif self.__swValueCont is not None:
             self.__swValueCont = None
-            self.__swValueCont._parent = None #No parent
-            self.__swValueCont._update_path() #updates the path
-            self.__swValueCont._node.getparent().remove(self.__swValueCont._node)
         XDT.mark_dirty(self.__swValueCont, self)
 
     def new_SwValueCont(self, name: str=None) -> RuleBasedValueCont:
@@ -63095,9 +62606,6 @@ class RuleBasedAxisCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueList_@' + str(len(self.get_children()))) #updates the path
         elif self.__swArraysize is not None:
             self.__swArraysize = None
-            self.__swArraysize._parent = None #No parent
-            self.__swArraysize._update_path() #updates the path
-            self.__swArraysize._node.getparent().remove(self.__swArraysize._node)
         XDT.mark_dirty(self.__swArraysize, self)
 
     def get_ruleBasedValues(self) -> RuleBasedValueSpecification:
@@ -63123,9 +62631,6 @@ class RuleBasedAxisCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RuleBasedValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__ruleBasedValues is not None:
             self.__ruleBasedValues = None
-            self.__ruleBasedValues._parent = None #No parent
-            self.__ruleBasedValues._update_path() #updates the path
-            self.__ruleBasedValues._node.getparent().remove(self.__ruleBasedValues._node)
         XDT.mark_dirty(self.__ruleBasedValues, self)
 
     def new_SwArraysize(self, name: str=None) -> ValueList:
@@ -63830,9 +63335,6 @@ class NumericalOrText(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__vf is not None:
             self.__vf = None
-            self.__vf._parent = None #No parent
-            self.__vf._update_path() #updates the path
-            self.__vf._node.getparent().remove(self.__vf._node)
         XDT.mark_dirty(self.__vf, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -63858,9 +63360,6 @@ class NumericalOrText(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Vf(self, name: str=None) -> NumericalValueVariationPoint:
@@ -64045,9 +63544,6 @@ class RuleBasedValueCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueList_@' + str(len(self.get_children()))) #updates the path
         elif self.__swArraysize is not None:
             self.__swArraysize = None
-            self.__swArraysize._parent = None #No parent
-            self.__swArraysize._update_path() #updates the path
-            self.__swArraysize._node.getparent().remove(self.__swArraysize._node)
         XDT.mark_dirty(self.__swArraysize, self)
 
     def get_ruleBasedValues(self) -> RuleBasedValueSpecification:
@@ -64073,9 +63569,6 @@ class RuleBasedValueCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RuleBasedValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__ruleBasedValues is not None:
             self.__ruleBasedValues = None
-            self.__ruleBasedValues._parent = None #No parent
-            self.__ruleBasedValues._update_path() #updates the path
-            self.__ruleBasedValues._node.getparent().remove(self.__ruleBasedValues._node)
         XDT.mark_dirty(self.__ruleBasedValues, self)
 
     def new_SwArraysize(self, name: str=None) -> ValueList:
@@ -64286,9 +63779,6 @@ class ApplicationValueSpecification(ValueSpecification):
                 value._build_path(elementNameIfShortNameMissing = 'SwValueCont_@' + str(len(self.get_children()))) #updates the path
         elif self.__swValueCont is not None:
             self.__swValueCont = None
-            self.__swValueCont._parent = None #No parent
-            self.__swValueCont._update_path() #updates the path
-            self.__swValueCont._node.getparent().remove(self.__swValueCont._node)
         XDT.mark_dirty(self.__swValueCont, self)
 
     def new_SwValueCont(self, name: str=None) -> SwValueCont:
@@ -65020,9 +64510,6 @@ class ConstantSpecification(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__valueSpec is not None:
             self.__valueSpec = None
-            self.__valueSpec._parent = None #No parent
-            self.__valueSpec._update_path() #updates the path
-            self.__valueSpec._node.getparent().remove(self.__valueSpec._node)
         XDT.mark_dirty(self.__valueSpec, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -65411,9 +64898,6 @@ class NumericalRuleBasedValueSpecification(AbstractRuleBasedValueSpecification):
                 value._build_path(elementNameIfShortNameMissing = 'RuleBasedValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__ruleBasedValues is not None:
             self.__ruleBasedValues = None
-            self.__ruleBasedValues._parent = None #No parent
-            self.__ruleBasedValues._update_path() #updates the path
-            self.__ruleBasedValues._node.getparent().remove(self.__ruleBasedValues._node)
         XDT.mark_dirty(self.__ruleBasedValues, self)
 
     def new_RuleBasedValues(self, name: str=None) -> RuleBasedValueSpecification:
@@ -65515,9 +64999,6 @@ class NumericalValueSpecification(ValueSpecification):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_Value(self, name: str=None) -> NumericalValueVariationPoint:
@@ -66260,9 +65741,6 @@ class SwCalprmAxis(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwCalprmAxisTypeProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swCalprmAxisTypeProps is not None:
             self.__swCalprmAxisTypeProps = None
-            self.__swCalprmAxisTypeProps._parent = None #No parent
-            self.__swCalprmAxisTypeProps._update_path() #updates the path
-            self.__swCalprmAxisTypeProps._node.getparent().remove(self.__swCalprmAxisTypeProps._node)
         XDT.mark_dirty(self.__swCalprmAxisTypeProps, self)
 
     def get_baseType(self) -> SwBaseType:
@@ -66692,9 +66170,6 @@ class SwAxisGeneric(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'IntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__swNumberOfAxisPoints is not None:
             self.__swNumberOfAxisPoints = None
-            self.__swNumberOfAxisPoints._parent = None #No parent
-            self.__swNumberOfAxisPoints._update_path() #updates the path
-            self.__swNumberOfAxisPoints._node.getparent().remove(self.__swNumberOfAxisPoints._node)
         XDT.mark_dirty(self.__swNumberOfAxisPoints, self)
 
     def get_swGenericAxisParams(self) -> list[SwGenericAxisParam]:
@@ -67069,9 +66544,6 @@ class SwAxisType(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__swGenericAxisDesc is not None:
             self.__swGenericAxisDesc = None
-            self.__swGenericAxisDesc._parent = None #No parent
-            self.__swGenericAxisDesc._update_path() #updates the path
-            self.__swGenericAxisDesc._node.getparent().remove(self.__swGenericAxisDesc._node)
         XDT.mark_dirty(self.__swGenericAxisDesc, self)
 
     def get_swGenericAxisParamTypes(self) -> list[SwGenericAxisParamType]:
@@ -67324,9 +66796,6 @@ class SwAxisGrouped(SwCalprmAxisTypeProps):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarParameterRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__arParameter is not None:
             self.__arParameter = None
-            self.__arParameter._parent = None #No parent
-            self.__arParameter._update_path() #updates the path
-            self.__arParameter._node.getparent().remove(self.__arParameter._node)
         XDT.mark_dirty(self.__arParameter, self)
 
     def get_mcDataInstance(self) -> McDataInstance:
@@ -67681,9 +67150,6 @@ class SwAxisIndividual(SwCalprmAxisTypeProps):
                 value._build_path(elementNameIfShortNameMissing = 'IntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__swMaxAxisPoints is not None:
             self.__swMaxAxisPoints = None
-            self.__swMaxAxisPoints._parent = None #No parent
-            self.__swMaxAxisPoints._update_path() #updates the path
-            self.__swMaxAxisPoints._node.getparent().remove(self.__swMaxAxisPoints._node)
         XDT.mark_dirty(self.__swMaxAxisPoints, self)
 
     def get_swMinAxisPoints(self) -> IntegerValueVariationPoint:
@@ -67709,9 +67175,6 @@ class SwAxisIndividual(SwCalprmAxisTypeProps):
                 value._build_path(elementNameIfShortNameMissing = 'IntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__swMinAxisPoints is not None:
             self.__swMinAxisPoints = None
-            self.__swMinAxisPoints._parent = None #No parent
-            self.__swMinAxisPoints._update_path() #updates the path
-            self.__swMinAxisPoints._node.getparent().remove(self.__swMinAxisPoints._node)
         XDT.mark_dirty(self.__swMinAxisPoints, self)
 
     def get_dataConstr(self) -> DataConstr:
@@ -67759,9 +67222,6 @@ class SwAxisIndividual(SwCalprmAxisTypeProps):
                 value._build_path(elementNameIfShortNameMissing = 'SwAxisGeneric_@' + str(len(self.get_children()))) #updates the path
         elif self.__swAxisGeneric is not None:
             self.__swAxisGeneric = None
-            self.__swAxisGeneric._parent = None #No parent
-            self.__swAxisGeneric._update_path() #updates the path
-            self.__swAxisGeneric._node.getparent().remove(self.__swAxisGeneric._node)
         XDT.mark_dirty(self.__swAxisGeneric, self)
 
     def new_SwMaxAxisPoints(self, name: str=None) -> IntegerValueVariationPoint:
@@ -68073,9 +67533,6 @@ class SwVariableRefProxy(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__autosarVariable is not None:
             self.__autosarVariable = None
-            self.__autosarVariable._parent = None #No parent
-            self.__autosarVariable._update_path() #updates the path
-            self.__autosarVariable._node.getparent().remove(self.__autosarVariable._node)
         XDT.mark_dirty(self.__autosarVariable, self)
 
     def get_mcDataInstanceVar(self) -> McDataInstance:
@@ -68225,9 +67682,6 @@ class SwCalprmRefProxy(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarParameterRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__arParameter is not None:
             self.__arParameter = None
-            self.__arParameter._parent = None #No parent
-            self.__arParameter._update_path() #updates the path
-            self.__arParameter._node.getparent().remove(self.__arParameter._node)
         XDT.mark_dirty(self.__arParameter, self)
 
     def get_mcDataInstance(self) -> McDataInstance:
@@ -68605,9 +68059,6 @@ class McSupportData(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RptSupportData_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptSupportData is not None:
             self.__rptSupportData = None
-            self.__rptSupportData._parent = None #No parent
-            self.__rptSupportData._update_path() #updates the path
-            self.__rptSupportData._node.getparent().remove(self.__rptSupportData._node)
         XDT.mark_dirty(self.__rptSupportData, self)
 
     def new_McVariableInstance(self, name: str=None) -> McDataInstance:
@@ -68938,9 +68389,6 @@ class RoleBasedMcDataAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -69233,9 +68681,6 @@ class McSwEmulationMethodSupport(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ElementGroup(self, name: str=None) -> McParameterElementGroup:
@@ -69947,9 +69392,6 @@ class McFunction(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'McFunctionDataRefSet_@' + str(len(self.get_children()))) #updates the path
         elif self.__defCalprmSet is not None:
             self.__defCalprmSet = None
-            self.__defCalprmSet._parent = None #No parent
-            self.__defCalprmSet._update_path() #updates the path
-            self.__defCalprmSet._node.getparent().remove(self.__defCalprmSet._node)
         XDT.mark_dirty(self.__defCalprmSet, self)
 
     def get_refCalprmSet(self) -> McFunctionDataRefSet:
@@ -69975,9 +69417,6 @@ class McFunction(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'McFunctionDataRefSet_@' + str(len(self.get_children()))) #updates the path
         elif self.__refCalprmSet is not None:
             self.__refCalprmSet = None
-            self.__refCalprmSet._parent = None #No parent
-            self.__refCalprmSet._update_path() #updates the path
-            self.__refCalprmSet._node.getparent().remove(self.__refCalprmSet._node)
         XDT.mark_dirty(self.__refCalprmSet, self)
 
     def get_inMeasurementSet(self) -> McFunctionDataRefSet:
@@ -70003,9 +69442,6 @@ class McFunction(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'McFunctionDataRefSet_@' + str(len(self.get_children()))) #updates the path
         elif self.__inMeasurementSet is not None:
             self.__inMeasurementSet = None
-            self.__inMeasurementSet._parent = None #No parent
-            self.__inMeasurementSet._update_path() #updates the path
-            self.__inMeasurementSet._node.getparent().remove(self.__inMeasurementSet._node)
         XDT.mark_dirty(self.__inMeasurementSet, self)
 
     def get_outMeasurmentSet(self) -> McFunctionDataRefSet:
@@ -70031,9 +69467,6 @@ class McFunction(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'McFunctionDataRefSet_@' + str(len(self.get_children()))) #updates the path
         elif self.__outMeasurmentSet is not None:
             self.__outMeasurmentSet = None
-            self.__outMeasurmentSet._parent = None #No parent
-            self.__outMeasurmentSet._update_path() #updates the path
-            self.__outMeasurmentSet._node.getparent().remove(self.__outMeasurmentSet._node)
         XDT.mark_dirty(self.__outMeasurmentSet, self)
 
     def get_locMeasurementSet(self) -> McFunctionDataRefSet:
@@ -70059,9 +69492,6 @@ class McFunction(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'McFunctionDataRefSet_@' + str(len(self.get_children()))) #updates the path
         elif self.__locMeasurementSet is not None:
             self.__locMeasurementSet = None
-            self.__locMeasurementSet._parent = None #No parent
-            self.__locMeasurementSet._update_path() #updates the path
-            self.__locMeasurementSet._node.getparent().remove(self.__locMeasurementSet._node)
         XDT.mark_dirty(self.__locMeasurementSet, self)
 
     def get_outMeasurementSet(self) -> McFunctionDataRefSet:
@@ -70087,9 +69517,6 @@ class McFunction(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'McFunctionDataRefSet_@' + str(len(self.get_children()))) #updates the path
         elif self.__outMeasurementSet is not None:
             self.__outMeasurementSet = None
-            self.__outMeasurementSet._parent = None #No parent
-            self.__outMeasurementSet._update_path() #updates the path
-            self.__outMeasurementSet._node.getparent().remove(self.__outMeasurementSet._node)
         XDT.mark_dirty(self.__outMeasurementSet, self)
 
     def get_subFunctions(self) -> list[McFunction]:
@@ -70531,9 +69958,6 @@ class McDataInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'ImplementationElementInParameterInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__instanceInMemory is not None:
             self.__instanceInMemory = None
-            self.__instanceInMemory._parent = None #No parent
-            self.__instanceInMemory._update_path() #updates the path
-            self.__instanceInMemory._node.getparent().remove(self.__instanceInMemory._node)
         XDT.mark_dirty(self.__instanceInMemory, self)
 
     def get_mcDataAccessDetails(self) -> McDataAccessDetails:
@@ -70559,9 +69983,6 @@ class McDataInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'McDataAccessDetails_@' + str(len(self.get_children()))) #updates the path
         elif self.__mcDataAccessDetails is not None:
             self.__mcDataAccessDetails = None
-            self.__mcDataAccessDetails._parent = None #No parent
-            self.__mcDataAccessDetails._update_path() #updates the path
-            self.__mcDataAccessDetails._node.getparent().remove(self.__mcDataAccessDetails._node)
         XDT.mark_dirty(self.__mcDataAccessDetails, self)
 
     def get_mcDataAssignments(self) -> list[RoleBasedMcDataAssignment]:
@@ -70637,9 +70058,6 @@ class McDataInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__resultingProperties is not None:
             self.__resultingProperties = None
-            self.__resultingProperties._parent = None #No parent
-            self.__resultingProperties._update_path() #updates the path
-            self.__resultingProperties._node.getparent().remove(self.__resultingProperties._node)
         XDT.mark_dirty(self.__resultingProperties, self)
 
     def get_resultingRptSwPrototypingAccess(self) -> RptSwPrototypingAccess:
@@ -70665,9 +70083,6 @@ class McDataInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptSwPrototypingAccess_@' + str(len(self.get_children()))) #updates the path
         elif self.__resultingRptSwPrototypingAccess is not None:
             self.__resultingRptSwPrototypingAccess = None
-            self.__resultingRptSwPrototypingAccess._parent = None #No parent
-            self.__resultingRptSwPrototypingAccess._update_path() #updates the path
-            self.__resultingRptSwPrototypingAccess._node.getparent().remove(self.__resultingRptSwPrototypingAccess._node)
         XDT.mark_dirty(self.__resultingRptSwPrototypingAccess, self)
 
     def get_rptImplPolicy(self) -> RptImplPolicy:
@@ -70693,9 +70108,6 @@ class McDataInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptImplPolicy_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptImplPolicy is not None:
             self.__rptImplPolicy = None
-            self.__rptImplPolicy._parent = None #No parent
-            self.__rptImplPolicy._update_path() #updates the path
-            self.__rptImplPolicy._node.getparent().remove(self.__rptImplPolicy._node)
         XDT.mark_dirty(self.__rptImplPolicy, self)
 
     def get_subElements(self) -> list[McDataInstance]:
@@ -70771,9 +70183,6 @@ class McDataInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ResultingRptSwPrototypingAccess(self, name: str=None) -> RptSwPrototypingAccess:
@@ -71532,9 +70941,6 @@ class RptComponent(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptImplPolicy_@' + str(len(self.get_children()))) #updates the path
         elif self.__rpImplPolicy is not None:
             self.__rpImplPolicy = None
-            self.__rpImplPolicy._parent = None #No parent
-            self.__rpImplPolicy._update_path() #updates the path
-            self.__rpImplPolicy._node.getparent().remove(self.__rpImplPolicy._node)
         XDT.mark_dirty(self.__rpImplPolicy, self)
 
     def get_rptExecutableEntities(self) -> list[RptExecutableEntity]:
@@ -71610,9 +71016,6 @@ class RptComponent(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_McDataAssignment(self, name: str=None) -> RoleBasedMcDataAssignment:
@@ -71987,9 +71390,6 @@ class RptExecutableEntity(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_RptExecutableEntityEvent(self, name: str=None) -> RptExecutableEntityEvent:
@@ -72389,9 +71789,6 @@ class RptExecutableEntityEvent(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptExecutableEntityProperties_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptExecutableEntityProperties is not None:
             self.__rptExecutableEntityProperties = None
-            self.__rptExecutableEntityProperties._parent = None #No parent
-            self.__rptExecutableEntityProperties._update_path() #updates the path
-            self.__rptExecutableEntityProperties._node.getparent().remove(self.__rptExecutableEntityProperties._node)
         XDT.mark_dirty(self.__rptExecutableEntityProperties, self)
 
     def get_rptImplPolicy(self) -> RptImplPolicy:
@@ -72417,9 +71814,6 @@ class RptExecutableEntityEvent(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptImplPolicy_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptImplPolicy is not None:
             self.__rptImplPolicy = None
-            self.__rptImplPolicy._parent = None #No parent
-            self.__rptImplPolicy._update_path() #updates the path
-            self.__rptImplPolicy._node.getparent().remove(self.__rptImplPolicy._node)
         XDT.mark_dirty(self.__rptImplPolicy, self)
 
     def get_rptServicePointPosts(self) -> list[RptServicePoint]:
@@ -72529,9 +71923,6 @@ class RptExecutableEntityEvent(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_RptExecutableEntityProperties(self, name: str=None) -> RptExecutableEntityProperties:
@@ -72870,9 +72261,6 @@ class RptServicePoint(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -73294,9 +72682,6 @@ class McFunctionDataRefSetConditional(McFunctionDataRefSetContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -74777,9 +74162,6 @@ class MemorySection(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -74989,9 +74371,6 @@ class SectionNamePrefix(ImplementationProps):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -75170,9 +74549,6 @@ class StackUsage(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'HardwareConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__hardwareConfiguration is not None:
             self.__hardwareConfiguration = None
-            self.__hardwareConfiguration._parent = None #No parent
-            self.__hardwareConfiguration._update_path() #updates the path
-            self.__hardwareConfiguration._node.getparent().remove(self.__hardwareConfiguration._node)
         XDT.mark_dirty(self.__hardwareConfiguration, self)
 
     def get_hwElement(self) -> HwElement:
@@ -75220,9 +74596,6 @@ class StackUsage(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SoftwareContext_@' + str(len(self.get_children()))) #updates the path
         elif self.__softwareContext is not None:
             self.__softwareContext = None
-            self.__softwareContext._parent = None #No parent
-            self.__softwareContext._update_path() #updates the path
-            self.__softwareContext._node.getparent().remove(self.__softwareContext._node)
         XDT.mark_dirty(self.__softwareContext, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -75248,9 +74621,6 @@ class StackUsage(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -75687,9 +75057,6 @@ class HeapUsage(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'HardwareConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__hardwareConfiguration is not None:
             self.__hardwareConfiguration = None
-            self.__hardwareConfiguration._parent = None #No parent
-            self.__hardwareConfiguration._update_path() #updates the path
-            self.__hardwareConfiguration._node.getparent().remove(self.__hardwareConfiguration._node)
         XDT.mark_dirty(self.__hardwareConfiguration, self)
 
     def get_hwElement(self) -> HwElement:
@@ -75737,9 +75104,6 @@ class HeapUsage(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SoftwareContext_@' + str(len(self.get_children()))) #updates the path
         elif self.__softwareContext is not None:
             self.__softwareContext = None
-            self.__softwareContext._parent = None #No parent
-            self.__softwareContext._update_path() #updates the path
-            self.__softwareContext._node.getparent().remove(self.__softwareContext._node)
         XDT.mark_dirty(self.__softwareContext, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -75765,9 +75129,6 @@ class HeapUsage(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -76299,9 +75660,6 @@ class ExecutionTime(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'HardwareConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__hardwareConfiguration is not None:
             self.__hardwareConfiguration = None
-            self.__hardwareConfiguration._parent = None #No parent
-            self.__hardwareConfiguration._update_path() #updates the path
-            self.__hardwareConfiguration._node.getparent().remove(self.__hardwareConfiguration._node)
         XDT.mark_dirty(self.__hardwareConfiguration, self)
 
     def get_hwElement(self) -> HwElement:
@@ -76441,9 +75799,6 @@ class ExecutionTime(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SoftwareContext_@' + str(len(self.get_children()))) #updates the path
         elif self.__softwareContext is not None:
             self.__softwareContext = None
-            self.__softwareContext._parent = None #No parent
-            self.__softwareContext._update_path() #updates the path
-            self.__softwareContext._node.getparent().remove(self.__softwareContext._node)
         XDT.mark_dirty(self.__softwareContext, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -76469,9 +75824,6 @@ class ExecutionTime(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -76698,9 +76050,6 @@ class AnalyzedExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__bestCaseExecutionTime is not None:
             self.__bestCaseExecutionTime = None
-            self.__bestCaseExecutionTime._parent = None #No parent
-            self.__bestCaseExecutionTime._update_path() #updates the path
-            self.__bestCaseExecutionTime._node.getparent().remove(self.__bestCaseExecutionTime._node)
         XDT.mark_dirty(self.__bestCaseExecutionTime, self)
 
     def get_worstCaseExecutionTime(self) -> MultidimensionalTime:
@@ -76726,9 +76075,6 @@ class AnalyzedExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__worstCaseExecutionTime is not None:
             self.__worstCaseExecutionTime = None
-            self.__worstCaseExecutionTime._parent = None #No parent
-            self.__worstCaseExecutionTime._update_path() #updates the path
-            self.__worstCaseExecutionTime._node.getparent().remove(self.__worstCaseExecutionTime._node)
         XDT.mark_dirty(self.__worstCaseExecutionTime, self)
 
     def new_WorstCaseExecutionTime(self, name: str=None) -> MultidimensionalTime:
@@ -77001,9 +76347,6 @@ class MeasuredExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__maximumExecutionTime is not None:
             self.__maximumExecutionTime = None
-            self.__maximumExecutionTime._parent = None #No parent
-            self.__maximumExecutionTime._update_path() #updates the path
-            self.__maximumExecutionTime._node.getparent().remove(self.__maximumExecutionTime._node)
         XDT.mark_dirty(self.__maximumExecutionTime, self)
 
     def get_minimumExecutionTime(self) -> MultidimensionalTime:
@@ -77029,9 +76372,6 @@ class MeasuredExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimumExecutionTime is not None:
             self.__minimumExecutionTime = None
-            self.__minimumExecutionTime._parent = None #No parent
-            self.__minimumExecutionTime._update_path() #updates the path
-            self.__minimumExecutionTime._node.getparent().remove(self.__minimumExecutionTime._node)
         XDT.mark_dirty(self.__minimumExecutionTime, self)
 
     def get_nominalExecutionTime(self) -> MultidimensionalTime:
@@ -77057,9 +76397,6 @@ class MeasuredExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__nominalExecutionTime is not None:
             self.__nominalExecutionTime = None
-            self.__nominalExecutionTime._parent = None #No parent
-            self.__nominalExecutionTime._update_path() #updates the path
-            self.__nominalExecutionTime._node.getparent().remove(self.__nominalExecutionTime._node)
         XDT.mark_dirty(self.__nominalExecutionTime, self)
 
     def new_NominalExecutionTime(self, name: str=None) -> MultidimensionalTime:
@@ -77229,9 +76566,6 @@ class RoughEstimateOfExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__estimatedExecutionTime is not None:
             self.__estimatedExecutionTime = None
-            self.__estimatedExecutionTime._parent = None #No parent
-            self.__estimatedExecutionTime._update_path() #updates the path
-            self.__estimatedExecutionTime._node.getparent().remove(self.__estimatedExecutionTime._node)
         XDT.mark_dirty(self.__estimatedExecutionTime, self)
 
     def new_EstimatedExecutionTime(self, name: str=None) -> MultidimensionalTime:
@@ -77359,9 +76693,6 @@ class SimulatedExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__maximumExecutionTime is not None:
             self.__maximumExecutionTime = None
-            self.__maximumExecutionTime._parent = None #No parent
-            self.__maximumExecutionTime._update_path() #updates the path
-            self.__maximumExecutionTime._node.getparent().remove(self.__maximumExecutionTime._node)
         XDT.mark_dirty(self.__maximumExecutionTime, self)
 
     def get_minimumExecutionTime(self) -> MultidimensionalTime:
@@ -77387,9 +76718,6 @@ class SimulatedExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimumExecutionTime is not None:
             self.__minimumExecutionTime = None
-            self.__minimumExecutionTime._parent = None #No parent
-            self.__minimumExecutionTime._update_path() #updates the path
-            self.__minimumExecutionTime._node.getparent().remove(self.__minimumExecutionTime._node)
         XDT.mark_dirty(self.__minimumExecutionTime, self)
 
     def get_nominalExecutionTime(self) -> MultidimensionalTime:
@@ -77415,9 +76743,6 @@ class SimulatedExecutionTime(ExecutionTime):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__nominalExecutionTime is not None:
             self.__nominalExecutionTime = None
-            self.__nominalExecutionTime._parent = None #No parent
-            self.__nominalExecutionTime._update_path() #updates the path
-            self.__nominalExecutionTime._node.getparent().remove(self.__nominalExecutionTime._node)
         XDT.mark_dirty(self.__nominalExecutionTime, self)
 
     def new_NominalExecutionTime(self, name: str=None) -> MultidimensionalTime:
@@ -77652,9 +76977,6 @@ class SwcBswRunnableMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -77820,9 +77142,6 @@ class SwcBswSynchronizedModeGroupPrototype(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PModeGroupInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcModeGroup is not None:
             self.__swcModeGroup = None
-            self.__swcModeGroup._parent = None #No parent
-            self.__swcModeGroup._update_path() #updates the path
-            self.__swcModeGroup._node.getparent().remove(self.__swcModeGroup._node)
         XDT.mark_dirty(self.__swcModeGroup, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -77848,9 +77167,6 @@ class SwcBswSynchronizedModeGroupPrototype(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -78035,9 +77351,6 @@ class SwcBswSynchronizedTrigger(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PTriggerInAtomicSwcTypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcTrigger is not None:
             self.__swcTrigger = None
-            self.__swcTrigger._parent = None #No parent
-            self.__swcTrigger._update_path() #updates the path
-            self.__swcTrigger._node.getparent().remove(self.__swcTrigger._node)
         XDT.mark_dirty(self.__swcTrigger, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -78063,9 +77376,6 @@ class SwcBswSynchronizedTrigger(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwcTrigger(self, name: str=None) -> PTriggerInAtomicSwcTypeInstanceRef:
@@ -78600,9 +77910,6 @@ class BaseType(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'BaseTypeDefinition_@' + str(len(self.get_children()))) #updates the path
         elif self.__baseTypeDefinition is not None:
             self.__baseTypeDefinition = None
-            self.__baseTypeDefinition._parent = None #No parent
-            self.__baseTypeDefinition._update_path() #updates the path
-            self.__baseTypeDefinition._node.getparent().remove(self.__baseTypeDefinition._node)
         XDT.mark_dirty(self.__baseTypeDefinition, self)
 
     def new_BaseTypeDirectDefinition(self, name: str=None) -> BaseTypeDirectDefinition:
@@ -78650,7 +77957,7 @@ class BaseType(ARElement):
         Saves the content of BaseType node
         """
         super()._save_ARElement()
-        if XDT.is_dirty(self.__baseTypeDefinition):
+        if self.__baseTypeDefinition is not None and XDT.is_dirty(self.__baseTypeDefinition):
             self.__baseTypeDefinition._insert_after_tags = ['VARIATION-POINT', 'UUID', 'ANNOTATIONS', 'INTRODUCTION', 'ADMIN-DATA', 'CATEGORY', 'DESC', 'LONG-NAME', 'SHORT-NAME-FRAGMENTS', 'SHORT-NAME', 'T', 'S']
             self.__baseTypeDefinition._save_contents()
 
@@ -78940,9 +78247,6 @@ class SwServiceArg(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'ValueList_@' + str(len(self.get_children()))) #updates the path
         elif self.__swArraysize is not None:
             self.__swArraysize = None
-            self.__swArraysize._parent = None #No parent
-            self.__swArraysize._update_path() #updates the path
-            self.__swArraysize._node.getparent().remove(self.__swArraysize._node)
         XDT.mark_dirty(self.__swArraysize, self)
 
     def get_swDataDefProps(self) -> SwDataDefProps:
@@ -78968,9 +78272,6 @@ class SwServiceArg(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -78996,9 +78297,6 @@ class SwServiceArg(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwArraysize(self, name: str=None) -> ValueList:
@@ -79182,9 +78480,6 @@ class DataConstrRule(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PhysConstrs_@' + str(len(self.get_children()))) #updates the path
         elif self.__physConstrs is not None:
             self.__physConstrs = None
-            self.__physConstrs._parent = None #No parent
-            self.__physConstrs._update_path() #updates the path
-            self.__physConstrs._node.getparent().remove(self.__physConstrs._node)
         XDT.mark_dirty(self.__physConstrs, self)
 
     def get_internalConstrs(self) -> InternalConstrs:
@@ -79210,9 +78505,6 @@ class DataConstrRule(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'InternalConstrs_@' + str(len(self.get_children()))) #updates the path
         elif self.__internalConstrs is not None:
             self.__internalConstrs = None
-            self.__internalConstrs._parent = None #No parent
-            self.__internalConstrs._update_path() #updates the path
-            self.__internalConstrs._node.getparent().remove(self.__internalConstrs._node)
         XDT.mark_dirty(self.__internalConstrs, self)
 
     def new_InternalConstrs(self, name: str=None) -> InternalConstrs:
@@ -79405,9 +78697,6 @@ class InternalConstrs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__lowerLimit is not None:
             self.__lowerLimit = None
-            self.__lowerLimit._parent = None #No parent
-            self.__lowerLimit._update_path() #updates the path
-            self.__lowerLimit._node.getparent().remove(self.__lowerLimit._node)
         XDT.mark_dirty(self.__lowerLimit, self)
 
     def get_upperLimit(self) -> LimitValueVariationPoint:
@@ -79433,9 +78722,6 @@ class InternalConstrs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperLimit is not None:
             self.__upperLimit = None
-            self.__upperLimit._parent = None #No parent
-            self.__upperLimit._update_path() #updates the path
-            self.__upperLimit._node.getparent().remove(self.__upperLimit._node)
         XDT.mark_dirty(self.__upperLimit, self)
 
     def get_scaleConstrs(self) -> list[ScaleConstr]:
@@ -79705,9 +78991,6 @@ class ScaleConstr(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def get_lowerLimit(self) -> LimitValueVariationPoint:
@@ -79733,9 +79016,6 @@ class ScaleConstr(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__lowerLimit is not None:
             self.__lowerLimit = None
-            self.__lowerLimit._parent = None #No parent
-            self.__lowerLimit._update_path() #updates the path
-            self.__lowerLimit._node.getparent().remove(self.__lowerLimit._node)
         XDT.mark_dirty(self.__lowerLimit, self)
 
     def get_upperLimit(self) -> LimitValueVariationPoint:
@@ -79761,9 +79041,6 @@ class ScaleConstr(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperLimit is not None:
             self.__upperLimit = None
-            self.__upperLimit._parent = None #No parent
-            self.__upperLimit._update_path() #updates the path
-            self.__upperLimit._node.getparent().remove(self.__upperLimit._node)
         XDT.mark_dirty(self.__upperLimit, self)
 
     def new_Desc(self, name: str=None) -> MultiLanguageOverviewParagraph:
@@ -80006,9 +79283,6 @@ class PhysConstrs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__lowerLimit is not None:
             self.__lowerLimit = None
-            self.__lowerLimit._parent = None #No parent
-            self.__lowerLimit._update_path() #updates the path
-            self.__lowerLimit._node.getparent().remove(self.__lowerLimit._node)
         XDT.mark_dirty(self.__lowerLimit, self)
 
     def get_upperLimit(self) -> LimitValueVariationPoint:
@@ -80034,9 +79308,6 @@ class PhysConstrs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperLimit is not None:
             self.__upperLimit = None
-            self.__upperLimit._parent = None #No parent
-            self.__upperLimit._update_path() #updates the path
-            self.__upperLimit._node.getparent().remove(self.__upperLimit._node)
         XDT.mark_dirty(self.__upperLimit, self)
 
     def get_scaleConstrs(self) -> list[ScaleConstr]:
@@ -80515,9 +79786,6 @@ class SwAxisCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SingleLanguageUnitNames_@' + str(len(self.get_children()))) #updates the path
         elif self.__unitDisplayName is not None:
             self.__unitDisplayName = None
-            self.__unitDisplayName._parent = None #No parent
-            self.__unitDisplayName._update_path() #updates the path
-            self.__unitDisplayName._node.getparent().remove(self.__unitDisplayName._node)
         XDT.mark_dirty(self.__unitDisplayName, self)
 
     def get_swArraysize(self) -> ValueList:
@@ -80543,9 +79811,6 @@ class SwAxisCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueList_@' + str(len(self.get_children()))) #updates the path
         elif self.__swArraysize is not None:
             self.__swArraysize = None
-            self.__swArraysize._parent = None #No parent
-            self.__swArraysize._update_path() #updates the path
-            self.__swArraysize._node.getparent().remove(self.__swArraysize._node)
         XDT.mark_dirty(self.__swArraysize, self)
 
     def get_swValuesPhys(self) -> SwValues:
@@ -80571,9 +79836,6 @@ class SwAxisCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwValues_@' + str(len(self.get_children()))) #updates the path
         elif self.__swValuesPhys is not None:
             self.__swValuesPhys = None
-            self.__swValuesPhys._parent = None #No parent
-            self.__swValuesPhys._update_path() #updates the path
-            self.__swValuesPhys._node.getparent().remove(self.__swValuesPhys._node)
         XDT.mark_dirty(self.__swValuesPhys, self)
 
     def new_SwArraysize(self, name: str=None) -> ValueList:
@@ -81127,9 +80389,6 @@ class ValueGroup(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultilanguageLongName_@' + str(len(self.get_children()))) #updates the path
         elif self.__label is not None:
             self.__label = None
-            self.__label._parent = None #No parent
-            self.__label._update_path() #updates the path
-            self.__label._node.getparent().remove(self.__label._node)
         XDT.mark_dirty(self.__label, self)
 
     def get_vfs(self) -> list[NumericalValueVariationPoint]:
@@ -81512,9 +80771,6 @@ class SwValueCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SingleLanguageUnitNames_@' + str(len(self.get_children()))) #updates the path
         elif self.__unitDisplayName is not None:
             self.__unitDisplayName = None
-            self.__unitDisplayName._parent = None #No parent
-            self.__unitDisplayName._update_path() #updates the path
-            self.__unitDisplayName._node.getparent().remove(self.__unitDisplayName._node)
         XDT.mark_dirty(self.__unitDisplayName, self)
 
     def get_swArraysize(self) -> ValueList:
@@ -81540,9 +80796,6 @@ class SwValueCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueList_@' + str(len(self.get_children()))) #updates the path
         elif self.__swArraysize is not None:
             self.__swArraysize = None
-            self.__swArraysize._parent = None #No parent
-            self.__swArraysize._update_path() #updates the path
-            self.__swArraysize._node.getparent().remove(self.__swArraysize._node)
         XDT.mark_dirty(self.__swArraysize, self)
 
     def get_swValuesPhys(self) -> SwValues:
@@ -81568,9 +80821,6 @@ class SwValueCont(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwValues_@' + str(len(self.get_children()))) #updates the path
         elif self.__swValuesPhys is not None:
             self.__swValuesPhys = None
-            self.__swValuesPhys._parent = None #No parent
-            self.__swValuesPhys._update_path() #updates the path
-            self.__swValuesPhys._node.getparent().remove(self.__swValuesPhys._node)
         XDT.mark_dirty(self.__swValuesPhys, self)
 
     def new_SwArraysize(self, name: str=None) -> ValueList:
@@ -82020,9 +81270,6 @@ class TimingExtension(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'TimingExtensionResource_@' + str(len(self.get_children()))) #updates the path
         elif self.__timingResource is not None:
             self.__timingResource = None
-            self.__timingResource._parent = None #No parent
-            self.__timingResource._update_path() #updates the path
-            self.__timingResource._node.getparent().remove(self.__timingResource._node)
         XDT.mark_dirty(self.__timingResource, self)
 
     def new_TDEventFrClusterCycleStart(self, name: str=None) -> TDEventFrClusterCycleStart:
@@ -83555,9 +82802,6 @@ class TimingCondition(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'TimingConditionFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__timingConditionFormula is not None:
             self.__timingConditionFormula = None
-            self.__timingConditionFormula._parent = None #No parent
-            self.__timingConditionFormula._update_path() #updates the path
-            self.__timingConditionFormula._node.getparent().remove(self.__timingConditionFormula._node)
         XDT.mark_dirty(self.__timingConditionFormula, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -83583,9 +82827,6 @@ class TimingCondition(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -84121,9 +83362,6 @@ class TimingModeInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'ModeInSwcBswInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeInstance is not None:
             self.__modeInstance = None
-            self.__modeInstance._parent = None #No parent
-            self.__modeInstance._update_path() #updates the path
-            self.__modeInstance._node.getparent().remove(self.__modeInstance._node)
         XDT.mark_dirty(self.__modeInstance, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -84149,9 +83387,6 @@ class TimingModeInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -84606,9 +83841,6 @@ class TimingDescription(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -84707,9 +83939,6 @@ class TimingDescriptionEvent(TimingDescription):
                 value._build_path(elementNameIfShortNameMissing = 'TDEventOccurrenceExpression_@' + str(len(self.get_children()))) #updates the path
         elif self.__occurrenceExpression is not None:
             self.__occurrenceExpression = None
-            self.__occurrenceExpression._parent = None #No parent
-            self.__occurrenceExpression._update_path() #updates the path
-            self.__occurrenceExpression._node.getparent().remove(self.__occurrenceExpression._node)
         XDT.mark_dirty(self.__occurrenceExpression, self)
 
     def new_OccurrenceExpression(self, name: str=None) -> TDEventOccurrenceExpression:
@@ -85005,9 +84234,6 @@ class TDEventVfb(TimingDescriptionEvent):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__component is not None:
             self.__component = None
-            self.__component._parent = None #No parent
-            self.__component._update_path() #updates the path
-            self.__component._node.getparent().remove(self.__component._node)
         XDT.mark_dirty(self.__component, self)
 
     def new_Component(self, name: str=None) -> ComponentInCompositionInstanceRef:
@@ -85849,9 +85075,6 @@ class TDEventSwc(TimingDescriptionEvent):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__component is not None:
             self.__component = None
-            self.__component._parent = None #No parent
-            self.__component._update_path() #updates the path
-            self.__component._node.getparent().remove(self.__component._node)
         XDT.mark_dirty(self.__component, self)
 
     def new_Component(self, name: str=None) -> ComponentInCompositionInstanceRef:
@@ -87885,9 +87108,6 @@ class TDEventOccurrenceExpression(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TDEventOccurrenceExpressionFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__formula is not None:
             self.__formula = None
-            self.__formula._parent = None #No parent
-            self.__formula._update_path() #updates the path
-            self.__formula._node.getparent().remove(self.__formula._node)
         XDT.mark_dirty(self.__formula, self)
 
     def get_modes(self) -> list[TimingModeInstance]:
@@ -89157,9 +88377,6 @@ class AutosarOperationArgumentInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'OperationArgumentInComponentInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__operationArgumentInstance is not None:
             self.__operationArgumentInstance = None
-            self.__operationArgumentInstance._parent = None #No parent
-            self.__operationArgumentInstance._update_path() #updates the path
-            self.__operationArgumentInstance._node.getparent().remove(self.__operationArgumentInstance._node)
         XDT.mark_dirty(self.__operationArgumentInstance, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -89185,9 +88402,6 @@ class AutosarOperationArgumentInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_OperationArgumentInstance(self, name: str=None) -> OperationArgumentInComponentInstanceRef:
@@ -89326,9 +88540,6 @@ class AutosarVariableInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariableInComponentInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__variableInstance is not None:
             self.__variableInstance = None
-            self.__variableInstance._parent = None #No parent
-            self.__variableInstance._update_path() #updates the path
-            self.__variableInstance._node.getparent().remove(self.__variableInstance._node)
         XDT.mark_dirty(self.__variableInstance, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -89354,9 +88565,6 @@ class AutosarVariableInstance(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -89525,9 +88733,6 @@ class TimingConstraint(Identifiable,Traceable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -89663,9 +88868,6 @@ class AgeConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__maximum is not None:
             self.__maximum = None
-            self.__maximum._parent = None #No parent
-            self.__maximum._update_path() #updates the path
-            self.__maximum._node.getparent().remove(self.__maximum._node)
         XDT.mark_dirty(self.__maximum, self)
 
     def get_minimum(self) -> MultidimensionalTime:
@@ -89691,9 +88893,6 @@ class AgeConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimum is not None:
             self.__minimum = None
-            self.__minimum._parent = None #No parent
-            self.__minimum._update_path() #updates the path
-            self.__minimum._node.getparent().remove(self.__minimum._node)
         XDT.mark_dirty(self.__minimum, self)
 
     def get_scope(self) -> TimingDescriptionEvent:
@@ -89900,9 +89099,6 @@ class ExecutionTimeConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__component is not None:
             self.__component = None
-            self.__component._parent = None #No parent
-            self.__component._update_path() #updates the path
-            self.__component._node.getparent().remove(self.__component._node)
         XDT.mark_dirty(self.__component, self)
 
     def get_executable(self) -> ExecutableEntity:
@@ -89950,9 +89146,6 @@ class ExecutionTimeConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__maximum is not None:
             self.__maximum = None
-            self.__maximum._parent = None #No parent
-            self.__maximum._update_path() #updates the path
-            self.__maximum._node.getparent().remove(self.__maximum._node)
         XDT.mark_dirty(self.__maximum, self)
 
     def get_minimum(self) -> MultidimensionalTime:
@@ -89978,9 +89171,6 @@ class ExecutionTimeConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimum is not None:
             self.__minimum = None
-            self.__minimum._parent = None #No parent
-            self.__minimum._update_path() #updates the path
-            self.__minimum._node.getparent().remove(self.__minimum._node)
         XDT.mark_dirty(self.__minimum, self)
 
     def new_Minimum(self, name: str=None) -> MultidimensionalTime:
@@ -90567,9 +89757,6 @@ class ConfidenceInterval(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__lowerBound is not None:
             self.__lowerBound = None
-            self.__lowerBound._parent = None #No parent
-            self.__lowerBound._update_path() #updates the path
-            self.__lowerBound._node.getparent().remove(self.__lowerBound._node)
         XDT.mark_dirty(self.__lowerBound, self)
 
     def get_upperBound(self) -> MultidimensionalTime:
@@ -90595,9 +89782,6 @@ class ConfidenceInterval(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperBound is not None:
             self.__upperBound = None
-            self.__upperBound._parent = None #No parent
-            self.__upperBound._update_path() #updates the path
-            self.__upperBound._node.getparent().remove(self.__upperBound._node)
         XDT.mark_dirty(self.__upperBound, self)
 
     def new_UpperBound(self, name: str=None) -> MultidimensionalTime:
@@ -90782,9 +89966,6 @@ class BurstPatternEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimumInterArrivalTime is not None:
             self.__minimumInterArrivalTime = None
-            self.__minimumInterArrivalTime._parent = None #No parent
-            self.__minimumInterArrivalTime._update_path() #updates the path
-            self.__minimumInterArrivalTime._node.getparent().remove(self.__minimumInterArrivalTime._node)
         XDT.mark_dirty(self.__minimumInterArrivalTime, self)
 
     def get_patternJitter(self) -> MultidimensionalTime:
@@ -90810,9 +89991,6 @@ class BurstPatternEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__patternJitter is not None:
             self.__patternJitter = None
-            self.__patternJitter._parent = None #No parent
-            self.__patternJitter._update_path() #updates the path
-            self.__patternJitter._node.getparent().remove(self.__patternJitter._node)
         XDT.mark_dirty(self.__patternJitter, self)
 
     def get_patternLength(self) -> MultidimensionalTime:
@@ -90838,9 +90016,6 @@ class BurstPatternEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__patternLength is not None:
             self.__patternLength = None
-            self.__patternLength._parent = None #No parent
-            self.__patternLength._update_path() #updates the path
-            self.__patternLength._node.getparent().remove(self.__patternLength._node)
         XDT.mark_dirty(self.__patternLength, self)
 
     def get_patternPeriod(self) -> MultidimensionalTime:
@@ -90866,9 +90041,6 @@ class BurstPatternEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__patternPeriod is not None:
             self.__patternPeriod = None
-            self.__patternPeriod._parent = None #No parent
-            self.__patternPeriod._update_path() #updates the path
-            self.__patternPeriod._node.getparent().remove(self.__patternPeriod._node)
         XDT.mark_dirty(self.__patternPeriod, self)
 
     def new_PatternLength(self, name: str=None) -> MultidimensionalTime:
@@ -91097,9 +90269,6 @@ class ConcretePatternEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__patternJitter is not None:
             self.__patternJitter = None
-            self.__patternJitter._parent = None #No parent
-            self.__patternJitter._update_path() #updates the path
-            self.__patternJitter._node.getparent().remove(self.__patternJitter._node)
         XDT.mark_dirty(self.__patternJitter, self)
 
     def get_patternPeriod(self) -> MultidimensionalTime:
@@ -91125,9 +90294,6 @@ class ConcretePatternEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__patternPeriod is not None:
             self.__patternPeriod = None
-            self.__patternPeriod._parent = None #No parent
-            self.__patternPeriod._update_path() #updates the path
-            self.__patternPeriod._node.getparent().remove(self.__patternPeriod._node)
         XDT.mark_dirty(self.__patternPeriod, self)
 
     def get_offsets(self) -> list[MultidimensionalTime]:
@@ -91203,9 +90369,6 @@ class ConcretePatternEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__patternLength is not None:
             self.__patternLength = None
-            self.__patternLength._parent = None #No parent
-            self.__patternLength._update_path() #updates the path
-            self.__patternLength._node.getparent().remove(self.__patternLength._node)
         XDT.mark_dirty(self.__patternLength, self)
 
     def new_PatternLength(self, name: str=None) -> MultidimensionalTime:
@@ -91411,9 +90574,6 @@ class PeriodicEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimumInterArrivalTime is not None:
             self.__minimumInterArrivalTime = None
-            self.__minimumInterArrivalTime._parent = None #No parent
-            self.__minimumInterArrivalTime._update_path() #updates the path
-            self.__minimumInterArrivalTime._node.getparent().remove(self.__minimumInterArrivalTime._node)
         XDT.mark_dirty(self.__minimumInterArrivalTime, self)
 
     def get_jitter(self) -> MultidimensionalTime:
@@ -91439,9 +90599,6 @@ class PeriodicEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__jitter is not None:
             self.__jitter = None
-            self.__jitter._parent = None #No parent
-            self.__jitter._update_path() #updates the path
-            self.__jitter._node.getparent().remove(self.__jitter._node)
         XDT.mark_dirty(self.__jitter, self)
 
     def get_period(self) -> MultidimensionalTime:
@@ -91467,9 +90624,6 @@ class PeriodicEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__period is not None:
             self.__period = None
-            self.__period._parent = None #No parent
-            self.__period._update_path() #updates the path
-            self.__period._node.getparent().remove(self.__period._node)
         XDT.mark_dirty(self.__period, self)
 
     def new_MinimumInterArrivalTime(self, name: str=None) -> MultidimensionalTime:
@@ -91651,9 +90805,6 @@ class SporadicEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimumInterArrivalTime is not None:
             self.__minimumInterArrivalTime = None
-            self.__minimumInterArrivalTime._parent = None #No parent
-            self.__minimumInterArrivalTime._update_path() #updates the path
-            self.__minimumInterArrivalTime._node.getparent().remove(self.__minimumInterArrivalTime._node)
         XDT.mark_dirty(self.__minimumInterArrivalTime, self)
 
     def get_maximumInterArrivalTime(self) -> MultidimensionalTime:
@@ -91679,9 +90830,6 @@ class SporadicEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__maximumInterArrivalTime is not None:
             self.__maximumInterArrivalTime = None
-            self.__maximumInterArrivalTime._parent = None #No parent
-            self.__maximumInterArrivalTime._update_path() #updates the path
-            self.__maximumInterArrivalTime._node.getparent().remove(self.__maximumInterArrivalTime._node)
         XDT.mark_dirty(self.__maximumInterArrivalTime, self)
 
     def get_jitter(self) -> MultidimensionalTime:
@@ -91707,9 +90855,6 @@ class SporadicEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__jitter is not None:
             self.__jitter = None
-            self.__jitter._parent = None #No parent
-            self.__jitter._update_path() #updates the path
-            self.__jitter._node.getparent().remove(self.__jitter._node)
         XDT.mark_dirty(self.__jitter, self)
 
     def get_period(self) -> MultidimensionalTime:
@@ -91735,9 +90880,6 @@ class SporadicEventTriggering(EventTriggeringConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__period is not None:
             self.__period = None
-            self.__period._parent = None #No parent
-            self.__period._update_path() #updates the path
-            self.__period._node.getparent().remove(self.__period._node)
         XDT.mark_dirty(self.__period, self)
 
     def new_MinimumInterArrivalTime(self, name: str=None) -> MultidimensionalTime:
@@ -91990,9 +91132,6 @@ class LatencyTimingConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimum is not None:
             self.__minimum = None
-            self.__minimum._parent = None #No parent
-            self.__minimum._update_path() #updates the path
-            self.__minimum._node.getparent().remove(self.__minimum._node)
         XDT.mark_dirty(self.__minimum, self)
 
     def get_maximum(self) -> MultidimensionalTime:
@@ -92018,9 +91157,6 @@ class LatencyTimingConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__maximum is not None:
             self.__maximum = None
-            self.__maximum._parent = None #No parent
-            self.__maximum._update_path() #updates the path
-            self.__maximum._node.getparent().remove(self.__maximum._node)
         XDT.mark_dirty(self.__maximum, self)
 
     def get_nominal(self) -> MultidimensionalTime:
@@ -92046,9 +91182,6 @@ class LatencyTimingConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__nominal is not None:
             self.__nominal = None
-            self.__nominal._parent = None #No parent
-            self.__nominal._update_path() #updates the path
-            self.__nominal._node.getparent().remove(self.__nominal._node)
         XDT.mark_dirty(self.__nominal, self)
 
     def new_Nominal(self, name: str=None) -> MultidimensionalTime:
@@ -92307,9 +91440,6 @@ class OffsetTimingConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__minimum is not None:
             self.__minimum = None
-            self.__minimum._parent = None #No parent
-            self.__minimum._update_path() #updates the path
-            self.__minimum._node.getparent().remove(self.__minimum._node)
         XDT.mark_dirty(self.__minimum, self)
 
     def get_maximum(self) -> MultidimensionalTime:
@@ -92335,9 +91465,6 @@ class OffsetTimingConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__maximum is not None:
             self.__maximum = None
-            self.__maximum._parent = None #No parent
-            self.__maximum._update_path() #updates the path
-            self.__maximum._node.getparent().remove(self.__maximum._node)
         XDT.mark_dirty(self.__maximum, self)
 
     def new_Minimum(self, name: str=None) -> MultidimensionalTime:
@@ -92629,9 +91756,6 @@ class SynchronizationTimingConstraint(TimingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__tolerance is not None:
             self.__tolerance = None
-            self.__tolerance._parent = None #No parent
-            self.__tolerance._update_path() #updates the path
-            self.__tolerance._node.getparent().remove(self.__tolerance._node)
         XDT.mark_dirty(self.__tolerance, self)
 
     def new_Tolerance(self, name: str=None) -> MultidimensionalTime:
@@ -92943,9 +92067,6 @@ class EOCEventRef(EOCExecutableEntityRefAbstract):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__component is not None:
             self.__component = None
-            self.__component._parent = None #No parent
-            self.__component._update_path() #updates the path
-            self.__component._node.getparent().remove(self.__component._node)
         XDT.mark_dirty(self.__component, self)
 
     def get_event(self) -> AbstractEvent:
@@ -93209,9 +92330,6 @@ class EOCExecutableEntityRef(EOCExecutableEntityRefAbstract):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__component is not None:
             self.__component = None
-            self.__component._parent = None #No parent
-            self.__component._update_path() #updates the path
-            self.__component._node.getparent().remove(self.__component._node)
         XDT.mark_dirty(self.__component, self)
 
     def get_executable(self) -> ExecutableEntity:
@@ -93944,9 +93062,6 @@ class SwSystemconst(ARElement,AtpDefinition):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -94320,9 +93435,6 @@ class EndToEndProtection(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'EndToEndDescription_@' + str(len(self.get_children()))) #updates the path
         elif self.__endToEndProfile is not None:
             self.__endToEndProfile = None
-            self.__endToEndProfile._parent = None #No parent
-            self.__endToEndProfile._update_path() #updates the path
-            self.__endToEndProfile._node.getparent().remove(self.__endToEndProfile._node)
         XDT.mark_dirty(self.__endToEndProfile, self)
 
     def get_endToEndProtectionISignalIPdus(self) -> list[EndToEndProtectionISignalIPdu]:
@@ -94448,9 +93560,6 @@ class EndToEndProtection(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_EndToEndProtectionISignalIPdu(self, name: str=None) -> EndToEndProtectionISignalIPdu:
@@ -94720,9 +93829,6 @@ class EndToEndProtectionVariablePrototype(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariableDataPrototypeInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__sender is not None:
             self.__sender = None
-            self.__sender._parent = None #No parent
-            self.__sender._update_path() #updates the path
-            self.__sender._node.getparent().remove(self.__sender._node)
         XDT.mark_dirty(self.__sender, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -94748,9 +93854,6 @@ class EndToEndProtectionVariablePrototype(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Receiver(self, name: str=None) -> VariableDataPrototypeInSystemInstanceRef:
@@ -95179,9 +94282,6 @@ class DataPrototypeGroup(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DataPrototypeGroup(self, name: str=None) -> InnerDataPrototypeGroupInCompositionInstanceRef:
@@ -95469,9 +94569,6 @@ class RunnableEntityGroup(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_RunnableEntitie(self, name: str=None) -> RunnableEntityInCompositionInstanceRef:
@@ -95881,9 +94978,6 @@ class ConsistencyNeeds(AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DpgDoesNotRequireCoherencie(self, name: str=None) -> DataPrototypeGroup:
@@ -96198,9 +95292,6 @@ class InnerDataPrototypeGroupInCompositionInstanceRef(AtpInstanceRef):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -96455,9 +95546,6 @@ class VariableDataPrototypeInCompositionInstanceRef(AtpInstanceRef):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -96683,9 +95771,6 @@ class InnerRunnableEntityGroupInCompositionInstanceRef(AtpInstanceRef):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -96903,9 +95988,6 @@ class RunnableEntityInCompositionInstanceRef(AtpInstanceRef):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -98037,9 +97119,6 @@ class InstantiationRTEEventProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'InstanceEventInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__refinedEvent is not None:
             self.__refinedEvent = None
-            self.__refinedEvent._parent = None #No parent
-            self.__refinedEvent._update_path() #updates the path
-            self.__refinedEvent._node.getparent().remove(self.__refinedEvent._node)
         XDT.mark_dirty(self.__refinedEvent, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -98065,9 +97144,6 @@ class InstantiationRTEEventProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -98241,9 +97317,6 @@ class SwConnector(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -98546,9 +97619,6 @@ class AssemblySwConnector(SwConnector):
                 value._build_path(elementNameIfShortNameMissing = 'PPortInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__provider is not None:
             self.__provider = None
-            self.__provider._parent = None #No parent
-            self.__provider._update_path() #updates the path
-            self.__provider._node.getparent().remove(self.__provider._node)
         XDT.mark_dirty(self.__provider, self)
 
     def get_requester(self) -> RPortInCompositionInstanceRef:
@@ -98574,9 +97644,6 @@ class AssemblySwConnector(SwConnector):
                 value._build_path(elementNameIfShortNameMissing = 'RPortInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__requester is not None:
             self.__requester = None
-            self.__requester._parent = None #No parent
-            self.__requester._update_path() #updates the path
-            self.__requester._node.getparent().remove(self.__requester._node)
         XDT.mark_dirty(self.__requester, self)
 
     def new_Provider(self, name: str=None) -> PPortInCompositionInstanceRef:
@@ -98728,9 +97795,6 @@ class DelegationSwConnector(SwConnector):
                 value._build_path(elementNameIfShortNameMissing = 'PortInCompositionTypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__innerPort is not None:
             self.__innerPort = None
-            self.__innerPort._parent = None #No parent
-            self.__innerPort._update_path() #updates the path
-            self.__innerPort._node.getparent().remove(self.__innerPort._node)
         XDT.mark_dirty(self.__innerPort, self)
 
     def get_outerPort(self) -> PortPrototype:
@@ -98919,9 +97983,6 @@ class SwComponentPrototype(AtpPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -99730,9 +98791,6 @@ class PortGroup(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -99926,9 +98984,6 @@ class PortPrototypeRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -100183,9 +99238,6 @@ class PortPrototype(AtpBlueprintable,AtpPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'DelegatedPortAnnotation_@' + str(len(self.get_children()))) #updates the path
         elif self.__delegatedPortAnnotation is not None:
             self.__delegatedPortAnnotation = None
-            self.__delegatedPortAnnotation._parent = None #No parent
-            self.__delegatedPortAnnotation._update_path() #updates the path
-            self.__delegatedPortAnnotation._node.getparent().remove(self.__delegatedPortAnnotation._node)
         XDT.mark_dirty(self.__delegatedPortAnnotation, self)
 
     def get_ioHwAbstractionServerAnnotations(self) -> list[IoHwAbstractionServerAnnotation]:
@@ -100411,9 +99463,6 @@ class PortPrototype(AtpBlueprintable,AtpPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'RPortPrototypeProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__portPrototypeProps is not None:
             self.__portPrototypeProps = None
-            self.__portPrototypeProps._parent = None #No parent
-            self.__portPrototypeProps._update_path() #updates the path
-            self.__portPrototypeProps._node.getparent().remove(self.__portPrototypeProps._node)
         XDT.mark_dirty(self.__portPrototypeProps, self)
 
     def get_senderReceiverAnnotations(self) -> list[SenderReceiverAnnotation]:
@@ -100539,9 +99588,6 @@ class PortPrototype(AtpBlueprintable,AtpPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SenderAnnotation(self, name: str=None) -> SenderAnnotation:
@@ -100996,9 +100042,6 @@ class AtomicSwComponentType(SwComponentType):
                 value._build_path(elementNameIfShortNameMissing = 'SymbolProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__symbolProps is not None:
             self.__symbolProps = None
-            self.__symbolProps._parent = None #No parent
-            self.__symbolProps._update_path() #updates the path
-            self.__symbolProps._node.getparent().remove(self.__symbolProps._node)
         XDT.mark_dirty(self.__symbolProps, self)
 
     def new_SymbolProps(self, name: str=None) -> SymbolProps:
@@ -104103,9 +103146,6 @@ class IoHwAbstractionServerAnnotation(GeneralAnnotation):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__age is not None:
             self.__age = None
-            self.__age._parent = None #No parent
-            self.__age._update_path() #updates the path
-            self.__age._node.getparent().remove(self.__age._node)
         XDT.mark_dirty(self.__age, self)
 
     def get_argument(self) -> ArgumentDataPrototype:
@@ -104733,9 +103773,6 @@ class ReceiverAnnotation(SenderReceiverAnnotation):
                 value._build_path(elementNameIfShortNameMissing = 'MultidimensionalTime_@' + str(len(self.get_children()))) #updates the path
         elif self.__signalAge is not None:
             self.__signalAge = None
-            self.__signalAge._parent = None #No parent
-            self.__signalAge._update_path() #updates the path
-            self.__signalAge._node.getparent().remove(self.__signalAge._node)
         XDT.mark_dirty(self.__signalAge, self)
 
     def new_SignalAge(self, name: str=None) -> MultidimensionalTime:
@@ -105080,9 +104117,6 @@ class ModeSwitchEventTriggeredActivity(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -105234,9 +104268,6 @@ class NvBlockDataMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__nvRamBlockElement is not None:
             self.__nvRamBlockElement = None
-            self.__nvRamBlockElement._parent = None #No parent
-            self.__nvRamBlockElement._update_path() #updates the path
-            self.__nvRamBlockElement._node.getparent().remove(self.__nvRamBlockElement._node)
         XDT.mark_dirty(self.__nvRamBlockElement, self)
 
     def get_readNvData(self) -> AutosarVariableRef:
@@ -105262,9 +104293,6 @@ class NvBlockDataMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__readNvData is not None:
             self.__readNvData = None
-            self.__readNvData._parent = None #No parent
-            self.__readNvData._update_path() #updates the path
-            self.__readNvData._node.getparent().remove(self.__readNvData._node)
         XDT.mark_dirty(self.__readNvData, self)
 
     def get_writtenNvData(self) -> AutosarVariableRef:
@@ -105290,9 +104318,6 @@ class NvBlockDataMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__writtenNvData is not None:
             self.__writtenNvData = None
-            self.__writtenNvData._parent = None #No parent
-            self.__writtenNvData._update_path() #updates the path
-            self.__writtenNvData._node.getparent().remove(self.__writtenNvData._node)
         XDT.mark_dirty(self.__writtenNvData, self)
 
     def get_writtenReadNvData(self) -> AutosarVariableRef:
@@ -105318,9 +104343,6 @@ class NvBlockDataMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__writtenReadNvData is not None:
             self.__writtenReadNvData = None
-            self.__writtenReadNvData._parent = None #No parent
-            self.__writtenReadNvData._update_path() #updates the path
-            self.__writtenReadNvData._node.getparent().remove(self.__writtenReadNvData._node)
         XDT.mark_dirty(self.__writtenReadNvData, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -105346,9 +104368,6 @@ class NvBlockDataMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_WrittenReadNvData(self, name: str=None) -> AutosarVariableRef:
@@ -105975,9 +104994,6 @@ class NvBlockDescriptor(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'NvBlockNeeds_@' + str(len(self.get_children()))) #updates the path
         elif self.__nvBlockNeeds is not None:
             self.__nvBlockNeeds = None
-            self.__nvBlockNeeds._parent = None #No parent
-            self.__nvBlockNeeds._update_path() #updates the path
-            self.__nvBlockNeeds._node.getparent().remove(self.__nvBlockNeeds._node)
         XDT.mark_dirty(self.__nvBlockNeeds, self)
 
     def get_ramBlock(self) -> VariableDataPrototype:
@@ -106003,9 +105019,6 @@ class NvBlockDescriptor(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariableDataPrototype_@' + str(len(self.get_children()))) #updates the path
         elif self.__ramBlock is not None:
             self.__ramBlock = None
-            self.__ramBlock._parent = None #No parent
-            self.__ramBlock._update_path() #updates the path
-            self.__ramBlock._node.getparent().remove(self.__ramBlock._node)
         XDT.mark_dirty(self.__ramBlock, self)
 
     def get_romBlock(self) -> ParameterDataPrototype:
@@ -106031,9 +105044,6 @@ class NvBlockDescriptor(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'ParameterDataPrototype_@' + str(len(self.get_children()))) #updates the path
         elif self.__romBlock is not None:
             self.__romBlock = None
-            self.__romBlock._parent = None #No parent
-            self.__romBlock._update_path() #updates the path
-            self.__romBlock._node.getparent().remove(self.__romBlock._node)
         XDT.mark_dirty(self.__romBlock, self)
 
     def get_timingEvent(self) -> TimingEvent:
@@ -106081,9 +105091,6 @@ class NvBlockDescriptor(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ModeSwitchEventTriggeredActivitie(self, name: str=None) -> ModeSwitchEventTriggeredActivity:
@@ -107371,9 +106378,6 @@ class SwcInternalBehavior(InternalBehavior):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ArTypedPerInstanceMemorie(self, name: str=None) -> VariableDataPrototype:
@@ -109129,9 +108133,6 @@ class RunnableEntity(AtpStructureElement,ExecutableEntity):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DataSendPoint(self, name: str=None) -> VariableAccess:
@@ -109755,9 +108756,6 @@ class SwcExclusiveAreaPolicy(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -109949,9 +108947,6 @@ class AccessCount(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -109977,9 +108972,6 @@ class AccessCount(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -110190,9 +109182,6 @@ class AccessCountSet(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -110452,9 +109441,6 @@ class VariationPointProxy(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'ConditionByFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__conditionAccess is not None:
             self.__conditionAccess = None
-            self.__conditionAccess._parent = None #No parent
-            self.__conditionAccess._update_path() #updates the path
-            self.__conditionAccess._node.getparent().remove(self.__conditionAccess._node)
         XDT.mark_dirty(self.__conditionAccess, self)
 
     def get_implementationDataType(self) -> ImplementationDataType:
@@ -110574,9 +109560,6 @@ class VariationPointProxy(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'AttributeValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__valueAccess is not None:
             self.__valueAccess = None
-            self.__valueAccess._parent = None #No parent
-            self.__valueAccess._update_path() #updates the path
-            self.__valueAccess._node.getparent().remove(self.__valueAccess._node)
         XDT.mark_dirty(self.__valueAccess, self)
 
     def new_UnlimitedIntegerValueVariationPoint(self, name: str=None) -> UnlimitedIntegerValueVariationPoint:
@@ -110888,9 +109871,6 @@ class InstantiationDataDefProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarParameterRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__parameterInstance is not None:
             self.__parameterInstance = None
-            self.__parameterInstance._parent = None #No parent
-            self.__parameterInstance._update_path() #updates the path
-            self.__parameterInstance._node.getparent().remove(self.__parameterInstance._node)
         XDT.mark_dirty(self.__parameterInstance, self)
 
     def get_swDataDefProps(self) -> SwDataDefProps:
@@ -110916,9 +109896,6 @@ class InstantiationDataDefProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_variableInstance(self) -> AutosarVariableRef:
@@ -110944,9 +109921,6 @@ class InstantiationDataDefProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__variableInstance is not None:
             self.__variableInstance = None
-            self.__variableInstance._parent = None #No parent
-            self.__variableInstance._update_path() #updates the path
-            self.__variableInstance._node.getparent().remove(self.__variableInstance._node)
         XDT.mark_dirty(self.__variableInstance, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -110972,9 +109946,6 @@ class InstantiationDataDefProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -111665,9 +110636,6 @@ class AutosarVariableRef(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ArVariableInImplementationDataInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__autosarVariableInImplDatatype is not None:
             self.__autosarVariableInImplDatatype = None
-            self.__autosarVariableInImplDatatype._parent = None #No parent
-            self.__autosarVariableInImplDatatype._update_path() #updates the path
-            self.__autosarVariableInImplDatatype._node.getparent().remove(self.__autosarVariableInImplDatatype._node)
         XDT.mark_dirty(self.__autosarVariableInImplDatatype, self)
 
     def get_autosarVariable(self) -> VariableInAtomicSWCTypeInstanceRef:
@@ -111693,9 +110661,6 @@ class AutosarVariableRef(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariableInAtomicSWCTypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__autosarVariable is not None:
             self.__autosarVariable = None
-            self.__autosarVariable._parent = None #No parent
-            self.__autosarVariable._update_path() #updates the path
-            self.__autosarVariable._node.getparent().remove(self.__autosarVariable._node)
         XDT.mark_dirty(self.__autosarVariable, self)
 
     def get_localVariable(self) -> VariableDataPrototype:
@@ -111870,9 +110835,6 @@ class ParameterAccess(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarParameterRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__accessedParameter is not None:
             self.__accessedParameter = None
-            self.__accessedParameter._parent = None #No parent
-            self.__accessedParameter._update_path() #updates the path
-            self.__accessedParameter._node.getparent().remove(self.__accessedParameter._node)
         XDT.mark_dirty(self.__accessedParameter, self)
 
     def get_swDataDefProps(self) -> SwDataDefProps:
@@ -111898,9 +110860,6 @@ class ParameterAccess(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -111926,9 +110885,6 @@ class ParameterAccess(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -112106,9 +111062,6 @@ class VariableAccess(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'AutosarVariableRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__accessedVariable is not None:
             self.__accessedVariable = None
-            self.__accessedVariable._parent = None #No parent
-            self.__accessedVariable._update_path() #updates the path
-            self.__accessedVariable._node.getparent().remove(self.__accessedVariable._node)
         XDT.mark_dirty(self.__accessedVariable, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -112134,9 +111087,6 @@ class VariableAccess(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -112293,9 +111243,6 @@ class AutosarParameterRef(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ParameterInAtomicSWCTypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__autosarParameter is not None:
             self.__autosarParameter = None
-            self.__autosarParameter._parent = None #No parent
-            self.__autosarParameter._update_path() #updates the path
-            self.__autosarParameter._node.getparent().remove(self.__autosarParameter._node)
         XDT.mark_dirty(self.__autosarParameter, self)
 
     def get_localParameter(self) -> DataPrototype:
@@ -113087,9 +112034,6 @@ class RoleBasedPortAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -113428,9 +112372,6 @@ class SwcServiceDependency(AtpStructureElement,ServiceDependency):
                 value._build_path(elementNameIfShortNameMissing = 'ServiceNeeds_@' + str(len(self.get_children()))) #updates the path
         elif self.__serviceNeeds is not None:
             self.__serviceNeeds = None
-            self.__serviceNeeds._parent = None #No parent
-            self.__serviceNeeds._update_path() #updates the path
-            self.__serviceNeeds._node.getparent().remove(self.__serviceNeeds._node)
         XDT.mark_dirty(self.__serviceNeeds, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -113456,9 +112397,6 @@ class SwcServiceDependency(AtpStructureElement,ServiceDependency):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DoIpGidSynchronizationNeeds(self, name: str=None) -> DoIpGidSynchronizationNeeds:
@@ -114442,9 +113380,6 @@ class RoleBasedDataTypeAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -114606,9 +113541,6 @@ class PerInstanceMemory(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -114634,9 +113566,6 @@ class PerInstanceMemory(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -114929,9 +113858,6 @@ class ModeSwitchPoint(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'PModeGroupInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeGroup is not None:
             self.__modeGroup = None
-            self.__modeGroup._parent = None #No parent
-            self.__modeGroup._update_path() #updates the path
-            self.__modeGroup._node.getparent().remove(self.__modeGroup._node)
         XDT.mark_dirty(self.__modeGroup, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -114957,9 +113883,6 @@ class ModeSwitchPoint(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -115109,9 +114032,6 @@ class ModeAccessPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ModeAccessPointIdent_@' + str(len(self.get_children()))) #updates the path
         elif self.__ident is not None:
             self.__ident = None
-            self.__ident._parent = None #No parent
-            self.__ident._update_path() #updates the path
-            self.__ident._node.getparent().remove(self.__ident._node)
         XDT.mark_dirty(self.__ident, self)
 
     def get_modeGroup(self) -> ModeGroupInAtomicSwcInstanceRef:
@@ -115137,9 +114057,6 @@ class ModeAccessPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ModeGroupInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeGroup is not None:
             self.__modeGroup = None
-            self.__modeGroup._parent = None #No parent
-            self.__modeGroup._update_path() #updates the path
-            self.__modeGroup._node.getparent().remove(self.__modeGroup._node)
         XDT.mark_dirty(self.__modeGroup, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -115165,9 +114082,6 @@ class ModeAccessPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_RModeGroupInAtomicSWCInstanceRef(self, name: str=None) -> RModeGroupInAtomicSWCInstanceRef:
@@ -115358,9 +114272,6 @@ class ServerCallPoint(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'ROperationInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__operation is not None:
             self.__operation = None
-            self.__operation._parent = None #No parent
-            self.__operation._update_path() #updates the path
-            self.__operation._node.getparent().remove(self.__operation._node)
         XDT.mark_dirty(self.__operation, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -115386,9 +114297,6 @@ class ServerCallPoint(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Operation(self, name: str=None) -> ROperationInAtomicSwcInstanceRef:
@@ -115678,9 +114586,6 @@ class AsynchronousServerCallResultPoint(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -115804,9 +114709,6 @@ class InternalTriggeringPoint(AbstractAccessPoint):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -115934,9 +114836,6 @@ class ExternalTriggeringPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ExternalTriggeringPointIdent_@' + str(len(self.get_children()))) #updates the path
         elif self.__ident is not None:
             self.__ident = None
-            self.__ident._parent = None #No parent
-            self.__ident._update_path() #updates the path
-            self.__ident._node.getparent().remove(self.__ident._node)
         XDT.mark_dirty(self.__ident, self)
 
     def get_trigger(self) -> PTriggerInAtomicSwcTypeInstanceRef:
@@ -115962,9 +114861,6 @@ class ExternalTriggeringPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PTriggerInAtomicSwcTypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__trigger is not None:
             self.__trigger = None
-            self.__trigger._parent = None #No parent
-            self.__trigger._update_path() #updates the path
-            self.__trigger._node.getparent().remove(self.__trigger._node)
         XDT.mark_dirty(self.__trigger, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -115990,9 +114886,6 @@ class ExternalTriggeringPoint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Trigger(self, name: str=None) -> PTriggerInAtomicSwcTypeInstanceRef:
@@ -116260,9 +115153,6 @@ class PortDefinedArgumentValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def get_valueType(self) -> ImplementationDataType:
@@ -116754,9 +115644,6 @@ class PortAPIOption(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_PortArgValue(self, name: str=None) -> PortDefinedArgumentValue:
@@ -117049,9 +115936,6 @@ class RTEEvent(AbstractEvent,AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -117411,9 +116295,6 @@ class ExternalTriggerOccurredEvent(RTEEvent):
                 value._build_path(elementNameIfShortNameMissing = 'RTriggerInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__trigger is not None:
             self.__trigger = None
-            self.__trigger._parent = None #No parent
-            self.__trigger._update_path() #updates the path
-            self.__trigger._node.getparent().remove(self.__trigger._node)
         XDT.mark_dirty(self.__trigger, self)
 
     def new_Trigger(self, name: str=None) -> RTriggerInAtomicSwcInstanceRef:
@@ -117714,9 +116595,6 @@ class SwcModeManagerErrorEvent(RTEEvent):
                 value._build_path(elementNameIfShortNameMissing = 'PModeGroupInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeGroup is not None:
             self.__modeGroup = None
-            self.__modeGroup._parent = None #No parent
-            self.__modeGroup._update_path() #updates the path
-            self.__modeGroup._node.getparent().remove(self.__modeGroup._node)
         XDT.mark_dirty(self.__modeGroup, self)
 
     def new_ModeGroup(self, name: str=None) -> PModeGroupInAtomicSwcInstanceRef:
@@ -117828,9 +116706,6 @@ class TransformerHardErrorEvent(RTEEvent):
                 value._build_path(elementNameIfShortNameMissing = 'POperationInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__operation is not None:
             self.__operation = None
-            self.__operation._parent = None #No parent
-            self.__operation._update_path() #updates the path
-            self.__operation._node.getparent().remove(self.__operation._node)
         XDT.mark_dirty(self.__operation, self)
 
     def get_trigger(self) -> PTriggerInAtomicSwcTypeInstanceRef:
@@ -117856,9 +116731,6 @@ class TransformerHardErrorEvent(RTEEvent):
                 value._build_path(elementNameIfShortNameMissing = 'PTriggerInAtomicSwcTypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__trigger is not None:
             self.__trigger = None
-            self.__trigger._parent = None #No parent
-            self.__trigger._update_path() #updates the path
-            self.__trigger._node.getparent().remove(self.__trigger._node)
         XDT.mark_dirty(self.__trigger, self)
 
     def new_Trigger(self, name: str=None) -> PTriggerInAtomicSwcTypeInstanceRef:
@@ -118155,9 +117027,6 @@ class DataReceivedEvent(RTEEvent):
                 value._build_path(elementNameIfShortNameMissing = 'RVariableInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__data is not None:
             self.__data = None
-            self.__data._parent = None #No parent
-            self.__data._update_path() #updates the path
-            self.__data._node.getparent().remove(self.__data._node)
         XDT.mark_dirty(self.__data, self)
 
     def new_Data(self, name: str=None) -> RVariableInAtomicSwcInstanceRef:
@@ -118261,9 +117130,6 @@ class DataReceiveErrorEvent(RTEEvent):
                 value._build_path(elementNameIfShortNameMissing = 'RVariableInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__data is not None:
             self.__data = None
-            self.__data._parent = None #No parent
-            self.__data._update_path() #updates the path
-            self.__data._node.getparent().remove(self.__data._node)
         XDT.mark_dirty(self.__data, self)
 
     def new_Data(self, name: str=None) -> RVariableInAtomicSwcInstanceRef:
@@ -118425,9 +117291,6 @@ class OperationInvokedEvent(RTEEvent):
                 value._build_path(elementNameIfShortNameMissing = 'POperationInAtomicSwcInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__operation is not None:
             self.__operation = None
-            self.__operation._parent = None #No parent
-            self.__operation._update_path() #updates the path
-            self.__operation._node.getparent().remove(self.__operation._node)
         XDT.mark_dirty(self.__operation, self)
 
     def new_Operation(self, name: str=None) -> POperationInAtomicSwcInstanceRef:
@@ -118696,9 +117559,6 @@ class CompositeNetworkRepresentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationCompositeElementInPortInterfaceInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__leafElement is not None:
             self.__leafElement = None
-            self.__leafElement._parent = None #No parent
-            self.__leafElement._update_path() #updates the path
-            self.__leafElement._node.getparent().remove(self.__leafElement._node)
         XDT.mark_dirty(self.__leafElement, self)
 
     def get_networkRepresentation(self) -> SwDataDefProps:
@@ -118724,9 +117584,6 @@ class CompositeNetworkRepresentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__networkRepresentation is not None:
             self.__networkRepresentation = None
-            self.__networkRepresentation._parent = None #No parent
-            self.__networkRepresentation._update_path() #updates the path
-            self.__networkRepresentation._node.getparent().remove(self.__networkRepresentation._node)
         XDT.mark_dirty(self.__networkRepresentation, self)
 
     def new_NetworkRepresentation(self, name: str=None) -> SwDataDefProps:
@@ -119171,9 +118028,6 @@ class ModeSwitchSenderComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ModeSwitchedAckRequest_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeSwitchedAck is not None:
             self.__modeSwitchedAck = None
-            self.__modeSwitchedAck._parent = None #No parent
-            self.__modeSwitchedAck._update_path() #updates the path
-            self.__modeSwitchedAck._node.getparent().remove(self.__modeSwitchedAck._node)
         XDT.mark_dirty(self.__modeSwitchedAck, self)
 
     def new_ModeSwitchedAck(self, name: str=None) -> ModeSwitchedAckRequest:
@@ -119349,9 +118203,6 @@ class NvProvideComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__ramBlockInitValue is not None:
             self.__ramBlockInitValue = None
-            self.__ramBlockInitValue._parent = None #No parent
-            self.__ramBlockInitValue._update_path() #updates the path
-            self.__ramBlockInitValue._node.getparent().remove(self.__ramBlockInitValue._node)
         XDT.mark_dirty(self.__ramBlockInitValue, self)
 
     def get_romBlockInitValue(self) -> ValueSpecification:
@@ -119377,9 +118228,6 @@ class NvProvideComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__romBlockInitValue is not None:
             self.__romBlockInitValue = None
-            self.__romBlockInitValue._parent = None #No parent
-            self.__romBlockInitValue._update_path() #updates the path
-            self.__romBlockInitValue._node.getparent().remove(self.__romBlockInitValue._node)
         XDT.mark_dirty(self.__romBlockInitValue, self)
 
     def get_variable(self) -> VariableDataPrototype:
@@ -119710,9 +118558,6 @@ class NvRequireComSpec(RPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_variable(self) -> VariableDataPrototype:
@@ -120033,9 +118878,6 @@ class ParameterProvideComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_parameter(self) -> ParameterDataPrototype:
@@ -120356,9 +119198,6 @@ class ParameterRequireComSpec(RPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_parameter(self) -> ParameterDataPrototype:
@@ -120830,9 +119669,6 @@ class SenderComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__networkRepresentation is not None:
             self.__networkRepresentation = None
-            self.__networkRepresentation._parent = None #No parent
-            self.__networkRepresentation._update_path() #updates the path
-            self.__networkRepresentation._node.getparent().remove(self.__networkRepresentation._node)
         XDT.mark_dirty(self.__networkRepresentation, self)
 
     def get_transmissionAcknowledge(self) -> TransmissionAcknowledgementRequest:
@@ -120858,9 +119694,6 @@ class SenderComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'TransmissionAcknowledgementRequest_@' + str(len(self.get_children()))) #updates the path
         elif self.__transmissionAcknowledge is not None:
             self.__transmissionAcknowledge = None
-            self.__transmissionAcknowledge._parent = None #No parent
-            self.__transmissionAcknowledge._update_path() #updates the path
-            self.__transmissionAcknowledge._node.getparent().remove(self.__transmissionAcknowledge._node)
         XDT.mark_dirty(self.__transmissionAcknowledge, self)
 
     def get_usesEndToEndProtection(self) -> BooleanValueVariationPoint:
@@ -120886,9 +119719,6 @@ class SenderComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'BooleanValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__usesEndToEndProtection is not None:
             self.__usesEndToEndProtection = None
-            self.__usesEndToEndProtection._parent = None #No parent
-            self.__usesEndToEndProtection._update_path() #updates the path
-            self.__usesEndToEndProtection._node.getparent().remove(self.__usesEndToEndProtection._node)
         XDT.mark_dirty(self.__usesEndToEndProtection, self)
 
     def new_NetworkRepresentation(self, name: str=None) -> SwDataDefProps:
@@ -121166,9 +119996,6 @@ class NonqueuedSenderComSpec(SenderComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -121920,9 +120747,6 @@ class ReceiverComSpec(RPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__maxDeltaCounterInit is not None:
             self.__maxDeltaCounterInit = None
-            self.__maxDeltaCounterInit._parent = None #No parent
-            self.__maxDeltaCounterInit._update_path() #updates the path
-            self.__maxDeltaCounterInit._node.getparent().remove(self.__maxDeltaCounterInit._node)
         XDT.mark_dirty(self.__maxDeltaCounterInit, self)
 
     def get_networkRepresentation(self) -> SwDataDefProps:
@@ -121948,9 +120772,6 @@ class ReceiverComSpec(RPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__networkRepresentation is not None:
             self.__networkRepresentation = None
-            self.__networkRepresentation._parent = None #No parent
-            self.__networkRepresentation._update_path() #updates the path
-            self.__networkRepresentation._node.getparent().remove(self.__networkRepresentation._node)
         XDT.mark_dirty(self.__networkRepresentation, self)
 
     def get_replaceWith(self) -> VariableAccess:
@@ -121976,9 +120797,6 @@ class ReceiverComSpec(RPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'VariableAccess_@' + str(len(self.get_children()))) #updates the path
         elif self.__replaceWith is not None:
             self.__replaceWith = None
-            self.__replaceWith._parent = None #No parent
-            self.__replaceWith._update_path() #updates the path
-            self.__replaceWith._node.getparent().remove(self.__replaceWith._node)
         XDT.mark_dirty(self.__replaceWith, self)
 
     def get_transformationComSpecProps(self) -> list[TransformationComSpecProps]:
@@ -122054,9 +120872,6 @@ class ReceiverComSpec(RPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'BooleanValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__usesEndToEndProtection is not None:
             self.__usesEndToEndProtection = None
-            self.__usesEndToEndProtection._parent = None #No parent
-            self.__usesEndToEndProtection._update_path() #updates the path
-            self.__usesEndToEndProtection._node.getparent().remove(self.__usesEndToEndProtection._node)
         XDT.mark_dirty(self.__usesEndToEndProtection, self)
 
     def new_ReplaceWith(self, name: str=None) -> VariableAccess:
@@ -122466,9 +121281,6 @@ class NonqueuedReceiverComSpec(ReceiverComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'DataFilter_@' + str(len(self.get_children()))) #updates the path
         elif self.__filter is not None:
             self.__filter = None
-            self.__filter._parent = None #No parent
-            self.__filter._update_path() #updates the path
-            self.__filter._node.getparent().remove(self.__filter._node)
         XDT.mark_dirty(self.__filter, self)
 
     def get_initValue(self) -> ValueSpecification:
@@ -122494,9 +121306,6 @@ class NonqueuedReceiverComSpec(ReceiverComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_timeoutSubstitutionValue(self) -> ValueSpecification:
@@ -122522,9 +121331,6 @@ class NonqueuedReceiverComSpec(ReceiverComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeoutSubstitutionValue is not None:
             self.__timeoutSubstitutionValue = None
-            self.__timeoutSubstitutionValue._parent = None #No parent
-            self.__timeoutSubstitutionValue._update_path() #updates the path
-            self.__timeoutSubstitutionValue._node.getparent().remove(self.__timeoutSubstitutionValue._node)
         XDT.mark_dirty(self.__timeoutSubstitutionValue, self)
 
     def new_Filter(self, name: str=None) -> DataFilter:
@@ -123221,9 +122027,6 @@ class SubElementRef(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -123322,9 +122125,6 @@ class ApplicationCompositeDataTypeSubElementRef(SubElementRef):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationCompositeElementInPortInterfaceInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__applicationCompositeElement is not None:
             self.__applicationCompositeElement = None
-            self.__applicationCompositeElement._parent = None #No parent
-            self.__applicationCompositeElement._update_path() #updates the path
-            self.__applicationCompositeElement._node.getparent().remove(self.__applicationCompositeElement._node)
         XDT.mark_dirty(self.__applicationCompositeElement, self)
 
     def new_ApplicationCompositeElement(self, name: str=None) -> ApplicationCompositeElementInPortInterfaceInstanceRef:
@@ -123678,9 +122478,6 @@ class DataPrototype(AtpPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -123941,9 +122738,6 @@ class ArgumentDataPrototype(AutosarDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_TypeBlueprint(self, name: str=None) -> AutosarDataTypeRefConditional:
@@ -124293,9 +123087,6 @@ class ImplementationDataTypeSubElementRef(SubElementRef):
                 value._build_path(elementNameIfShortNameMissing = 'ArVariableInImplementationDataInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__implementationDataTypeElement is not None:
             self.__implementationDataTypeElement = None
-            self.__implementationDataTypeElement._parent = None #No parent
-            self.__implementationDataTypeElement._update_path() #updates the path
-            self.__implementationDataTypeElement._node.getparent().remove(self.__implementationDataTypeElement._node)
         XDT.mark_dirty(self.__implementationDataTypeElement, self)
 
     def get_parameterImplementationDataTypeElement(self) -> ArParameterInImplementationDataInstanceRef:
@@ -124321,9 +123112,6 @@ class ImplementationDataTypeSubElementRef(SubElementRef):
                 value._build_path(elementNameIfShortNameMissing = 'ArParameterInImplementationDataInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__parameterImplementationDataTypeElement is not None:
             self.__parameterImplementationDataTypeElement = None
-            self.__parameterImplementationDataTypeElement._parent = None #No parent
-            self.__parameterImplementationDataTypeElement._update_path() #updates the path
-            self.__parameterImplementationDataTypeElement._node.getparent().remove(self.__parameterImplementationDataTypeElement._node)
         XDT.mark_dirty(self.__parameterImplementationDataTypeElement, self)
 
     def new_ImplementationDataTypeElement(self, name: str=None) -> ArVariableInImplementationDataInstanceRef:
@@ -125223,9 +124011,6 @@ class TextTableMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__bitfieldTextTableMaskFirst is not None:
             self.__bitfieldTextTableMaskFirst = None
-            self.__bitfieldTextTableMaskFirst._parent = None #No parent
-            self.__bitfieldTextTableMaskFirst._update_path() #updates the path
-            self.__bitfieldTextTableMaskFirst._node.getparent().remove(self.__bitfieldTextTableMaskFirst._node)
         XDT.mark_dirty(self.__bitfieldTextTableMaskFirst, self)
 
     def get_bitfieldTextTableMaskSecond(self) -> PositiveIntegerValueVariationPoint:
@@ -125251,9 +124036,6 @@ class TextTableMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__bitfieldTextTableMaskSecond is not None:
             self.__bitfieldTextTableMaskSecond = None
-            self.__bitfieldTextTableMaskSecond._parent = None #No parent
-            self.__bitfieldTextTableMaskSecond._update_path() #updates the path
-            self.__bitfieldTextTableMaskSecond._node.getparent().remove(self.__bitfieldTextTableMaskSecond._node)
         XDT.mark_dirty(self.__bitfieldTextTableMaskSecond, self)
 
     def get_valuePairs(self) -> list[TextTableValuePair]:
@@ -125481,9 +124263,6 @@ class TextTableValuePair(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__firstValue is not None:
             self.__firstValue = None
-            self.__firstValue._parent = None #No parent
-            self.__firstValue._update_path() #updates the path
-            self.__firstValue._node.getparent().remove(self.__firstValue._node)
         XDT.mark_dirty(self.__firstValue, self)
 
     def get_secondValue(self) -> NumericalValueVariationPoint:
@@ -125509,9 +124288,6 @@ class TextTableValuePair(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__secondValue is not None:
             self.__secondValue = None
-            self.__secondValue._parent = None #No parent
-            self.__secondValue._update_path() #updates the path
-            self.__secondValue._node.getparent().remove(self.__secondValue._node)
         XDT.mark_dirty(self.__secondValue, self)
 
     def new_FirstValue(self, name: str=None) -> NumericalValueVariationPoint:
@@ -125879,9 +124655,6 @@ class ModeSwitchInterface(PortInterface):
                 value._build_path(elementNameIfShortNameMissing = 'ModeDeclarationGroupPrototype_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeGroup is not None:
             self.__modeGroup = None
-            self.__modeGroup._parent = None #No parent
-            self.__modeGroup._update_path() #updates the path
-            self.__modeGroup._node.getparent().remove(self.__modeGroup._node)
         XDT.mark_dirty(self.__modeGroup, self)
 
     def new_ModeGroup(self, name: str=None) -> ModeDeclarationGroupPrototype:
@@ -126567,9 +125340,6 @@ class ClientServerOperation(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -127037,9 +125807,6 @@ class PortInterfaceMapping(AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -127619,9 +126386,6 @@ class ModeInterfaceMapping(PortInterfaceMapping):
                 value._build_path(elementNameIfShortNameMissing = 'ModeDeclarationGroupPrototypeMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__modeMapping is not None:
             self.__modeMapping = None
-            self.__modeMapping._parent = None #No parent
-            self.__modeMapping._update_path() #updates the path
-            self.__modeMapping._node.getparent().remove(self.__modeMapping._node)
         XDT.mark_dirty(self.__modeMapping, self)
 
     def new_ModeMapping(self, name: str=None) -> ModeDeclarationGroupPrototypeMapping:
@@ -129018,9 +127782,6 @@ class CalibrationParameterValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__applInitValue is not None:
             self.__applInitValue = None
-            self.__applInitValue._parent = None #No parent
-            self.__applInitValue._update_path() #updates the path
-            self.__applInitValue._node.getparent().remove(self.__applInitValue._node)
         XDT.mark_dirty(self.__applInitValue, self)
 
     def get_implInitValue(self) -> ValueSpecification:
@@ -129046,9 +127807,6 @@ class CalibrationParameterValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__implInitValue is not None:
             self.__implInitValue = None
-            self.__implInitValue._parent = None #No parent
-            self.__implInitValue._update_path() #updates the path
-            self.__implInitValue._node.getparent().remove(self.__implInitValue._node)
         XDT.mark_dirty(self.__implInitValue, self)
 
     def get_initializedParameter(self) -> FlatInstanceDescriptor:
@@ -129096,9 +127854,6 @@ class CalibrationParameterValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -129607,9 +128362,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Chapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__swFeatureDef is not None:
             self.__swFeatureDef = None
-            self.__swFeatureDef._parent = None #No parent
-            self.__swFeatureDef._update_path() #updates the path
-            self.__swFeatureDef._node.getparent().remove(self.__swFeatureDef._node)
         XDT.mark_dirty(self.__swFeatureDef, self)
 
     def get_swFeatureDesc(self) -> Chapter:
@@ -129635,9 +128387,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Chapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__swFeatureDesc is not None:
             self.__swFeatureDesc = None
-            self.__swFeatureDesc._parent = None #No parent
-            self.__swFeatureDesc._update_path() #updates the path
-            self.__swFeatureDesc._node.getparent().remove(self.__swFeatureDesc._node)
         XDT.mark_dirty(self.__swFeatureDesc, self)
 
     def get_swTestDesc(self) -> Chapter:
@@ -129663,9 +128412,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Chapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__swTestDesc is not None:
             self.__swTestDesc = None
-            self.__swTestDesc._parent = None #No parent
-            self.__swTestDesc._update_path() #updates the path
-            self.__swTestDesc._node.getparent().remove(self.__swTestDesc._node)
         XDT.mark_dirty(self.__swTestDesc, self)
 
     def get_swCalibrationNotes(self) -> Chapter:
@@ -129691,9 +128437,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Chapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__swCalibrationNotes is not None:
             self.__swCalibrationNotes = None
-            self.__swCalibrationNotes._parent = None #No parent
-            self.__swCalibrationNotes._update_path() #updates the path
-            self.__swCalibrationNotes._node.getparent().remove(self.__swCalibrationNotes._node)
         XDT.mark_dirty(self.__swCalibrationNotes, self)
 
     def get_swMaintenanceNotes(self) -> Chapter:
@@ -129719,9 +128462,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Chapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__swMaintenanceNotes is not None:
             self.__swMaintenanceNotes = None
-            self.__swMaintenanceNotes._parent = None #No parent
-            self.__swMaintenanceNotes._update_path() #updates the path
-            self.__swMaintenanceNotes._node.getparent().remove(self.__swMaintenanceNotes._node)
         XDT.mark_dirty(self.__swMaintenanceNotes, self)
 
     def get_swDiagnosticsNotes(self) -> Chapter:
@@ -129747,9 +128487,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Chapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDiagnosticsNotes is not None:
             self.__swDiagnosticsNotes = None
-            self.__swDiagnosticsNotes._parent = None #No parent
-            self.__swDiagnosticsNotes._update_path() #updates the path
-            self.__swDiagnosticsNotes._node.getparent().remove(self.__swDiagnosticsNotes._node)
         XDT.mark_dirty(self.__swDiagnosticsNotes, self)
 
     def get_swCarbDoc(self) -> Chapter:
@@ -129775,9 +128512,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Chapter_@' + str(len(self.get_children()))) #updates the path
         elif self.__swCarbDoc is not None:
             self.__swCarbDoc = None
-            self.__swCarbDoc._parent = None #No parent
-            self.__swCarbDoc._update_path() #updates the path
-            self.__swCarbDoc._node.getparent().remove(self.__swCarbDoc._node)
         XDT.mark_dirty(self.__swCarbDoc, self)
 
     def get_chapters(self) -> list[Chapter]:
@@ -129853,9 +128587,6 @@ class SwComponentDocumentation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwCalibrationNotes(self, name: str=None) -> Chapter:
@@ -130236,9 +128967,6 @@ class PerInstanceMemorySize(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__size is not None:
             self.__size = None
-            self.__size._parent = None #No parent
-            self.__size._update_path() #updates the path
-            self.__size._node.getparent().remove(self.__size._node)
         XDT.mark_dirty(self.__size, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -130264,9 +128992,6 @@ class PerInstanceMemorySize(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -131372,9 +130097,6 @@ class RptContainer(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptExecutableEntityProperties_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptExecutableEntityProperties is not None:
             self.__rptExecutableEntityProperties = None
-            self.__rptExecutableEntityProperties._parent = None #No parent
-            self.__rptExecutableEntityProperties._update_path() #updates the path
-            self.__rptExecutableEntityProperties._node.getparent().remove(self.__rptExecutableEntityProperties._node)
         XDT.mark_dirty(self.__rptExecutableEntityProperties, self)
 
     def get_rptHooks(self) -> list[RptHook]:
@@ -131450,9 +130172,6 @@ class RptContainer(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptImplPolicy_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptImplPolicy is not None:
             self.__rptImplPolicy = None
-            self.__rptImplPolicy._parent = None #No parent
-            self.__rptImplPolicy._update_path() #updates the path
-            self.__rptImplPolicy._node.getparent().remove(self.__rptImplPolicy._node)
         XDT.mark_dirty(self.__rptImplPolicy, self)
 
     def get_rptSwPrototypingAccess(self) -> RptSwPrototypingAccess:
@@ -131478,9 +130197,6 @@ class RptContainer(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RptSwPrototypingAccess_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptSwPrototypingAccess is not None:
             self.__rptSwPrototypingAccess = None
-            self.__rptSwPrototypingAccess._parent = None #No parent
-            self.__rptSwPrototypingAccess._update_path() #updates the path
-            self.__rptSwPrototypingAccess._node.getparent().remove(self.__rptSwPrototypingAccess._node)
         XDT.mark_dirty(self.__rptSwPrototypingAccess, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -131506,9 +130222,6 @@ class RptContainer(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_RptExecutableEntityProperties(self, name: str=None) -> RptExecutableEntityProperties:
@@ -131833,9 +130546,6 @@ class RptHook(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AnyInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__rptArHook is not None:
             self.__rptArHook = None
-            self.__rptArHook._parent = None #No parent
-            self.__rptArHook._update_path() #updates the path
-            self.__rptArHook._node.getparent().remove(self.__rptArHook._node)
         XDT.mark_dirty(self.__rptArHook, self)
 
     def get_sdgs(self) -> list[Sdg]:
@@ -131911,9 +130621,6 @@ class RptHook(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_RptArHook(self, name: str=None) -> AnyInstanceRef:
@@ -132422,9 +131129,6 @@ class ApplicationArrayElement(ApplicationCompositeElementDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__maxNumberOfElements is not None:
             self.__maxNumberOfElements = None
-            self.__maxNumberOfElements._parent = None #No parent
-            self.__maxNumberOfElements._update_path() #updates the path
-            self.__maxNumberOfElements._node.getparent().remove(self.__maxNumberOfElements._node)
         XDT.mark_dirty(self.__maxNumberOfElements, self)
 
     def new_MaxNumberOfElements(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -132570,9 +131274,6 @@ class ParameterDataPrototype(AutosarDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -132598,9 +131299,6 @@ class ParameterDataPrototype(AutosarDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -132890,9 +131588,6 @@ class ApplicationRecordElement(ApplicationCompositeElementDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -133014,9 +131709,6 @@ class VariableDataPrototype(AutosarDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -133042,9 +131734,6 @@ class VariableDataPrototype(AutosarDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -133810,9 +132499,6 @@ class AutosarDataTypeRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -133934,9 +132620,6 @@ class ApplicationArrayDataType(ApplicationCompositeDataType):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationArrayElement_@' + str(len(self.get_children()))) #updates the path
         elif self.__element is not None:
             self.__element = None
-            self.__element._parent = None #No parent
-            self.__element._update_path() #updates the path
-            self.__element._node.getparent().remove(self.__element._node)
         XDT.mark_dirty(self.__element, self)
 
     def new_Element(self, name: str=None) -> ApplicationArrayElement:
@@ -134771,9 +133454,6 @@ class Unit(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'SingleLanguageUnitNames_@' + str(len(self.get_children()))) #updates the path
         elif self.__displayName is not None:
             self.__displayName = None
-            self.__displayName._parent = None #No parent
-            self.__displayName._update_path() #updates the path
-            self.__displayName._node.getparent().remove(self.__displayName._node)
         XDT.mark_dirty(self.__displayName, self)
 
     def get_physicalDimension(self) -> PhysicalDimension:
@@ -134923,9 +133603,6 @@ class SwRecordLayout(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'SwRecordLayoutGroup_@' + str(len(self.get_children()))) #updates the path
         elif self.__swRecordLayoutGroup is not None:
             self.__swRecordLayoutGroup = None
-            self.__swRecordLayoutGroup._parent = None #No parent
-            self.__swRecordLayoutGroup._update_path() #updates the path
-            self.__swRecordLayoutGroup._node.getparent().remove(self.__swRecordLayoutGroup._node)
         XDT.mark_dirty(self.__swRecordLayoutGroup, self)
 
     def new_SwRecordLayoutGroup(self, name: str=None) -> SwRecordLayoutGroup:
@@ -135183,9 +133860,6 @@ class SwRecordLayoutGroup(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def get_swGenericAxisParamType(self) -> SwGenericAxisParamType:
@@ -135972,9 +134646,6 @@ class SwRecordLayoutV(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def get_baseType(self) -> SwBaseType:
@@ -136244,9 +134915,6 @@ class CompuMethod(ARElement,AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'Compu_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuInternalToPhys is not None:
             self.__compuInternalToPhys = None
-            self.__compuInternalToPhys._parent = None #No parent
-            self.__compuInternalToPhys._update_path() #updates the path
-            self.__compuInternalToPhys._node.getparent().remove(self.__compuInternalToPhys._node)
         XDT.mark_dirty(self.__compuInternalToPhys, self)
 
     def get_compuPhysToInternal(self) -> Compu:
@@ -136272,9 +134940,6 @@ class CompuMethod(ARElement,AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'Compu_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuPhysToInternal is not None:
             self.__compuPhysToInternal = None
-            self.__compuPhysToInternal._parent = None #No parent
-            self.__compuPhysToInternal._update_path() #updates the path
-            self.__compuPhysToInternal._node.getparent().remove(self.__compuPhysToInternal._node)
         XDT.mark_dirty(self.__compuPhysToInternal, self)
 
     def new_CompuInternalToPhys(self, name: str=None) -> Compu:
@@ -136426,9 +135091,6 @@ class Compu(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuContent_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuContent is not None:
             self.__compuContent = None
-            self.__compuContent._parent = None #No parent
-            self.__compuContent._update_path() #updates the path
-            self.__compuContent._node.getparent().remove(self.__compuContent._node)
         XDT.mark_dirty(self.__compuContent, self)
 
     def get_compuDefaultValue(self) -> CompuConst:
@@ -136454,9 +135116,6 @@ class Compu(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuConst_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuDefaultValue is not None:
             self.__compuDefaultValue = None
-            self.__compuDefaultValue._parent = None #No parent
-            self.__compuDefaultValue._update_path() #updates the path
-            self.__compuDefaultValue._node.getparent().remove(self.__compuDefaultValue._node)
         XDT.mark_dirty(self.__compuDefaultValue, self)
 
     def new_CompuDefaultValue(self, name: str=None) -> CompuConst:
@@ -136525,7 +135184,7 @@ class Compu(ARObject):
         if XDT.is_dirty(self) is False:
             return
         super()._save_ARObject()
-        if XDT.is_dirty(self.__compuContent):
+        if self.__compuContent is not None and XDT.is_dirty(self.__compuContent):
             self.__compuContent._insert_after_tags = ['T', 'S']
             self.__compuContent._save_contents()
 
@@ -136607,9 +135266,6 @@ class CompuConst(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuConstContent_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuConstContentType is not None:
             self.__compuConstContentType = None
-            self.__compuConstContentType._parent = None #No parent
-            self.__compuConstContentType._update_path() #updates the path
-            self.__compuConstContentType._node.getparent().remove(self.__compuConstContentType._node)
         XDT.mark_dirty(self.__compuConstContentType, self)
 
     def new_CompuConstFormulaContent(self, name: str=None) -> CompuConstFormulaContent:
@@ -136694,7 +135350,7 @@ class CompuConst(ARObject):
         if XDT.is_dirty(self) is False:
             return
         super()._save_ARObject()
-        if XDT.is_dirty(self.__compuConstContentType):
+        if self.__compuConstContentType is not None and XDT.is_dirty(self.__compuConstContentType):
             self.__compuConstContentType._insert_after_tags = ['T', 'S']
             self.__compuConstContentType._save_contents()
 
@@ -136841,9 +135497,6 @@ class CompuScale(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiLanguageOverviewParagraph_@' + str(len(self.get_children()))) #updates the path
         elif self.__desc is not None:
             self.__desc = None
-            self.__desc._parent = None #No parent
-            self.__desc._update_path() #updates the path
-            self.__desc._node.getparent().remove(self.__desc._node)
         XDT.mark_dirty(self.__desc, self)
 
     def get_lowerLimit(self) -> LimitValueVariationPoint:
@@ -136869,9 +135522,6 @@ class CompuScale(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__lowerLimit is not None:
             self.__lowerLimit = None
-            self.__lowerLimit._parent = None #No parent
-            self.__lowerLimit._update_path() #updates the path
-            self.__lowerLimit._node.getparent().remove(self.__lowerLimit._node)
         XDT.mark_dirty(self.__lowerLimit, self)
 
     def get_upperLimit(self) -> LimitValueVariationPoint:
@@ -136897,9 +135547,6 @@ class CompuScale(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperLimit is not None:
             self.__upperLimit = None
-            self.__upperLimit._parent = None #No parent
-            self.__upperLimit._update_path() #updates the path
-            self.__upperLimit._node.getparent().remove(self.__upperLimit._node)
         XDT.mark_dirty(self.__upperLimit, self)
 
     def get_compuInverseValue(self) -> CompuConst:
@@ -136925,9 +135572,6 @@ class CompuScale(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuConst_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuInverseValue is not None:
             self.__compuInverseValue = None
-            self.__compuInverseValue._parent = None #No parent
-            self.__compuInverseValue._update_path() #updates the path
-            self.__compuInverseValue._node.getparent().remove(self.__compuInverseValue._node)
         XDT.mark_dirty(self.__compuInverseValue, self)
 
     def get_compuScaleContents(self) -> CompuScaleContents:
@@ -136953,9 +135597,6 @@ class CompuScale(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuScaleContents_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuScaleContents is not None:
             self.__compuScaleContents = None
-            self.__compuScaleContents._parent = None #No parent
-            self.__compuScaleContents._update_path() #updates the path
-            self.__compuScaleContents._node.getparent().remove(self.__compuScaleContents._node)
         XDT.mark_dirty(self.__compuScaleContents, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -136981,9 +135622,6 @@ class CompuScale(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Desc(self, name: str=None) -> MultiLanguageOverviewParagraph:
@@ -137201,7 +135839,7 @@ class CompuScale(ARObject):
         else:
             AutosarNode._remove_xml_node_if_exists(self._node, 'COMPU-INVERSE-VALUE')
 
-        if XDT.is_dirty(self.__compuScaleContents):
+        if self.__compuScaleContents is not None and XDT.is_dirty(self.__compuScaleContents):
             self.__compuScaleContents._insert_after_tags = ['COMPU-INVERSE-VALUE', 'UPPER-LIMIT', 'LOWER-LIMIT', 'MASK', 'DESC', 'SYMBOL', 'SHORT-LABEL', 'T', 'S']
             self.__compuScaleContents._save_contents()
 
@@ -137283,9 +135921,6 @@ class CompuConstFormulaContent(CompuConstContent):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__vf is not None:
             self.__vf = None
-            self.__vf._parent = None #No parent
-            self.__vf._update_path() #updates the path
-            self.__vf._node.getparent().remove(self.__vf._node)
         XDT.mark_dirty(self.__vf, self)
 
     def new_Vf(self, name: str=None) -> NumericalValueVariationPoint:
@@ -137635,9 +136270,6 @@ class CompuRationalCoeffs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuNominatorDenominator_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuNumerator is not None:
             self.__compuNumerator = None
-            self.__compuNumerator._parent = None #No parent
-            self.__compuNumerator._update_path() #updates the path
-            self.__compuNumerator._node.getparent().remove(self.__compuNumerator._node)
         XDT.mark_dirty(self.__compuNumerator, self)
 
     def get_compuDenominator(self) -> CompuNominatorDenominator:
@@ -137663,9 +136295,6 @@ class CompuRationalCoeffs(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuNominatorDenominator_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuDenominator is not None:
             self.__compuDenominator = None
-            self.__compuDenominator._parent = None #No parent
-            self.__compuDenominator._update_path() #updates the path
-            self.__compuDenominator._node.getparent().remove(self.__compuDenominator._node)
         XDT.mark_dirty(self.__compuDenominator, self)
 
     def new_CompuNumerator(self, name: str=None) -> CompuNominatorDenominator:
@@ -137794,9 +136423,6 @@ class CompuScaleConstantContents(CompuScaleContents):
                 value._build_path(elementNameIfShortNameMissing = 'CompuConst_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuConst is not None:
             self.__compuConst = None
-            self.__compuConst._parent = None #No parent
-            self.__compuConst._update_path() #updates the path
-            self.__compuConst._node.getparent().remove(self.__compuConst._node)
         XDT.mark_dirty(self.__compuConst, self)
 
     def new_CompuConst(self, name: str=None) -> CompuConst:
@@ -137898,9 +136524,6 @@ class CompuScaleRationalFormula(CompuScaleContents):
                 value._build_path(elementNameIfShortNameMissing = 'CompuRationalCoeffs_@' + str(len(self.get_children()))) #updates the path
         elif self.__compuRationalCoeffs is not None:
             self.__compuRationalCoeffs = None
-            self.__compuRationalCoeffs._parent = None #No parent
-            self.__compuRationalCoeffs._update_path() #updates the path
-            self.__compuRationalCoeffs._node.getparent().remove(self.__compuRationalCoeffs._node)
         XDT.mark_dirty(self.__compuRationalCoeffs, self)
 
     def new_CompuRationalCoeffs(self, name: str=None) -> CompuRationalCoeffs:
@@ -138351,9 +136974,6 @@ class EcucAbstractReferenceValue(EcucIndexableValue):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -138604,9 +137224,6 @@ class EcucParameterValue(EcucIndexableValue):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -138753,9 +137370,6 @@ class EcucAddInfoParamValue(EcucParameterValue):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_Value(self, name: str=None) -> DocumentationBlock:
@@ -139090,9 +137704,6 @@ class EcucContainerValue(Identifiable,EcucIndexableValue):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_EcucNumericalParamValue(self, name: str=None) -> EcucNumericalParamValue:
@@ -139337,9 +137948,6 @@ class EcucInstanceReferenceValue(EcucAbstractReferenceValue):
                 value._build_path(elementNameIfShortNameMissing = 'AnyInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_Value(self, name: str=None) -> AnyInstanceRef:
@@ -139443,9 +138051,6 @@ class EcucNumericalParamValue(EcucParameterValue):
                 value._build_path(elementNameIfShortNameMissing = 'NumericalValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_Value(self, name: str=None) -> NumericalValueVariationPoint:
@@ -139913,9 +138518,6 @@ class EcucModuleConfigurationValuesRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -140500,9 +139102,6 @@ class EcucDefinitionElement(Identifiable,AtpDefinition):
                 value._build_path(elementNameIfShortNameMissing = 'EcucConditionSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__ecucCond is not None:
             self.__ecucCond = None
-            self.__ecucCond._parent = None #No parent
-            self.__ecucCond._update_path() #updates the path
-            self.__ecucCond._node.getparent().remove(self.__ecucCond._node)
         XDT.mark_dirty(self.__ecucCond, self)
 
     def get_lowerMultiplicity(self) -> PositiveIntegerValueVariationPoint:
@@ -140528,9 +139127,6 @@ class EcucDefinitionElement(Identifiable,AtpDefinition):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__lowerMultiplicity is not None:
             self.__lowerMultiplicity = None
-            self.__lowerMultiplicity._parent = None #No parent
-            self.__lowerMultiplicity._update_path() #updates the path
-            self.__lowerMultiplicity._node.getparent().remove(self.__lowerMultiplicity._node)
         XDT.mark_dirty(self.__lowerMultiplicity, self)
 
     def get_upperMultiplicity(self) -> PositiveIntegerValueVariationPoint:
@@ -140556,9 +139152,6 @@ class EcucDefinitionElement(Identifiable,AtpDefinition):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperMultiplicity is not None:
             self.__upperMultiplicity = None
-            self.__upperMultiplicity._parent = None #No parent
-            self.__upperMultiplicity._update_path() #updates the path
-            self.__upperMultiplicity._node.getparent().remove(self.__upperMultiplicity._node)
         XDT.mark_dirty(self.__upperMultiplicity, self)
 
     def get_upperMultiplicityInfinite(self) -> BooleanValueVariationPoint:
@@ -140584,9 +139177,6 @@ class EcucDefinitionElement(Identifiable,AtpDefinition):
                 value._build_path(elementNameIfShortNameMissing = 'BooleanValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperMultiplicityInfinite is not None:
             self.__upperMultiplicityInfinite = None
-            self.__upperMultiplicityInfinite._parent = None #No parent
-            self.__upperMultiplicityInfinite._update_path() #updates the path
-            self.__upperMultiplicityInfinite._node.getparent().remove(self.__upperMultiplicityInfinite._node)
         XDT.mark_dirty(self.__upperMultiplicityInfinite, self)
 
     def new_UpperMultiplicity(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -140888,9 +139478,6 @@ class EcucCommonAttributes(EcucDefinitionElement):
                 value._build_path(elementNameIfShortNameMissing = 'EcucConfigurationClassAffection_@' + str(len(self.get_children()))) #updates the path
         elif self.__configurationClassAffection is not None:
             self.__configurationClassAffection = None
-            self.__configurationClassAffection._parent = None #No parent
-            self.__configurationClassAffection._update_path() #updates the path
-            self.__configurationClassAffection._node.getparent().remove(self.__configurationClassAffection._node)
         XDT.mark_dirty(self.__configurationClassAffection, self)
 
     def get_implementationConfigClass(self) -> list[EcucImplementationConfigurationClass]:
@@ -141635,9 +140222,6 @@ class EcucParameterDef(EcucCommonAttributes):
                 value._build_path(elementNameIfShortNameMissing = 'EcucDerivationSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__derivation is not None:
             self.__derivation = None
-            self.__derivation._parent = None #No parent
-            self.__derivation._update_path() #updates the path
-            self.__derivation._node.getparent().remove(self.__derivation._node)
         XDT.mark_dirty(self.__derivation, self)
 
     def new_Derivation(self, name: str=None) -> EcucDerivationSpecification:
@@ -141800,9 +140384,6 @@ class EcucDerivationSpecification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'EcucParameterDerivationFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__calculationFormula is not None:
             self.__calculationFormula = None
-            self.__calculationFormula._parent = None #No parent
-            self.__calculationFormula._update_path() #updates the path
-            self.__calculationFormula._node.getparent().remove(self.__calculationFormula._node)
         XDT.mark_dirty(self.__calculationFormula, self)
 
     def get_ecucQueries(self) -> list[EcucQuery]:
@@ -141878,9 +140459,6 @@ class EcucDerivationSpecification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MlFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__informalFormula is not None:
             self.__informalFormula = None
-            self.__informalFormula._parent = None #No parent
-            self.__informalFormula._update_path() #updates the path
-            self.__informalFormula._node.getparent().remove(self.__informalFormula._node)
         XDT.mark_dirty(self.__informalFormula, self)
 
     def new_CalculationFormula(self, name: str=None) -> EcucParameterDerivationFormula:
@@ -142224,9 +140802,6 @@ class EcucQuery(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'EcucQueryExpression_@' + str(len(self.get_children()))) #updates the path
         elif self.__ecucQueryExpression is not None:
             self.__ecucQueryExpression = None
-            self.__ecucQueryExpression._parent = None #No parent
-            self.__ecucQueryExpression._update_path() #updates the path
-            self.__ecucQueryExpression._node.getparent().remove(self.__ecucQueryExpression._node)
         XDT.mark_dirty(self.__ecucQueryExpression, self)
 
     def new_EcucQueryExpression(self, name: str=None) -> EcucQueryExpression:
@@ -142549,9 +141124,6 @@ class EcucBooleanParamDef(EcucParameterDef):
                 value._build_path(elementNameIfShortNameMissing = 'BooleanValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__defaultValue is not None:
             self.__defaultValue = None
-            self.__defaultValue._parent = None #No parent
-            self.__defaultValue._update_path() #updates the path
-            self.__defaultValue._node.getparent().remove(self.__defaultValue._node)
         XDT.mark_dirty(self.__defaultValue, self)
 
     def new_DefaultValue(self, name: str=None) -> BooleanValueVariationPoint:
@@ -143052,9 +141624,6 @@ class EcucDestinationUriDef(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'EcucDestinationUriPolicy_@' + str(len(self.get_children()))) #updates the path
         elif self.__destinationUriPolicy is not None:
             self.__destinationUriPolicy = None
-            self.__destinationUriPolicy._parent = None #No parent
-            self.__destinationUriPolicy._update_path() #updates the path
-            self.__destinationUriPolicy._node.getparent().remove(self.__destinationUriPolicy._node)
         XDT.mark_dirty(self.__destinationUriPolicy, self)
 
     def new_DestinationUriPolicy(self, name: str=None) -> EcucDestinationUriPolicy:
@@ -144612,9 +143181,6 @@ class EcucConditionSpecification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'EcucConditionFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__conditionFormula is not None:
             self.__conditionFormula = None
-            self.__conditionFormula._parent = None #No parent
-            self.__conditionFormula._update_path() #updates the path
-            self.__conditionFormula._node.getparent().remove(self.__conditionFormula._node)
         XDT.mark_dirty(self.__conditionFormula, self)
 
     def get_ecucQueries(self) -> list[EcucQuery]:
@@ -144690,9 +143256,6 @@ class EcucConditionSpecification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MlFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__informalFormula is not None:
             self.__informalFormula = None
-            self.__informalFormula._parent = None #No parent
-            self.__informalFormula._update_path() #updates the path
-            self.__informalFormula._node.getparent().remove(self.__informalFormula._node)
         XDT.mark_dirty(self.__informalFormula, self)
 
     def new_ConditionFormula(self, name: str=None) -> EcucConditionFormula:
@@ -145369,9 +143932,6 @@ class EcucEnumerationLiteralDef(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'EcucConditionSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__ecucCond is not None:
             self.__ecucCond = None
-            self.__ecucCond._parent = None #No parent
-            self.__ecucCond._update_path() #updates the path
-            self.__ecucCond._node.getparent().remove(self.__ecucCond._node)
         XDT.mark_dirty(self.__ecucCond, self)
 
     def new_EcucCond(self, name: str=None) -> EcucConditionSpecification:
@@ -145654,9 +144214,6 @@ class EcucFloatParamDef(EcucParameterDef):
                 value._build_path(elementNameIfShortNameMissing = 'FloatValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__defaultValue is not None:
             self.__defaultValue = None
-            self.__defaultValue._parent = None #No parent
-            self.__defaultValue._update_path() #updates the path
-            self.__defaultValue._node.getparent().remove(self.__defaultValue._node)
         XDT.mark_dirty(self.__defaultValue, self)
 
     def get_max(self) -> LimitValueVariationPoint:
@@ -145682,9 +144239,6 @@ class EcucFloatParamDef(EcucParameterDef):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__max is not None:
             self.__max = None
-            self.__max._parent = None #No parent
-            self.__max._update_path() #updates the path
-            self.__max._node.getparent().remove(self.__max._node)
         XDT.mark_dirty(self.__max, self)
 
     def get_min(self) -> LimitValueVariationPoint:
@@ -145710,9 +144264,6 @@ class EcucFloatParamDef(EcucParameterDef):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__min is not None:
             self.__min = None
-            self.__min._parent = None #No parent
-            self.__min._update_path() #updates the path
-            self.__min._node.getparent().remove(self.__min._node)
         XDT.mark_dirty(self.__min, self)
 
     def new_Min(self, name: str=None) -> LimitValueVariationPoint:
@@ -146198,9 +144749,6 @@ class EcucFunctionNameDefConditional(EcucFunctionNameDefContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -146396,9 +144944,6 @@ class EcucIntegerParamDef(EcucParameterDef):
                 value._build_path(elementNameIfShortNameMissing = 'UnlimitedIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__defaultValue is not None:
             self.__defaultValue = None
-            self.__defaultValue._parent = None #No parent
-            self.__defaultValue._update_path() #updates the path
-            self.__defaultValue._node.getparent().remove(self.__defaultValue._node)
         XDT.mark_dirty(self.__defaultValue, self)
 
     def get_max(self) -> UnlimitedIntegerValueVariationPoint:
@@ -146424,9 +144969,6 @@ class EcucIntegerParamDef(EcucParameterDef):
                 value._build_path(elementNameIfShortNameMissing = 'UnlimitedIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__max is not None:
             self.__max = None
-            self.__max._parent = None #No parent
-            self.__max._update_path() #updates the path
-            self.__max._node.getparent().remove(self.__max._node)
         XDT.mark_dirty(self.__max, self)
 
     def get_min(self) -> UnlimitedIntegerValueVariationPoint:
@@ -146452,9 +144994,6 @@ class EcucIntegerParamDef(EcucParameterDef):
                 value._build_path(elementNameIfShortNameMissing = 'UnlimitedIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__min is not None:
             self.__min = None
-            self.__min._parent = None #No parent
-            self.__min._update_path() #updates the path
-            self.__min._node.getparent().remove(self.__min._node)
         XDT.mark_dirty(self.__min, self)
 
     def new_Min(self, name: str=None) -> UnlimitedIntegerValueVariationPoint:
@@ -146771,9 +145310,6 @@ class EcucLinkerSymbolDefConditional(EcucLinkerSymbolDefContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -147034,9 +145570,6 @@ class EcucMultilineStringParamDefConditional(EcucMultilineStringParamDefContent)
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -147380,9 +145913,6 @@ class EcucStringParamDefConditional(EcucStringParamDefContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -147712,9 +146242,6 @@ class EcucValidationCondition(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'EcucConditionFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__validationFormula is not None:
             self.__validationFormula = None
-            self.__validationFormula._parent = None #No parent
-            self.__validationFormula._update_path() #updates the path
-            self.__validationFormula._node.getparent().remove(self.__validationFormula._node)
         XDT.mark_dirty(self.__validationFormula, self)
 
     def new_ValidationFormula(self, name: str=None) -> EcucConditionFormula:
@@ -147952,9 +146479,6 @@ class BswModuleCallPoint(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -148144,9 +146668,6 @@ class BswDistinguishedPartition(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -148490,9 +147011,6 @@ class BswEvent(AbstractEvent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DisabledInMode(self, name: str=None) -> ModeInBswModuleDescriptionInstanceRef:
@@ -149321,9 +147839,6 @@ class BswModuleEntity(ExecutableEntity):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_CalledEntrie(self, name: str=None) -> BswModuleEntryRefConditional:
@@ -149747,9 +148262,6 @@ class BswInternalTriggeringPointRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -149871,9 +148383,6 @@ class BswInternalTriggeringPoint(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -149985,9 +148494,6 @@ class BswSchedulerNamePrefix(ImplementationProps):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -150190,9 +148696,6 @@ class BswVariableAccess(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -152440,9 +150943,6 @@ class BswClientPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -152592,9 +151092,6 @@ class BswDataReceptionPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -152743,9 +151240,6 @@ class BswDataSendPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -152909,9 +151403,6 @@ class BswExclusiveAreaPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -153071,9 +151562,6 @@ class BswInternalTriggeringPointPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -153225,9 +151713,6 @@ class BswPerInstanceMemoryPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -153391,9 +151876,6 @@ class BswTriggerDirectImplementation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -153600,9 +152082,6 @@ class BswServiceDependency(ServiceDependency):
                 value._build_path(elementNameIfShortNameMissing = 'BswServiceDependencyIdent_@' + str(len(self.get_children()))) #updates the path
         elif self.__ident is not None:
             self.__ident = None
-            self.__ident._parent = None #No parent
-            self.__ident._update_path() #updates the path
-            self.__ident._node.getparent().remove(self.__ident._node)
         XDT.mark_dirty(self.__ident, self)
 
     def get_assignedDatas(self) -> list[RoleBasedDataAssignment]:
@@ -153728,9 +152207,6 @@ class BswServiceDependency(ServiceDependency):
                 value._build_path(elementNameIfShortNameMissing = 'ServiceNeeds_@' + str(len(self.get_children()))) #updates the path
         elif self.__serviceNeeds is not None:
             self.__serviceNeeds = None
-            self.__serviceNeeds._parent = None #No parent
-            self.__serviceNeeds._update_path() #updates the path
-            self.__serviceNeeds._node.getparent().remove(self.__serviceNeeds._node)
         XDT.mark_dirty(self.__serviceNeeds, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -153756,9 +152232,6 @@ class BswServiceDependency(ServiceDependency):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DoIpGidSynchronizationNeeds(self, name: str=None) -> DoIpGidSynchronizationNeeds:
@@ -154760,9 +153233,6 @@ class RoleBasedBswModuleEntryAssignment(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -154946,9 +153416,6 @@ class BswModeReceiverPolicy(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -155126,9 +153593,6 @@ class BswModeSenderPolicy(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'BswModeSwitchAckRequest_@' + str(len(self.get_children()))) #updates the path
         elif self.__ackRequest is not None:
             self.__ackRequest = None
-            self.__ackRequest._parent = None #No parent
-            self.__ackRequest._update_path() #updates the path
-            self.__ackRequest._node.getparent().remove(self.__ackRequest._node)
         XDT.mark_dirty(self.__ackRequest, self)
 
     def get_providedModeGroup(self) -> ModeDeclarationGroupPrototype:
@@ -155176,9 +153640,6 @@ class BswModeSenderPolicy(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_AckRequest(self, name: str=None) -> BswModeSwitchAckRequest:
@@ -155429,9 +153890,6 @@ class BswReleasedTriggerPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -155583,9 +154041,6 @@ class BswParameterPolicy(BswApiOptions):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -158321,9 +156776,6 @@ class BswModuleDescriptionRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -158744,9 +157196,6 @@ class BswDebugInfo(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_LocalDebugData(self, name: str=None) -> ImplementationDataTypeElement:
@@ -159387,9 +157836,6 @@ class BswModuleClientServerEntry(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -159557,9 +158003,6 @@ class BswModuleEntryRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -159976,9 +158419,6 @@ class BswModuleDependency(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DoIpGidSynchronizationNeeds(self, name: str=None) -> DoIpGidSynchronizationNeeds:
@@ -161343,9 +159783,6 @@ class BswModuleEntry(ARElement,AtpBlueprint,AtpBlueprintable):
                 value._build_path(elementNameIfShortNameMissing = 'SwServiceArg_@' + str(len(self.get_children()))) #updates the path
         elif self.__returnType is not None:
             self.__returnType = None
-            self.__returnType._parent = None #No parent
-            self.__returnType._update_path() #updates the path
-            self.__returnType._node.getparent().remove(self.__returnType._node)
         XDT.mark_dirty(self.__returnType, self)
 
     def get_arguments(self) -> list[SwServiceArg]:
@@ -162418,9 +160855,6 @@ class ClientIdDefinition(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'OperationInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__clientServerOperation is not None:
             self.__clientServerOperation = None
-            self.__clientServerOperation._parent = None #No parent
-            self.__clientServerOperation._update_path() #updates the path
-            self.__clientServerOperation._node.getparent().remove(self.__clientServerOperation._node)
         XDT.mark_dirty(self.__clientServerOperation, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -162446,9 +160880,6 @@ class ClientIdDefinition(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ClientServerOperation(self, name: str=None) -> OperationInSystemInstanceRef:
@@ -162723,9 +161154,6 @@ class RootSwCompositionPrototype(AtpPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -162917,9 +161345,6 @@ class J1939SharedAddressCluster(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -163721,9 +162146,6 @@ class SystemMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_EcuResourceMapping(self, name: str=None) -> ECUMapping:
@@ -164914,9 +163336,6 @@ class GlobalTimeDomain(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'AbstractGlobalTimeDomainProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__globalTimeDomainProps is not None:
             self.__globalTimeDomainProps = None
-            self.__globalTimeDomainProps._parent = None #No parent
-            self.__globalTimeDomainProps._update_path() #updates the path
-            self.__globalTimeDomainProps._node.getparent().remove(self.__globalTimeDomainProps._node)
         XDT.mark_dirty(self.__globalTimeDomainProps, self)
 
     def get_globalTimePdu(self) -> GeneralPurposePdu:
@@ -164986,9 +163405,6 @@ class GlobalTimeDomain(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'GlobalTimeMaster_@' + str(len(self.get_children()))) #updates the path
         elif self.__master is not None:
             self.__master = None
-            self.__master._parent = None #No parent
-            self.__master._update_path() #updates the path
-            self.__master._node.getparent().remove(self.__master._node)
         XDT.mark_dirty(self.__master, self)
 
     def get_offsetTimeDomain(self) -> GlobalTimeDomain:
@@ -167009,9 +165425,6 @@ class FrameTriggering(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_PduTriggering(self, name: str=None) -> PduTriggeringRefConditional:
@@ -167318,9 +165731,6 @@ class CanFrameTriggering(FrameTriggering):
                 value._build_path(elementNameIfShortNameMissing = 'RxIdentifierRange_@' + str(len(self.get_children()))) #updates the path
         elif self.__rxIdentifierRange is not None:
             self.__rxIdentifierRange = None
-            self.__rxIdentifierRange._parent = None #No parent
-            self.__rxIdentifierRange._update_path() #updates the path
-            self.__rxIdentifierRange._node.getparent().remove(self.__rxIdentifierRange._node)
         XDT.mark_dirty(self.__rxIdentifierRange, self)
 
     def new_RxIdentifierRange(self, name: str=None) -> RxIdentifierRange:
@@ -167951,9 +166361,6 @@ class AbstractCanCommunicationControllerAttributes(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CanControllerFdConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__canControllerFdAttributes is not None:
             self.__canControllerFdAttributes = None
-            self.__canControllerFdAttributes._parent = None #No parent
-            self.__canControllerFdAttributes._update_path() #updates the path
-            self.__canControllerFdAttributes._node.getparent().remove(self.__canControllerFdAttributes._node)
         XDT.mark_dirty(self.__canControllerFdAttributes, self)
 
     def get_canControllerFdRequirements(self) -> CanControllerFdConfigurationRequirements:
@@ -167979,9 +166386,6 @@ class AbstractCanCommunicationControllerAttributes(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CanControllerFdConfigurationRequirements_@' + str(len(self.get_children()))) #updates the path
         elif self.__canControllerFdRequirements is not None:
             self.__canControllerFdRequirements = None
-            self.__canControllerFdRequirements._parent = None #No parent
-            self.__canControllerFdRequirements._update_path() #updates the path
-            self.__canControllerFdRequirements._node.getparent().remove(self.__canControllerFdRequirements._node)
         XDT.mark_dirty(self.__canControllerFdRequirements, self)
 
     def new_CanControllerFdAttributes(self, name: str=None) -> CanControllerFdConfiguration:
@@ -168767,9 +167171,6 @@ class PhysicalChannel(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_FlexrayFrameTriggering(self, name: str=None) -> FlexrayFrameTriggering:
@@ -169490,9 +167891,6 @@ class AbstractCanClusterContent(CommunicationClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'CanClusterBusOffRecovery_@' + str(len(self.get_children()))) #updates the path
         elif self.__busOffRecovery is not None:
             self.__busOffRecovery = None
-            self.__busOffRecovery._parent = None #No parent
-            self.__busOffRecovery._update_path() #updates the path
-            self.__busOffRecovery._node.getparent().remove(self.__busOffRecovery._node)
         XDT.mark_dirty(self.__busOffRecovery, self)
 
     def new_BusOffRecovery(self, name: str=None) -> CanClusterBusOffRecovery:
@@ -169623,9 +168021,6 @@ class CanClusterConditional(CanClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -170181,9 +168576,6 @@ class AbstractCanCommunicationControllerContent(CommunicationControllerContent):
                 value._build_path(elementNameIfShortNameMissing = 'AbstractCanCommunicationControllerAttributes_@' + str(len(self.get_children()))) #updates the path
         elif self.__canControllerAttributes is not None:
             self.__canControllerAttributes = None
-            self.__canControllerAttributes._parent = None #No parent
-            self.__canControllerAttributes._update_path() #updates the path
-            self.__canControllerAttributes._node.getparent().remove(self.__canControllerAttributes._node)
         XDT.mark_dirty(self.__canControllerAttributes, self)
 
     def new_CanControllerConfiguration(self, name: str=None) -> CanControllerConfiguration:
@@ -170321,9 +168713,6 @@ class CanCommunicationControllerConditional(CanCommunicationControllerContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -170819,9 +169208,6 @@ class J1939ClusterConditional(J1939ClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -171500,9 +169886,6 @@ class LogicAddress(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -172065,9 +170448,6 @@ class SocketAddress(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationEndpoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__applicationEndpoint is not None:
             self.__applicationEndpoint = None
-            self.__applicationEndpoint._parent = None #No parent
-            self.__applicationEndpoint._update_path() #updates the path
-            self.__applicationEndpoint._node.getparent().remove(self.__applicationEndpoint._node)
         XDT.mark_dirty(self.__applicationEndpoint, self)
 
     def get_connector(self) -> EthernetCommunicationConnector:
@@ -172157,9 +170537,6 @@ class SocketAddress(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ApplicationEndpoint(self, name: str=None) -> ApplicationEndpoint:
@@ -172591,9 +170968,6 @@ class SocketConnectionBundle(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Pdu(self, name: str=None) -> SocketConnectionIpduIdentifier:
@@ -173146,9 +171520,6 @@ class SocketConnection(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'TpConnectionIdent_@' + str(len(self.get_children()))) #updates the path
         elif self.__ident is not None:
             self.__ident = None
-            self.__ident._parent = None #No parent
-            self.__ident._update_path() #updates the path
-            self.__ident._node.getparent().remove(self.__ident._node)
         XDT.mark_dirty(self.__ident, self)
 
     def get_localPort(self) -> SocketAddress:
@@ -173290,9 +171661,6 @@ class SocketConnection(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Pdu(self, name: str=None) -> SocketConnectionIpduIdentifier:
@@ -174415,9 +172783,6 @@ class NetworkEndpoint(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'InfrastructureServices_@' + str(len(self.get_children()))) #updates the path
         elif self.__infrastructureServices is not None:
             self.__infrastructureServices = None
-            self.__infrastructureServices._parent = None #No parent
-            self.__infrastructureServices._update_path() #updates the path
-            self.__infrastructureServices._node.getparent().remove(self.__infrastructureServices._node)
         XDT.mark_dirty(self.__infrastructureServices, self)
 
     def get_networkEndpointAddress(self) -> list[NetworkEndpointAddress]:
@@ -174665,9 +173030,6 @@ class InfrastructureServices(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DhcpServerConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__dhcpServerConfiguration is not None:
             self.__dhcpServerConfiguration = None
-            self.__dhcpServerConfiguration._parent = None #No parent
-            self.__dhcpServerConfiguration._update_path() #updates the path
-            self.__dhcpServerConfiguration._node.getparent().remove(self.__dhcpServerConfiguration._node)
         XDT.mark_dirty(self.__dhcpServerConfiguration, self)
 
     def get_doIpEntity(self) -> DoIpEntity:
@@ -174693,9 +173055,6 @@ class InfrastructureServices(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DoIpEntity_@' + str(len(self.get_children()))) #updates the path
         elif self.__doIpEntity is not None:
             self.__doIpEntity = None
-            self.__doIpEntity._parent = None #No parent
-            self.__doIpEntity._update_path() #updates the path
-            self.__doIpEntity._node.getparent().remove(self.__doIpEntity._node)
         XDT.mark_dirty(self.__doIpEntity, self)
 
     def get_timeSynchronization(self) -> TimeSynchronization:
@@ -174721,9 +173080,6 @@ class InfrastructureServices(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TimeSynchronization_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeSynchronization is not None:
             self.__timeSynchronization = None
-            self.__timeSynchronization._parent = None #No parent
-            self.__timeSynchronization._update_path() #updates the path
-            self.__timeSynchronization._node.getparent().remove(self.__timeSynchronization._node)
         XDT.mark_dirty(self.__timeSynchronization, self)
 
     def new_TimeSynchronization(self, name: str=None) -> TimeSynchronization:
@@ -174887,9 +173243,6 @@ class DhcpServerConfiguration(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Ipv4DhcpServerConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__ipv4DhcpServerConfiguration is not None:
             self.__ipv4DhcpServerConfiguration = None
-            self.__ipv4DhcpServerConfiguration._parent = None #No parent
-            self.__ipv4DhcpServerConfiguration._update_path() #updates the path
-            self.__ipv4DhcpServerConfiguration._node.getparent().remove(self.__ipv4DhcpServerConfiguration._node)
         XDT.mark_dirty(self.__ipv4DhcpServerConfiguration, self)
 
     def get_ipv6DhcpServerConfiguration(self) -> Ipv6DhcpServerConfiguration:
@@ -174915,9 +173268,6 @@ class DhcpServerConfiguration(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'Ipv6DhcpServerConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__ipv6DhcpServerConfiguration is not None:
             self.__ipv6DhcpServerConfiguration = None
-            self.__ipv6DhcpServerConfiguration._parent = None #No parent
-            self.__ipv6DhcpServerConfiguration._update_path() #updates the path
-            self.__ipv6DhcpServerConfiguration._node.getparent().remove(self.__ipv6DhcpServerConfiguration._node)
         XDT.mark_dirty(self.__ipv6DhcpServerConfiguration, self)
 
     def new_Ipv6DhcpServerConfiguration(self, name: str=None) -> Ipv6DhcpServerConfiguration:
@@ -175422,9 +173772,6 @@ class TimeSynchronization(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TimeSyncClientConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeSyncClient is not None:
             self.__timeSyncClient = None
-            self.__timeSyncClient._parent = None #No parent
-            self.__timeSyncClient._update_path() #updates the path
-            self.__timeSyncClient._node.getparent().remove(self.__timeSyncClient._node)
         XDT.mark_dirty(self.__timeSyncClient, self)
 
     def get_timeSyncServer(self) -> TimeSyncServerConfiguration:
@@ -175450,9 +173797,6 @@ class TimeSynchronization(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TimeSyncServerConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeSyncServer is not None:
             self.__timeSyncServer = None
-            self.__timeSyncServer._parent = None #No parent
-            self.__timeSyncServer._update_path() #updates the path
-            self.__timeSyncServer._node.getparent().remove(self.__timeSyncServer._node)
         XDT.mark_dirty(self.__timeSyncServer, self)
 
     def new_TimeSyncServer(self, name: str=None) -> TimeSyncServerConfiguration:
@@ -176114,9 +174458,6 @@ class ApplicationEndpoint(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'DiscoveryTechnology_@' + str(len(self.get_children()))) #updates the path
         elif self.__discoveryTechnology is not None:
             self.__discoveryTechnology = None
-            self.__discoveryTechnology._parent = None #No parent
-            self.__discoveryTechnology._update_path() #updates the path
-            self.__discoveryTechnology._node.getparent().remove(self.__discoveryTechnology._node)
         XDT.mark_dirty(self.__discoveryTechnology, self)
 
     def get_networkEndpoint(self) -> NetworkEndpoint:
@@ -176214,9 +174555,6 @@ class ApplicationEndpoint(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'RemotingTechnology_@' + str(len(self.get_children()))) #updates the path
         elif self.__remotingTechnology is not None:
             self.__remotingTechnology = None
-            self.__remotingTechnology._parent = None #No parent
-            self.__remotingTechnology._update_path() #updates the path
-            self.__remotingTechnology._node.getparent().remove(self.__remotingTechnology._node)
         XDT.mark_dirty(self.__remotingTechnology, self)
 
     def get_serializationTechnology(self) -> SerializationTechnology:
@@ -176264,9 +174602,6 @@ class ApplicationEndpoint(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'TransportProtocolConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__tpConfiguration is not None:
             self.__tpConfiguration = None
-            self.__tpConfiguration._parent = None #No parent
-            self.__tpConfiguration._update_path() #updates the path
-            self.__tpConfiguration._node.getparent().remove(self.__tpConfiguration._node)
         XDT.mark_dirty(self.__tpConfiguration, self)
 
     def new_TcpTp(self, name: str=None) -> TcpTp:
@@ -176797,9 +175132,6 @@ class ProvidedServiceInstance(AbstractServiceInstance):
                 value._build_path(elementNameIfShortNameMissing = 'SdServerConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdServerConfig is not None:
             self.__sdServerConfig = None
-            self.__sdServerConfig._parent = None #No parent
-            self.__sdServerConfig._update_path() #updates the path
-            self.__sdServerConfig._node.getparent().remove(self.__sdServerConfig._node)
         XDT.mark_dirty(self.__sdServerConfig, self)
 
     def new_EventHandler(self, name: str=None) -> EventHandler:
@@ -177120,9 +175452,6 @@ class EventHandler(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'SdServerConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdServerConfig is not None:
             self.__sdServerConfig = None
-            self.__sdServerConfig._parent = None #No parent
-            self.__sdServerConfig._update_path() #updates the path
-            self.__sdServerConfig._node.getparent().remove(self.__sdServerConfig._node)
         XDT.mark_dirty(self.__sdServerConfig, self)
 
     def new_SdServerConfig(self, name: str=None) -> SdServerConfig:
@@ -177378,9 +175707,6 @@ class SdServerConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'InitialSdDelayConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__initialOfferBehavior is not None:
             self.__initialOfferBehavior = None
-            self.__initialOfferBehavior._parent = None #No parent
-            self.__initialOfferBehavior._update_path() #updates the path
-            self.__initialOfferBehavior._node.getparent().remove(self.__initialOfferBehavior._node)
         XDT.mark_dirty(self.__initialOfferBehavior, self)
 
     def get_requestResponseDelay(self) -> RequestResponseDelay:
@@ -177406,9 +175732,6 @@ class SdServerConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RequestResponseDelay_@' + str(len(self.get_children()))) #updates the path
         elif self.__requestResponseDelay is not None:
             self.__requestResponseDelay = None
-            self.__requestResponseDelay._parent = None #No parent
-            self.__requestResponseDelay._update_path() #updates the path
-            self.__requestResponseDelay._node.getparent().remove(self.__requestResponseDelay._node)
         XDT.mark_dirty(self.__requestResponseDelay, self)
 
     def new_CapabilityRecord(self, name: str=None) -> TagWithOptionalValue:
@@ -178040,9 +176363,6 @@ class ConsumedServiceInstance(AbstractServiceInstance):
                 value._build_path(elementNameIfShortNameMissing = 'SdClientConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdClientConfig is not None:
             self.__sdClientConfig = None
-            self.__sdClientConfig._parent = None #No parent
-            self.__sdClientConfig._update_path() #updates the path
-            self.__sdClientConfig._node.getparent().remove(self.__sdClientConfig._node)
         XDT.mark_dirty(self.__sdClientConfig, self)
 
     def new_ConsumedEventGroup(self, name: str=None) -> ConsumedEventGroup:
@@ -178283,9 +176603,6 @@ class SdClientConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'InitialSdDelayConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__initialFindBehavior is not None:
             self.__initialFindBehavior = None
-            self.__initialFindBehavior._parent = None #No parent
-            self.__initialFindBehavior._update_path() #updates the path
-            self.__initialFindBehavior._node.getparent().remove(self.__initialFindBehavior._node)
         XDT.mark_dirty(self.__initialFindBehavior, self)
 
     def get_requestResponseDelay(self) -> RequestResponseDelay:
@@ -178311,9 +176628,6 @@ class SdClientConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RequestResponseDelay_@' + str(len(self.get_children()))) #updates the path
         elif self.__requestResponseDelay is not None:
             self.__requestResponseDelay = None
-            self.__requestResponseDelay._parent = None #No parent
-            self.__requestResponseDelay._update_path() #updates the path
-            self.__requestResponseDelay._node.getparent().remove(self.__requestResponseDelay._node)
         XDT.mark_dirty(self.__requestResponseDelay, self)
 
     def new_CapabilityRecord(self, name: str=None) -> TagWithOptionalValue:
@@ -178898,9 +177212,6 @@ class CouplingPort(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'CouplingPortDetails_@' + str(len(self.get_children()))) #updates the path
         elif self.__couplingPortDetails is not None:
             self.__couplingPortDetails = None
-            self.__couplingPortDetails._parent = None #No parent
-            self.__couplingPortDetails._update_path() #updates the path
-            self.__couplingPortDetails._node.getparent().remove(self.__couplingPortDetails._node)
         XDT.mark_dirty(self.__couplingPortDetails, self)
 
     def get_defaultVlan(self) -> EthernetPhysicalChannel:
@@ -179104,9 +177415,6 @@ class CouplingPort(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VlanMembership(self, name: str=None) -> VlanMembership:
@@ -179568,9 +177876,6 @@ class CouplingPortDetails(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'GlobalTimeCouplingPortProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__globalTimeProps is not None:
             self.__globalTimeProps = None
-            self.__globalTimeProps._parent = None #No parent
-            self.__globalTimeProps._update_path() #updates the path
-            self.__globalTimeProps._node.getparent().remove(self.__globalTimeProps._node)
         XDT.mark_dirty(self.__globalTimeProps, self)
 
     def get_lastEgressScheduler(self) -> CouplingPortScheduler:
@@ -180294,9 +178599,6 @@ class EthernetPhysicalChannel(PhysicalChannel):
                 value._build_path(elementNameIfShortNameMissing = 'SoAdConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__soAdConfig is not None:
             self.__soAdConfig = None
-            self.__soAdConfig._parent = None #No parent
-            self.__soAdConfig._update_path() #updates the path
-            self.__soAdConfig._node.getparent().remove(self.__soAdConfig._node)
         XDT.mark_dirty(self.__soAdConfig, self)
 
     def get_vlan(self) -> VlanConfig:
@@ -180322,9 +178624,6 @@ class EthernetPhysicalChannel(PhysicalChannel):
                 value._build_path(elementNameIfShortNameMissing = 'VlanConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__vlan is not None:
             self.__vlan = None
-            self.__vlan._parent = None #No parent
-            self.__vlan._update_path() #updates the path
-            self.__vlan._node.getparent().remove(self.__vlan._node)
         XDT.mark_dirty(self.__vlan, self)
 
     def new_NetworkEndpoint(self, name: str=None) -> NetworkEndpoint:
@@ -180847,9 +179146,6 @@ class VlanMembership(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DhcpServerConfiguration_@' + str(len(self.get_children()))) #updates the path
         elif self.__dhcpAddressAssignment is not None:
             self.__dhcpAddressAssignment = None
-            self.__dhcpAddressAssignment._parent = None #No parent
-            self.__dhcpAddressAssignment._update_path() #updates the path
-            self.__dhcpAddressAssignment._node.getparent().remove(self.__dhcpAddressAssignment._node)
         XDT.mark_dirty(self.__dhcpAddressAssignment, self)
 
     def get_vlan(self) -> EthernetPhysicalChannel:
@@ -181361,9 +179657,6 @@ class EthernetClusterConditional(EthernetClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -181544,9 +179837,6 @@ class CouplingPortConnection(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -182197,9 +180487,6 @@ class EthernetCommunicationControllerConditional(EthernetCommunicationController
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -182425,9 +180712,6 @@ class HttpTp(TransportProtocolConfiguration):
                 value._build_path(elementNameIfShortNameMissing = 'TcpTp_@' + str(len(self.get_children()))) #updates the path
         elif self.__tcpTpConfig is not None:
             self.__tcpTpConfig = None
-            self.__tcpTpConfig._parent = None #No parent
-            self.__tcpTpConfig._update_path() #updates the path
-            self.__tcpTpConfig._node.getparent().remove(self.__tcpTpConfig._node)
         XDT.mark_dirty(self.__tcpTpConfig, self)
 
     def new_TcpTpConfig(self, name: str=None) -> TcpTp:
@@ -182657,9 +180941,6 @@ class TcpTp(TcpUdpConfig):
                 value._build_path(elementNameIfShortNameMissing = 'TpPort_@' + str(len(self.get_children()))) #updates the path
         elif self.__tcpTpPort is not None:
             self.__tcpTpPort = None
-            self.__tcpTpPort._parent = None #No parent
-            self.__tcpTpPort._update_path() #updates the path
-            self.__tcpTpPort._node.getparent().remove(self.__tcpTpPort._node)
         XDT.mark_dirty(self.__tcpTpPort, self)
 
     def new_TcpTpPort(self, name: str=None) -> TpPort:
@@ -183509,9 +181790,6 @@ class RtpTp(TransportProtocolConfiguration):
                 value._build_path(elementNameIfShortNameMissing = 'TcpUdpConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__tcpUdpConfig is not None:
             self.__tcpUdpConfig = None
-            self.__tcpUdpConfig._parent = None #No parent
-            self.__tcpUdpConfig._update_path() #updates the path
-            self.__tcpUdpConfig._node.getparent().remove(self.__tcpUdpConfig._node)
         XDT.mark_dirty(self.__tcpUdpConfig, self)
 
     def new_TcpTp(self, name: str=None) -> TcpTp:
@@ -183636,9 +181914,6 @@ class UdpTp(TcpUdpConfig):
                 value._build_path(elementNameIfShortNameMissing = 'TpPort_@' + str(len(self.get_children()))) #updates the path
         elif self.__udpTpPort is not None:
             self.__udpTpPort = None
-            self.__udpTpPort._parent = None #No parent
-            self.__udpTpPort._update_path() #updates the path
-            self.__udpTpPort._node.getparent().remove(self.__udpTpPort._node)
         XDT.mark_dirty(self.__udpTpPort, self)
 
     def new_UdpTpPort(self, name: str=None) -> TpPort:
@@ -183875,9 +182150,6 @@ class ConsumedEventGroup(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SdClientConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdClientConfig is not None:
             self.__sdClientConfig = None
-            self.__sdClientConfig._parent = None #No parent
-            self.__sdClientConfig._update_path() #updates the path
-            self.__sdClientConfig._node.getparent().remove(self.__sdClientConfig._node)
         XDT.mark_dirty(self.__sdClientConfig, self)
 
     def new_SdClientConfig(self, name: str=None) -> SdClientConfig:
@@ -184036,9 +182308,6 @@ class FlexrayAbsolutelyScheduledTiming(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CommunicationCycle_@' + str(len(self.get_children()))) #updates the path
         elif self.__communicationCycle is not None:
             self.__communicationCycle = None
-            self.__communicationCycle._parent = None #No parent
-            self.__communicationCycle._update_path() #updates the path
-            self.__communicationCycle._node.getparent().remove(self.__communicationCycle._node)
         XDT.mark_dirty(self.__communicationCycle, self)
 
     def new_CycleRepetition(self, name: str=None) -> CycleRepetition:
@@ -185255,9 +183524,6 @@ class FlexrayClusterConditional(FlexrayClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -186232,9 +184498,6 @@ class FlexrayCommunicationControllerConditional(FlexrayCommunicationControllerCo
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -187088,9 +185351,6 @@ class TtcanClusterConditional(TtcanClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -187542,9 +185802,6 @@ class TtcanCommunicationControllerConditional(TtcanCommunicationControllerConten
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -187704,9 +185961,6 @@ class TtcanAbsolutelyScheduledTiming(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CommunicationCycle_@' + str(len(self.get_children()))) #updates the path
         elif self.__communicationCycle is not None:
             self.__communicationCycle = None
-            self.__communicationCycle._parent = None #No parent
-            self.__communicationCycle._update_path() #updates the path
-            self.__communicationCycle._node.getparent().remove(self.__communicationCycle._node)
         XDT.mark_dirty(self.__communicationCycle, self)
 
     def new_CycleRepetition(self, name: str=None) -> CycleRepetition:
@@ -187861,9 +186115,6 @@ class ScheduleTableEntry(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def new_Introduction(self, name: str=None) -> DocumentationBlock:
@@ -188588,9 +186839,6 @@ class LinScheduleTable(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DataDumpEntry(self, name: str=None) -> DataDumpEntry:
@@ -189995,9 +188243,6 @@ class LinClusterConditional(LinClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -190909,9 +189154,6 @@ class LinMasterConditional(LinMasterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -191111,9 +189353,6 @@ class LinSlaveConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LinSlaveConfigIdent_@' + str(len(self.get_children()))) #updates the path
         elif self.__ident is not None:
             self.__ident = None
-            self.__ident._parent = None #No parent
-            self.__ident._update_path() #updates the path
-            self.__ident._node.getparent().remove(self.__ident._node)
         XDT.mark_dirty(self.__ident, self)
 
     def get_linErrorResponse(self) -> LinErrorResponse:
@@ -191139,9 +189378,6 @@ class LinSlaveConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LinErrorResponse_@' + str(len(self.get_children()))) #updates the path
         elif self.__linErrorResponse is not None:
             self.__linErrorResponse = None
-            self.__linErrorResponse._parent = None #No parent
-            self.__linErrorResponse._update_path() #updates the path
-            self.__linErrorResponse._node.getparent().remove(self.__linErrorResponse._node)
         XDT.mark_dirty(self.__linErrorResponse, self)
 
     def get_linSlaveEcu(self) -> LinSlave:
@@ -191558,9 +189794,6 @@ class LinSlaveContent(LinCommunicationControllerContent):
                 value._build_path(elementNameIfShortNameMissing = 'LinErrorResponse_@' + str(len(self.get_children()))) #updates the path
         elif self.__linErrorResponse is not None:
             self.__linErrorResponse = None
-            self.__linErrorResponse._parent = None #No parent
-            self.__linErrorResponse._update_path() #updates the path
-            self.__linErrorResponse._node.getparent().remove(self.__linErrorResponse._node)
         XDT.mark_dirty(self.__linErrorResponse, self)
 
     def new_LinErrorResponse(self, name: str=None) -> LinErrorResponse:
@@ -191691,9 +189924,6 @@ class LinSlaveConditional(LinSlaveContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -192040,9 +190270,6 @@ class FrameMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_sourceFrame(self) -> FrameTriggering:
@@ -192112,9 +190339,6 @@ class FrameMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -192664,9 +190888,6 @@ class IPduMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_sourceIPdu(self) -> PduTriggering:
@@ -192714,9 +190935,6 @@ class IPduMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TargetIPduRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__targetIPdu is not None:
             self.__targetIPdu = None
-            self.__targetIPdu._parent = None #No parent
-            self.__targetIPdu._update_path() #updates the path
-            self.__targetIPdu._node.getparent().remove(self.__targetIPdu._node)
         XDT.mark_dirty(self.__targetIPdu, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -192742,9 +190960,6 @@ class IPduMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_TargetIPdu(self, name: str=None) -> TargetIPduRef:
@@ -192934,9 +191149,6 @@ class TargetIPduRef(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PduMappingDefaultValue_@' + str(len(self.get_children()))) #updates the path
         elif self.__defaultValue is not None:
             self.__defaultValue = None
-            self.__defaultValue._parent = None #No parent
-            self.__defaultValue._update_path() #updates the path
-            self.__defaultValue._node.getparent().remove(self.__defaultValue._node)
         XDT.mark_dirty(self.__defaultValue, self)
 
     def get_targetIPdu(self) -> PduTriggering:
@@ -193237,9 +191449,6 @@ class ISignalMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_sourceSignal(self) -> ISignalTriggering:
@@ -193309,9 +191518,6 @@ class ISignalMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -193615,9 +191821,6 @@ class UserDefinedClusterConditional(UserDefinedClusterContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -193900,9 +192103,6 @@ class UserDefinedCommunicationControllerConditional(UserDefinedCommunicationCont
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -194075,9 +192275,6 @@ class FibexElementRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -194580,9 +192777,6 @@ class ISignalToIPduMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -194911,9 +193105,6 @@ class ISignal(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'ISignalProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__iSignalProps is not None:
             self.__iSignalProps = None
-            self.__iSignalProps._parent = None #No parent
-            self.__iSignalProps._update_path() #updates the path
-            self.__iSignalProps._node.getparent().remove(self.__iSignalProps._node)
         XDT.mark_dirty(self.__iSignalProps, self)
 
     def get_initValue(self) -> ValueSpecification:
@@ -194939,9 +193130,6 @@ class ISignal(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_networkRepresentationProps(self) -> SwDataDefProps:
@@ -194967,9 +193155,6 @@ class ISignal(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__networkRepresentationProps is not None:
             self.__networkRepresentationProps = None
-            self.__networkRepresentationProps._parent = None #No parent
-            self.__networkRepresentationProps._update_path() #updates the path
-            self.__networkRepresentationProps._node.getparent().remove(self.__networkRepresentationProps._node)
         XDT.mark_dirty(self.__networkRepresentationProps, self)
 
     def get_systemSignal(self) -> SystemSignal:
@@ -195017,9 +193202,6 @@ class ISignal(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeoutSubstitutionValue is not None:
             self.__timeoutSubstitutionValue = None
-            self.__timeoutSubstitutionValue._parent = None #No parent
-            self.__timeoutSubstitutionValue._update_path() #updates the path
-            self.__timeoutSubstitutionValue._node.getparent().remove(self.__timeoutSubstitutionValue._node)
         XDT.mark_dirty(self.__timeoutSubstitutionValue, self)
 
     def get_transformationISignalProps(self) -> list[TransformationISignalProps]:
@@ -195529,9 +193711,6 @@ class SystemSignal(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__physicalProps is not None:
             self.__physicalProps = None
-            self.__physicalProps._parent = None #No parent
-            self.__physicalProps._update_path() #updates the path
-            self.__physicalProps._node.getparent().remove(self.__physicalProps._node)
         XDT.mark_dirty(self.__physicalProps, self)
 
     def new_PhysicalProps(self, name: str=None) -> SwDataDefProps:
@@ -195653,9 +193832,6 @@ class CommConnectorPort(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -195831,9 +194007,6 @@ class PduTriggeringRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -196165,9 +194338,6 @@ class PduTriggering(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_TriggerIPduSendCondition(self, name: str=None) -> TriggerIPduSendCondition:
@@ -196522,9 +194692,6 @@ class ISignalTriggeringRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -196770,9 +194937,6 @@ class ISignalTriggering(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -197454,9 +195618,6 @@ class ISignalPort(CommConnectorPort):
                 value._build_path(elementNameIfShortNameMissing = 'DataFilter_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataFilter is not None:
             self.__dataFilter = None
-            self.__dataFilter._parent = None #No parent
-            self.__dataFilter._update_path() #updates the path
-            self.__dataFilter._node.getparent().remove(self.__dataFilter._node)
         XDT.mark_dirty(self.__dataFilter, self)
 
     def new_DataFilter(self, name: str=None) -> DataFilter:
@@ -197572,9 +195733,6 @@ class IPdu(Pdu):
                 value._build_path(elementNameIfShortNameMissing = 'ContainedIPduProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__containedIPduProps is not None:
             self.__containedIPduProps = None
-            self.__containedIPduProps._parent = None #No parent
-            self.__containedIPduProps._update_path() #updates the path
-            self.__containedIPduProps._node.getparent().remove(self.__containedIPduProps._node)
         XDT.mark_dirty(self.__containedIPduProps, self)
 
     def new_ContainedIPduProps(self, name: str=None) -> ContainedIPduProps:
@@ -198257,9 +196415,6 @@ class ISignalIPduRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -198808,9 +196963,6 @@ class IPduTiming(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'TransmissionModeDeclaration_@' + str(len(self.get_children()))) #updates the path
         elif self.__transmissionModeDeclaration is not None:
             self.__transmissionModeDeclaration = None
-            self.__transmissionModeDeclaration._parent = None #No parent
-            self.__transmissionModeDeclaration._update_path() #updates the path
-            self.__transmissionModeDeclaration._node.getparent().remove(self.__transmissionModeDeclaration._node)
         XDT.mark_dirty(self.__transmissionModeDeclaration, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -198836,9 +196988,6 @@ class IPduTiming(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -199011,9 +197160,6 @@ class SignalIPduCounter(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -199213,9 +197359,6 @@ class SignalIPduReplication(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -199375,9 +197518,6 @@ class NmPduRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -200173,9 +198313,6 @@ class DynamicPart(MultiplexedPart):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_DynamicPartAlternative(self, name: str=None) -> DynamicPartAlternative:
@@ -201005,9 +199142,6 @@ class StaticPart(MultiplexedPart):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -201193,9 +199327,6 @@ class PduToFrameMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -202298,9 +200429,6 @@ class SecuredIPdu(IPdu):
                 value._build_path(elementNameIfShortNameMissing = 'SecureCommunicationProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__secureCommunicationProps is not None:
             self.__secureCommunicationProps = None
-            self.__secureCommunicationProps._parent = None #No parent
-            self.__secureCommunicationProps._update_path() #updates the path
-            self.__secureCommunicationProps._node.getparent().remove(self.__secureCommunicationProps._node)
         XDT.mark_dirty(self.__secureCommunicationProps, self)
 
     def new_SecureCommunicationProps(self, name: str=None) -> SecureCommunicationProps:
@@ -202679,9 +200807,6 @@ class CyclicTiming(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'TimeRangeType_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeOffset is not None:
             self.__timeOffset = None
-            self.__timeOffset._parent = None #No parent
-            self.__timeOffset._update_path() #updates the path
-            self.__timeOffset._node.getparent().remove(self.__timeOffset._node)
         XDT.mark_dirty(self.__timeOffset, self)
 
     def get_timePeriod(self) -> TimeRangeType:
@@ -202707,9 +200832,6 @@ class CyclicTiming(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'TimeRangeType_@' + str(len(self.get_children()))) #updates the path
         elif self.__timePeriod is not None:
             self.__timePeriod = None
-            self.__timePeriod._parent = None #No parent
-            self.__timePeriod._update_path() #updates the path
-            self.__timePeriod._node.getparent().remove(self.__timePeriod._node)
         XDT.mark_dirty(self.__timePeriod, self)
 
     def new_TimeOffset(self, name: str=None) -> TimeRangeType:
@@ -202853,9 +200975,6 @@ class TimeRangeType(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TimeRangeTypeTolerance_@' + str(len(self.get_children()))) #updates the path
         elif self.__tolerance is not None:
             self.__tolerance = None
-            self.__tolerance._parent = None #No parent
-            self.__tolerance._update_path() #updates the path
-            self.__tolerance._node.getparent().remove(self.__tolerance._node)
         XDT.mark_dirty(self.__tolerance, self)
 
     def new_AbsoluteTolerance(self, name: str=None) -> AbsoluteTolerance:
@@ -202992,9 +201111,6 @@ class EventControlledTiming(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'TimeRangeType_@' + str(len(self.get_children()))) #updates the path
         elif self.__repetitionPeriod is not None:
             self.__repetitionPeriod = None
-            self.__repetitionPeriod._parent = None #No parent
-            self.__repetitionPeriod._update_path() #updates the path
-            self.__repetitionPeriod._node.getparent().remove(self.__repetitionPeriod._node)
         XDT.mark_dirty(self.__repetitionPeriod, self)
 
     def new_RepetitionPeriod(self, name: str=None) -> TimeRangeType:
@@ -203506,9 +201622,6 @@ class TransmissionModeDeclaration(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TransmissionModeTiming_@' + str(len(self.get_children()))) #updates the path
         elif self.__transmissionModeFalseTiming is not None:
             self.__transmissionModeFalseTiming = None
-            self.__transmissionModeFalseTiming._parent = None #No parent
-            self.__transmissionModeFalseTiming._update_path() #updates the path
-            self.__transmissionModeFalseTiming._node.getparent().remove(self.__transmissionModeFalseTiming._node)
         XDT.mark_dirty(self.__transmissionModeFalseTiming, self)
 
     def get_transmissionModeTrueTiming(self) -> TransmissionModeTiming:
@@ -203534,9 +201647,6 @@ class TransmissionModeDeclaration(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TransmissionModeTiming_@' + str(len(self.get_children()))) #updates the path
         elif self.__transmissionModeTrueTiming is not None:
             self.__transmissionModeTrueTiming = None
-            self.__transmissionModeTrueTiming._parent = None #No parent
-            self.__transmissionModeTrueTiming._update_path() #updates the path
-            self.__transmissionModeTrueTiming._node.getparent().remove(self.__transmissionModeTrueTiming._node)
         XDT.mark_dirty(self.__transmissionModeTrueTiming, self)
 
     def new_ModeDrivenFalseCondition(self, name: str=None) -> ModeDrivenTransmissionModeCondition:
@@ -203758,9 +201868,6 @@ class TransmissionModeCondition(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DataFilter_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataFilter is not None:
             self.__dataFilter = None
-            self.__dataFilter._parent = None #No parent
-            self.__dataFilter._update_path() #updates the path
-            self.__dataFilter._node.getparent().remove(self.__dataFilter._node)
         XDT.mark_dirty(self.__dataFilter, self)
 
     def get_iSignalInIPdu(self) -> ISignalToIPduMapping:
@@ -203900,9 +202007,6 @@ class TransmissionModeTiming(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CyclicTiming_@' + str(len(self.get_children()))) #updates the path
         elif self.__cyclicTiming is not None:
             self.__cyclicTiming = None
-            self.__cyclicTiming._parent = None #No parent
-            self.__cyclicTiming._update_path() #updates the path
-            self.__cyclicTiming._node.getparent().remove(self.__cyclicTiming._node)
         XDT.mark_dirty(self.__cyclicTiming, self)
 
     def get_eventControlledTiming(self) -> EventControlledTiming:
@@ -203928,9 +202032,6 @@ class TransmissionModeTiming(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'EventControlledTiming_@' + str(len(self.get_children()))) #updates the path
         elif self.__eventControlledTiming is not None:
             self.__eventControlledTiming = None
-            self.__eventControlledTiming._parent = None #No parent
-            self.__eventControlledTiming._update_path() #updates the path
-            self.__eventControlledTiming._node.getparent().remove(self.__eventControlledTiming._node)
         XDT.mark_dirty(self.__eventControlledTiming, self)
 
     def new_EventControlledTiming(self, name: str=None) -> EventControlledTiming:
@@ -204501,9 +202602,6 @@ class EcuInstance(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'ClientIdRange_@' + str(len(self.get_children()))) #updates the path
         elif self.__clientIdRange is not None:
             self.__clientIdRange = None
-            self.__clientIdRange._parent = None #No parent
-            self.__clientIdRange._update_path() #updates the path
-            self.__clientIdRange._node.getparent().remove(self.__clientIdRange._node)
         XDT.mark_dirty(self.__clientIdRange, self)
 
     def get_commControllers(self) -> list[CommunicationController]:
@@ -204629,9 +202727,6 @@ class EcuInstance(FibexElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticEcuProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__diagnosticProps is not None:
             self.__diagnosticProps = None
-            self.__diagnosticProps._parent = None #No parent
-            self.__diagnosticProps._update_path() #updates the path
-            self.__diagnosticProps._node.getparent().remove(self.__diagnosticProps._node)
         XDT.mark_dirty(self.__diagnosticProps, self)
 
     def get_partitions(self) -> list[EcuPartition]:
@@ -205250,9 +203345,6 @@ class ClientIdRange(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__lowerLimit is not None:
             self.__lowerLimit = None
-            self.__lowerLimit._parent = None #No parent
-            self.__lowerLimit._update_path() #updates the path
-            self.__lowerLimit._node.getparent().remove(self.__lowerLimit._node)
         XDT.mark_dirty(self.__lowerLimit, self)
 
     def get_upperLimit(self) -> LimitValueVariationPoint:
@@ -205278,9 +203370,6 @@ class ClientIdRange(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'LimitValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__upperLimit is not None:
             self.__upperLimit = None
-            self.__upperLimit._parent = None #No parent
-            self.__upperLimit._update_path() #updates the path
-            self.__upperLimit._node.getparent().remove(self.__upperLimit._node)
         XDT.mark_dirty(self.__upperLimit, self)
 
     def new_LowerLimit(self, name: str=None) -> LimitValueVariationPoint:
@@ -205473,9 +203562,6 @@ class CommunicationConnectorRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -205757,9 +203843,6 @@ class DataTransformationRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -205943,9 +204026,6 @@ class BufferProperties(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'CompuScale_@' + str(len(self.get_children()))) #updates the path
         elif self.__bufferComputation is not None:
             self.__bufferComputation = None
-            self.__bufferComputation._parent = None #No parent
-            self.__bufferComputation._update_path() #updates the path
-            self.__bufferComputation._node.getparent().remove(self.__bufferComputation._node)
         XDT.mark_dirty(self.__bufferComputation, self)
 
     def new_BufferComputation(self, name: str=None) -> CompuScale:
@@ -206143,9 +204223,6 @@ class DataPrototypeTransformationProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DataPrototypeInSystemRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataPrototypeRef is not None:
             self.__dataPrototypeRef = None
-            self.__dataPrototypeRef._parent = None #No parent
-            self.__dataPrototypeRef._update_path() #updates the path
-            self.__dataPrototypeRef._node.getparent().remove(self.__dataPrototypeRef._node)
         XDT.mark_dirty(self.__dataPrototypeRef, self)
 
     def get_networkRepresentationProps(self) -> SwDataDefProps:
@@ -206171,9 +204248,6 @@ class DataPrototypeTransformationProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__networkRepresentationProps is not None:
             self.__networkRepresentationProps = None
-            self.__networkRepresentationProps._parent = None #No parent
-            self.__networkRepresentationProps._update_path() #updates the path
-            self.__networkRepresentationProps._node.getparent().remove(self.__networkRepresentationProps._node)
         XDT.mark_dirty(self.__networkRepresentationProps, self)
 
     def get_transformationProps(self) -> TransformationProps:
@@ -206347,9 +204421,6 @@ class DataPrototypeWithApplicationDataTypeInSystemRef(DataPrototypeInSystemRef):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationDataPrototypeInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataPrototype is not None:
             self.__dataPrototype = None
-            self.__dataPrototype._parent = None #No parent
-            self.__dataPrototype._update_path() #updates the path
-            self.__dataPrototype._node.getparent().remove(self.__dataPrototype._node)
         XDT.mark_dirty(self.__dataPrototype, self)
 
     def new_DataPrototype(self, name: str=None) -> ApplicationDataPrototypeInSystemInstanceRef:
@@ -206758,9 +204829,6 @@ class TransformationTechnology(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'BufferProperties_@' + str(len(self.get_children()))) #updates the path
         elif self.__bufferProperties is not None:
             self.__bufferProperties = None
-            self.__bufferProperties._parent = None #No parent
-            self.__bufferProperties._update_path() #updates the path
-            self.__bufferProperties._node.getparent().remove(self.__bufferProperties._node)
         XDT.mark_dirty(self.__bufferProperties, self)
 
     def get_transformationDescriptions(self) -> list[TransformationDescription]:
@@ -206836,9 +204904,6 @@ class TransformationTechnology(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SOMEIPTransformationDescription(self, name: str=None) -> SOMEIPTransformationDescription:
@@ -207069,9 +205134,6 @@ class TransformationDescription(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -207856,9 +205918,6 @@ class EndToEndTransformationISignalPropsConditional(EndToEndTransformationISigna
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -208709,9 +206768,6 @@ class SOMEIPTransformationISignalPropsConditional(SOMEIPTransformationISignalPro
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -209281,9 +207337,6 @@ class UserDefinedTransformationISignalPropsConditional(UserDefinedTransformation
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -209896,9 +207949,6 @@ class DataTransformation(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -210593,9 +208643,6 @@ class NmCluster(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_CanNmNode(self, name: str=None) -> CanNmNode:
@@ -211485,9 +209532,6 @@ class NmNode(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -211912,9 +209956,6 @@ class NmEcu(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'BusspecificNmEcu_@' + str(len(self.get_children()))) #updates the path
         elif self.__busSpecificNmEcu is not None:
             self.__busSpecificNmEcu = None
-            self.__busSpecificNmEcu._parent = None #No parent
-            self.__busSpecificNmEcu._update_path() #updates the path
-            self.__busSpecificNmEcu._node.getparent().remove(self.__busSpecificNmEcu._node)
         XDT.mark_dirty(self.__busSpecificNmEcu, self)
 
     def get_ecuInstance(self) -> EcuInstance:
@@ -211962,9 +210003,6 @@ class NmEcu(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'NmCoordinator_@' + str(len(self.get_children()))) #updates the path
         elif self.__nmCoordinator is not None:
             self.__nmCoordinator = None
-            self.__nmCoordinator._parent = None #No parent
-            self.__nmCoordinator._update_path() #updates the path
-            self.__nmCoordinator._node.getparent().remove(self.__nmCoordinator._node)
         XDT.mark_dirty(self.__nmCoordinator, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -211990,9 +210028,6 @@ class NmEcu(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_NmCoordinator(self, name: str=None) -> NmCoordinator:
@@ -212858,9 +210893,6 @@ class NmClusterCoupling(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -213211,9 +211243,6 @@ class CanNmNode(NmNode):
                 value._build_path(elementNameIfShortNameMissing = 'CanNmRangeConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__nmRangeConfig is not None:
             self.__nmRangeConfig = None
-            self.__nmRangeConfig._parent = None #No parent
-            self.__nmRangeConfig._update_path() #updates the path
-            self.__nmRangeConfig._node.getparent().remove(self.__nmRangeConfig._node)
         XDT.mark_dirty(self.__nmRangeConfig, self)
 
     def new_NmRangeConfig(self, name: str=None) -> CanNmRangeConfig:
@@ -215174,9 +213203,6 @@ class J1939NmNode(NmNode):
                 value._build_path(elementNameIfShortNameMissing = 'J1939NodeName_@' + str(len(self.get_children()))) #updates the path
         elif self.__nodeName is not None:
             self.__nodeName = None
-            self.__nodeName._parent = None #No parent
-            self.__nodeName._update_path() #updates the path
-            self.__nodeName._node.getparent().remove(self.__nodeName._node)
         XDT.mark_dirty(self.__nodeName, self)
 
     def new_NodeName(self, name: str=None) -> J1939NodeName:
@@ -215469,9 +213495,6 @@ class ClientServerArrayElementMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ClientServerCompositeTypeMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__complexTypeMapping is not None:
             self.__complexTypeMapping = None
-            self.__complexTypeMapping._parent = None #No parent
-            self.__complexTypeMapping._update_path() #updates the path
-            self.__complexTypeMapping._node.getparent().remove(self.__complexTypeMapping._node)
         XDT.mark_dirty(self.__complexTypeMapping, self)
 
     def get_indexedArrayElement(self) -> IndexedArrayElement:
@@ -215497,9 +213520,6 @@ class ClientServerArrayElementMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'IndexedArrayElement_@' + str(len(self.get_children()))) #updates the path
         elif self.__indexedArrayElement is not None:
             self.__indexedArrayElement = None
-            self.__indexedArrayElement._parent = None #No parent
-            self.__indexedArrayElement._update_path() #updates the path
-            self.__indexedArrayElement._node.getparent().remove(self.__indexedArrayElement._node)
         XDT.mark_dirty(self.__indexedArrayElement, self)
 
     def get_systemSignal(self) -> SystemSignal:
@@ -216225,9 +214245,6 @@ class ClientServerRecordElementMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ClientServerCompositeTypeMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__complexTypeMapping is not None:
             self.__complexTypeMapping = None
-            self.__complexTypeMapping._parent = None #No parent
-            self.__complexTypeMapping._update_path() #updates the path
-            self.__complexTypeMapping._node.getparent().remove(self.__complexTypeMapping._node)
         XDT.mark_dirty(self.__complexTypeMapping, self)
 
     def get_implementationRecordElement(self) -> ImplementationDataTypeElement:
@@ -216696,9 +214713,6 @@ class DataMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_serviceInstances(self) -> list[AbstractServiceInstance]:
@@ -216766,9 +214780,6 @@ class DataMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -217023,9 +215034,6 @@ class ClientServerToSignalGroupMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationErrorMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__applicationError is not None:
             self.__applicationError = None
-            self.__applicationError._parent = None #No parent
-            self.__applicationError._update_path() #updates the path
-            self.__applicationError._node.getparent().remove(self.__applicationError._node)
         XDT.mark_dirty(self.__applicationError, self)
 
     def get_clientID(self) -> ClientIdMapping:
@@ -217051,9 +215059,6 @@ class ClientServerToSignalGroupMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'ClientIdMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__clientID is not None:
             self.__clientID = None
-            self.__clientID._parent = None #No parent
-            self.__clientID._update_path() #updates the path
-            self.__clientID._node.getparent().remove(self.__clientID._node)
         XDT.mark_dirty(self.__clientID, self)
 
     def get_compositeTypeMappings(self) -> list[ClientServerCompositeTypeMapping]:
@@ -217129,9 +215134,6 @@ class ClientServerToSignalGroupMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'EmptySignalMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__emptySignal is not None:
             self.__emptySignal = None
-            self.__emptySignal._parent = None #No parent
-            self.__emptySignal._update_path() #updates the path
-            self.__emptySignal._node.getparent().remove(self.__emptySignal._node)
         XDT.mark_dirty(self.__emptySignal, self)
 
     def get_mappedOperation(self) -> OperationInSystemInstanceRef:
@@ -217157,9 +215159,6 @@ class ClientServerToSignalGroupMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'OperationInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mappedOperation is not None:
             self.__mappedOperation = None
-            self.__mappedOperation._parent = None #No parent
-            self.__mappedOperation._update_path() #updates the path
-            self.__mappedOperation._node.getparent().remove(self.__mappedOperation._node)
         XDT.mark_dirty(self.__mappedOperation, self)
 
     def get_primitiveTypeMappings(self) -> list[ClientServerPrimitiveTypeMapping]:
@@ -217279,9 +215278,6 @@ class ClientServerToSignalGroupMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SequenceCounterMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__sequenceCounter is not None:
             self.__sequenceCounter = None
-            self.__sequenceCounter._parent = None #No parent
-            self.__sequenceCounter._update_path() #updates the path
-            self.__sequenceCounter._node.getparent().remove(self.__sequenceCounter._node)
         XDT.mark_dirty(self.__sequenceCounter, self)
 
     def new_ClientServerArrayTypeMapping(self, name: str=None) -> ClientServerArrayTypeMapping:
@@ -217907,9 +215903,6 @@ class ClientServerToSignalMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'OperationInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__clientServerOperation is not None:
             self.__clientServerOperation = None
-            self.__clientServerOperation._parent = None #No parent
-            self.__clientServerOperation._update_path() #updates the path
-            self.__clientServerOperation._node.getparent().remove(self.__clientServerOperation._node)
         XDT.mark_dirty(self.__clientServerOperation, self)
 
     def get_returnSignal(self) -> SystemSignal:
@@ -218124,9 +216117,6 @@ class SenderRecArrayElementMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SenderRecCompositeTypeMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__complexTypeMapping is not None:
             self.__complexTypeMapping = None
-            self.__complexTypeMapping._parent = None #No parent
-            self.__complexTypeMapping._update_path() #updates the path
-            self.__complexTypeMapping._node.getparent().remove(self.__complexTypeMapping._node)
         XDT.mark_dirty(self.__complexTypeMapping, self)
 
     def get_indexedArrayElement(self) -> IndexedArrayElement:
@@ -218152,9 +216142,6 @@ class SenderRecArrayElementMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'IndexedArrayElement_@' + str(len(self.get_children()))) #updates the path
         elif self.__indexedArrayElement is not None:
             self.__indexedArrayElement = None
-            self.__indexedArrayElement._parent = None #No parent
-            self.__indexedArrayElement._update_path() #updates the path
-            self.__indexedArrayElement._node.getparent().remove(self.__indexedArrayElement._node)
         XDT.mark_dirty(self.__indexedArrayElement, self)
 
     def get_systemSignal(self) -> SystemSignal:
@@ -218509,9 +216496,6 @@ class SenderReceiverCompositeElementToSignalMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'VariableDataPrototypeInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataElement is not None:
             self.__dataElement = None
-            self.__dataElement._parent = None #No parent
-            self.__dataElement._update_path() #updates the path
-            self.__dataElement._node.getparent().remove(self.__dataElement._node)
         XDT.mark_dirty(self.__dataElement, self)
 
     def get_systemSignal(self) -> SystemSignal:
@@ -218559,9 +216543,6 @@ class SenderReceiverCompositeElementToSignalMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SenderRecCompositeTypeMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__typeMapping is not None:
             self.__typeMapping = None
-            self.__typeMapping._parent = None #No parent
-            self.__typeMapping._update_path() #updates the path
-            self.__typeMapping._node.getparent().remove(self.__typeMapping._node)
         XDT.mark_dirty(self.__typeMapping, self)
 
     def new_SenderRecRecordTypeMapping(self, name: str=None) -> SenderRecRecordTypeMapping:
@@ -218742,9 +216723,6 @@ class SenderReceiverToSignalGroupMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'VariableDataPrototypeInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataElement is not None:
             self.__dataElement = None
-            self.__dataElement._parent = None #No parent
-            self.__dataElement._update_path() #updates the path
-            self.__dataElement._node.getparent().remove(self.__dataElement._node)
         XDT.mark_dirty(self.__dataElement, self)
 
     def get_signalGroup(self) -> SystemSignalGroup:
@@ -218792,9 +216770,6 @@ class SenderReceiverToSignalGroupMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SenderRecCompositeTypeMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__typeMapping is not None:
             self.__typeMapping = None
-            self.__typeMapping._parent = None #No parent
-            self.__typeMapping._update_path() #updates the path
-            self.__typeMapping._node.getparent().remove(self.__typeMapping._node)
         XDT.mark_dirty(self.__typeMapping, self)
 
     def new_SenderRecRecordTypeMapping(self, name: str=None) -> SenderRecRecordTypeMapping:
@@ -218964,9 +216939,6 @@ class SenderReceiverToSignalMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'VariableDataPrototypeInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataElement is not None:
             self.__dataElement = None
-            self.__dataElement._parent = None #No parent
-            self.__dataElement._update_path() #updates the path
-            self.__dataElement._node.getparent().remove(self.__dataElement._node)
         XDT.mark_dirty(self.__dataElement, self)
 
     def get_systemSignal(self) -> SystemSignal:
@@ -219171,9 +217143,6 @@ class SenderRecRecordElementMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SenderRecCompositeTypeMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__complexTypeMapping is not None:
             self.__complexTypeMapping = None
-            self.__complexTypeMapping._parent = None #No parent
-            self.__complexTypeMapping._update_path() #updates the path
-            self.__complexTypeMapping._node.getparent().remove(self.__complexTypeMapping._node)
         XDT.mark_dirty(self.__complexTypeMapping, self)
 
     def get_implementationRecordElement(self) -> ImplementationDataTypeElement:
@@ -219504,9 +217473,6 @@ class TriggerToSignalMapping(DataMapping):
                 value._build_path(elementNameIfShortNameMissing = 'TriggerInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__trigger is not None:
             self.__trigger = None
-            self.__trigger._parent = None #No parent
-            self.__trigger._update_path() #updates the path
-            self.__trigger._node.getparent().remove(self.__trigger._node)
         XDT.mark_dirty(self.__trigger, self)
 
     def get_systemSignal(self) -> SystemSignal:
@@ -219947,9 +217913,6 @@ class TpConnection(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'TpConnectionIdent_@' + str(len(self.get_children()))) #updates the path
         elif self.__ident is not None:
             self.__ident = None
-            self.__ident._parent = None #No parent
-            self.__ident._update_path() #updates the path
-            self.__ident._node.getparent().remove(self.__ident._node)
         XDT.mark_dirty(self.__ident, self)
 
     def new_Ident(self, name: str=None) -> TpConnectionIdent:
@@ -220259,9 +218222,6 @@ class DiagnosticConnectionRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -220426,9 +218386,6 @@ class CanTpAddress(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -220570,9 +218527,6 @@ class CanTpChannel(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -221307,9 +219261,6 @@ class CanTpEcu(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -221439,9 +219390,6 @@ class TpAddress(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -221676,9 +219624,6 @@ class CanTpNode(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -222232,9 +220177,6 @@ class CanTpConnection(TpConnection):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -223195,9 +221137,6 @@ class FlexrayArTpChannel(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_PduPool(self, name: str=None) -> NPdu:
@@ -224072,9 +222011,6 @@ class FlexrayArTpNode(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -225168,9 +223104,6 @@ class FlexrayTpEcu(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -225374,9 +223307,6 @@ class FlexrayTpPduPool(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -225821,9 +223751,6 @@ class FlexrayTpConnection(TpConnection):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -226227,9 +224154,6 @@ class FlexrayTpConnectionControl(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -226582,9 +224506,6 @@ class FlexrayTpNode(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -227452,9 +225373,6 @@ class J1939TpConnection(TpConnection):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -227768,9 +225686,6 @@ class J1939TpNode(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -228550,9 +226465,6 @@ class LinTpNode(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -228989,9 +226901,6 @@ class LinTpConnection(TpConnection):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -229645,9 +227554,6 @@ class ApplicationPartitionToEcuPartitionMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -229775,9 +227681,6 @@ class MappingConstraint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -229803,9 +227706,6 @@ class MappingConstraint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -230290,9 +228190,6 @@ class EcuResourceEstimation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_bswResourceEstimation(self) -> ResourceConsumption:
@@ -230318,9 +228215,6 @@ class EcuResourceEstimation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ResourceConsumption_@' + str(len(self.get_children()))) #updates the path
         elif self.__bswResourceEstimation is not None:
             self.__bswResourceEstimation = None
-            self.__bswResourceEstimation._parent = None #No parent
-            self.__bswResourceEstimation._update_path() #updates the path
-            self.__bswResourceEstimation._node.getparent().remove(self.__bswResourceEstimation._node)
         XDT.mark_dirty(self.__bswResourceEstimation, self)
 
     def get_ecuInstance(self) -> EcuInstance:
@@ -230368,9 +228262,6 @@ class EcuResourceEstimation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ResourceConsumption_@' + str(len(self.get_children()))) #updates the path
         elif self.__rteResourceEstimation is not None:
             self.__rteResourceEstimation = None
-            self.__rteResourceEstimation._parent = None #No parent
-            self.__rteResourceEstimation._update_path() #updates the path
-            self.__rteResourceEstimation._node.getparent().remove(self.__rteResourceEstimation._node)
         XDT.mark_dirty(self.__rteResourceEstimation, self)
 
     def get_swCompToEcuMappings(self) -> list[SwcToEcuMapping]:
@@ -230438,9 +228329,6 @@ class EcuResourceEstimation(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -230854,9 +228742,6 @@ class SwcToEcuMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -231029,9 +228914,6 @@ class J1939ControllerApplication(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swComponentPrototype is not None:
             self.__swComponentPrototype = None
-            self.__swComponentPrototype._parent = None #No parent
-            self.__swComponentPrototype._update_path() #updates the path
-            self.__swComponentPrototype._node.getparent().remove(self.__swComponentPrototype._node)
         XDT.mark_dirty(self.__swComponentPrototype, self)
 
     def new_SwComponentPrototype(self, name: str=None) -> ComponentInSystemInstanceRef:
@@ -231317,9 +229199,6 @@ class SwcToApplicationPartitionMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swComponentPrototype is not None:
             self.__swComponentPrototype = None
-            self.__swComponentPrototype._parent = None #No parent
-            self.__swComponentPrototype._update_path() #updates the path
-            self.__swComponentPrototype._node.getparent().remove(self.__swComponentPrototype._node)
         XDT.mark_dirty(self.__swComponentPrototype, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -231345,9 +229224,6 @@ class SwcToApplicationPartitionMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwComponentPrototype(self, name: str=None) -> ComponentInSystemInstanceRef:
@@ -231518,9 +229394,6 @@ class SwcToEcuMappingConstraint(MappingConstraint):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__component is not None:
             self.__component = None
-            self.__component._parent = None #No parent
-            self.__component._update_path() #updates the path
-            self.__component._node.getparent().remove(self.__component._node)
         XDT.mark_dirty(self.__component, self)
 
     def get_ecuInstances(self) -> list[EcuInstance]:
@@ -231784,9 +229657,6 @@ class SwcToImplMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -232060,9 +229930,6 @@ class PncMapping(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'PncMappingIdent_@' + str(len(self.get_children()))) #updates the path
         elif self.__ident is not None:
             self.__ident = None
-            self.__ident._parent = None #No parent
-            self.__ident._update_path() #updates the path
-            self.__ident._node.getparent().remove(self.__ident._node)
         XDT.mark_dirty(self.__ident, self)
 
     def get_pncGroups(self) -> list[ISignalIPduGroup]:
@@ -232222,9 +230089,6 @@ class PncMapping(Describable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_Vfc(self, name: str=None) -> PortGroupInSystemInstanceRef:
@@ -232897,9 +230761,6 @@ class ECUMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_CommControllerMapping(self, name: str=None) -> CommunicationControllerMapping:
@@ -233073,9 +230934,6 @@ class SignalPathConstraint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -233101,9 +230959,6 @@ class SignalPathConstraint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -234598,9 +232453,6 @@ class EndToEndProtectionISignalIPdu(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -236972,9 +234824,6 @@ class PortPrototypeBlueprintInitValue(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -237663,9 +235512,6 @@ class BlueprintGenerator(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def new_Introduction(self, name: str=None) -> DocumentationBlock:
@@ -238171,9 +236017,6 @@ class DataExchangePoint(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'Baseline_@' + str(len(self.get_children()))) #updates the path
         elif self.__referencedBaseline is not None:
             self.__referencedBaseline = None
-            self.__referencedBaseline._parent = None #No parent
-            self.__referencedBaseline._update_path() #updates the path
-            self.__referencedBaseline._node.getparent().remove(self.__referencedBaseline._node)
         XDT.mark_dirty(self.__referencedBaseline, self)
 
     def get_specificationScope(self) -> SpecificationScope:
@@ -238199,9 +236042,6 @@ class DataExchangePoint(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'SpecificationScope_@' + str(len(self.get_children()))) #updates the path
         elif self.__specificationScope is not None:
             self.__specificationScope = None
-            self.__specificationScope._parent = None #No parent
-            self.__specificationScope._update_path() #updates the path
-            self.__specificationScope._node.getparent().remove(self.__specificationScope._node)
         XDT.mark_dirty(self.__specificationScope, self)
 
     def get_dataFormatTailoring(self) -> DataFormatTailoring:
@@ -238227,9 +236067,6 @@ class DataExchangePoint(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'DataFormatTailoring_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataFormatTailoring is not None:
             self.__dataFormatTailoring = None
-            self.__dataFormatTailoring._parent = None #No parent
-            self.__dataFormatTailoring._update_path() #updates the path
-            self.__dataFormatTailoring._node.getparent().remove(self.__dataFormatTailoring._node)
         XDT.mark_dirty(self.__dataFormatTailoring, self)
 
     def new_ReferencedBaseline(self, name: str=None) -> Baseline:
@@ -239044,9 +236881,6 @@ class ClassTailoring(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'MultiplicityRestrictionWithSeverity_@' + str(len(self.get_children()))) #updates the path
         elif self.__multiplicityRestriction is not None:
             self.__multiplicityRestriction = None
-            self.__multiplicityRestriction._parent = None #No parent
-            self.__multiplicityRestriction._update_path() #updates the path
-            self.__multiplicityRestriction._node.getparent().remove(self.__multiplicityRestriction._node)
         XDT.mark_dirty(self.__multiplicityRestriction, self)
 
     def get_variationRestriction(self) -> VariationRestrictionWithSeverity:
@@ -239072,9 +236906,6 @@ class ClassTailoring(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationRestrictionWithSeverity_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationRestriction is not None:
             self.__variationRestriction = None
-            self.__variationRestriction._parent = None #No parent
-            self.__variationRestriction._update_path() #updates the path
-            self.__variationRestriction._node.getparent().remove(self.__variationRestriction._node)
         XDT.mark_dirty(self.__variationRestriction, self)
 
     def get_classContents(self) -> list[ClassContentConditional]:
@@ -239349,9 +237180,6 @@ class ClassContentConditional(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'AbstractCondition_@' + str(len(self.get_children()))) #updates the path
         elif self.__condition is not None:
             self.__condition = None
-            self.__condition._parent = None #No parent
-            self.__condition._update_path() #updates the path
-            self.__condition._node.getparent().remove(self.__condition._node)
         XDT.mark_dirty(self.__condition, self)
 
     def get_attributeTailorings(self) -> list[AttributeTailoring]:
@@ -239828,9 +237656,6 @@ class AttributeTailoring(DataFormatElementScope):
                 value._build_path(elementNameIfShortNameMissing = 'MultiplicityRestrictionWithSeverity_@' + str(len(self.get_children()))) #updates the path
         elif self.__multiplicityRestriction is not None:
             self.__multiplicityRestriction = None
-            self.__multiplicityRestriction._parent = None #No parent
-            self.__multiplicityRestriction._update_path() #updates the path
-            self.__multiplicityRestriction._node.getparent().remove(self.__multiplicityRestriction._node)
         XDT.mark_dirty(self.__multiplicityRestriction, self)
 
     def get_variationRestriction(self) -> VariationRestrictionWithSeverity:
@@ -239856,9 +237681,6 @@ class AttributeTailoring(DataFormatElementScope):
                 value._build_path(elementNameIfShortNameMissing = 'VariationRestrictionWithSeverity_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationRestriction is not None:
             self.__variationRestriction = None
-            self.__variationRestriction._parent = None #No parent
-            self.__variationRestriction._update_path() #updates the path
-            self.__variationRestriction._node.getparent().remove(self.__variationRestriction._node)
         XDT.mark_dirty(self.__variationRestriction, self)
 
     def new_MultiplicityRestriction(self, name: str=None) -> MultiplicityRestrictionWithSeverity:
@@ -240757,9 +238579,6 @@ class InvertCondition(AbstractCondition):
                 value._build_path(elementNameIfShortNameMissing = 'AbstractCondition_@' + str(len(self.get_children()))) #updates the path
         elif self.__condition is not None:
             self.__condition = None
-            self.__condition._parent = None #No parent
-            self.__condition._update_path() #updates the path
-            self.__condition._node.getparent().remove(self.__condition._node)
         XDT.mark_dirty(self.__condition, self)
 
     def new_PrimitiveAttributeCondition(self, name: str=None) -> PrimitiveAttributeCondition:
@@ -241080,9 +238899,6 @@ class PrimitiveAttributeTailoring(AttributeTailoring):
                 value._build_path(elementNameIfShortNameMissing = 'ValueRestrictionWithSeverity_@' + str(len(self.get_children()))) #updates the path
         elif self.__valueRestriction is not None:
             self.__valueRestriction = None
-            self.__valueRestriction._parent = None #No parent
-            self.__valueRestriction._update_path() #updates the path
-            self.__valueRestriction._node.getparent().remove(self.__valueRestriction._node)
         XDT.mark_dirty(self.__valueRestriction, self)
 
     def new_SubAttributeTailoring(self, name: str=None) -> PrimitiveAttributeTailoring:
@@ -241393,9 +239209,6 @@ class ReferenceTailoring(AttributeTailoring):
                 value._build_path(elementNameIfShortNameMissing = 'UnresolvedReferenceRestrictionWithSeverity_@' + str(len(self.get_children()))) #updates the path
         elif self.__unresolvedReferenceRestriction is not None:
             self.__unresolvedReferenceRestriction = None
-            self.__unresolvedReferenceRestriction._parent = None #No parent
-            self.__unresolvedReferenceRestriction._update_path() #updates the path
-            self.__unresolvedReferenceRestriction._node.getparent().remove(self.__unresolvedReferenceRestriction._node)
         XDT.mark_dirty(self.__unresolvedReferenceRestriction, self)
 
     def new_AbstractClassTailoring(self, name: str=None) -> AbstractClassTailoring:
@@ -242149,9 +239962,6 @@ class ClientServerOperationBlueprintMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__blueprintMappingGuide is not None:
             self.__blueprintMappingGuide = None
-            self.__blueprintMappingGuide._parent = None #No parent
-            self.__blueprintMappingGuide._update_path() #updates the path
-            self.__blueprintMappingGuide._node.getparent().remove(self.__blueprintMappingGuide._node)
         XDT.mark_dirty(self.__blueprintMappingGuide, self)
 
     def get_bswModuleEntry(self) -> BswModuleEntry:
@@ -242221,9 +240031,6 @@ class ClientServerOperationBlueprintMapping(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_BlueprintMappingGuide(self, name: str=None) -> DocumentationBlock:
@@ -242394,9 +240201,6 @@ class PortDefinedArgumentBlueprint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__blueprintMappingGuide is not None:
             self.__blueprintMappingGuide = None
-            self.__blueprintMappingGuide._parent = None #No parent
-            self.__blueprintMappingGuide._update_path() #updates the path
-            self.__blueprintMappingGuide._node.getparent().remove(self.__blueprintMappingGuide._node)
         XDT.mark_dirty(self.__blueprintMappingGuide, self)
 
     def get_valueType(self) -> ImplementationDataType:
@@ -242444,9 +240248,6 @@ class PortDefinedArgumentBlueprint(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_BlueprintMappingGuide(self, name: str=None) -> DocumentationBlock:
@@ -242632,9 +240433,6 @@ class BlueprintPolicyModifiable(BlueprintPolicy):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__blueprintDerivationGuide is not None:
             self.__blueprintDerivationGuide = None
-            self.__blueprintDerivationGuide._parent = None #No parent
-            self.__blueprintDerivationGuide._update_path() #updates the path
-            self.__blueprintDerivationGuide._node.getparent().remove(self.__blueprintDerivationGuide._node)
         XDT.mark_dirty(self.__blueprintDerivationGuide, self)
 
     def new_BlueprintDerivationGuide(self, name: str=None) -> DocumentationBlock:
@@ -242741,9 +240539,6 @@ class BlueprintPolicyList(BlueprintPolicyModifiable):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__maxNumberOfElements is not None:
             self.__maxNumberOfElements = None
-            self.__maxNumberOfElements._parent = None #No parent
-            self.__maxNumberOfElements._update_path() #updates the path
-            self.__maxNumberOfElements._node.getparent().remove(self.__maxNumberOfElements._node)
         XDT.mark_dirty(self.__maxNumberOfElements, self)
 
     def get_minNumberOfElements(self) -> PositiveIntegerValueVariationPoint:
@@ -242769,9 +240564,6 @@ class BlueprintPolicyList(BlueprintPolicyModifiable):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__minNumberOfElements is not None:
             self.__minNumberOfElements = None
-            self.__minNumberOfElements._parent = None #No parent
-            self.__minNumberOfElements._update_path() #updates the path
-            self.__minNumberOfElements._node.getparent().remove(self.__minNumberOfElements._node)
         XDT.mark_dirty(self.__minNumberOfElements, self)
 
     def new_MaxNumberOfElements(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -243120,9 +240912,6 @@ class AUTOSAR(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'FileInfoComment_@' + str(len(self.get_children()))) #updates the path
         elif self.__fileInfoComment is not None:
             self.__fileInfoComment = None
-            self.__fileInfoComment._parent = None #No parent
-            self.__fileInfoComment._update_path() #updates the path
-            self.__fileInfoComment._node.getparent().remove(self.__fileInfoComment._node)
         XDT.mark_dirty(self.__fileInfoComment, self)
 
     def get_adminData(self) -> AdminData:
@@ -243148,9 +240937,6 @@ class AUTOSAR(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'AdminData_@' + str(len(self.get_children()))) #updates the path
         elif self.__adminData is not None:
             self.__adminData = None
-            self.__adminData._parent = None #No parent
-            self.__adminData._update_path() #updates the path
-            self.__adminData._node.getparent().remove(self.__adminData._node)
         XDT.mark_dirty(self.__adminData, self)
 
     def get_introduction(self) -> DocumentationBlock:
@@ -243176,9 +240962,6 @@ class AUTOSAR(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DocumentationBlock_@' + str(len(self.get_children()))) #updates the path
         elif self.__introduction is not None:
             self.__introduction = None
-            self.__introduction._parent = None #No parent
-            self.__introduction._update_path() #updates the path
-            self.__introduction._node.getparent().remove(self.__introduction._node)
         XDT.mark_dirty(self.__introduction, self)
 
     def get_arPackages(self) -> list[ARPackage]:
@@ -244635,9 +242418,6 @@ class FMFeatureRestriction(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'FMConditionByFeaturesAndAttributes_@' + str(len(self.get_children()))) #updates the path
         elif self.__restriction is not None:
             self.__restriction = None
-            self.__restriction._parent = None #No parent
-            self.__restriction._update_path() #updates the path
-            self.__restriction._node.getparent().remove(self.__restriction._node)
         XDT.mark_dirty(self.__restriction, self)
 
     def new_Restriction(self, name: str=None) -> FMConditionByFeaturesAndAttributes:
@@ -245382,9 +243162,6 @@ class FMFeatureMapAssertion(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'FMConditionByFeaturesAndSwSystemconsts_@' + str(len(self.get_children()))) #updates the path
         elif self.__fmSyscond is not None:
             self.__fmSyscond = None
-            self.__fmSyscond._parent = None #No parent
-            self.__fmSyscond._update_path() #updates the path
-            self.__fmSyscond._node.getparent().remove(self.__fmSyscond._node)
         XDT.mark_dirty(self.__fmSyscond, self)
 
     def new_FmSyscond(self, name: str=None) -> FMConditionByFeaturesAndSwSystemconsts:
@@ -245486,9 +243263,6 @@ class FMFeatureMapCondition(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'FMConditionByFeaturesAndAttributes_@' + str(len(self.get_children()))) #updates the path
         elif self.__fmCond is not None:
             self.__fmCond = None
-            self.__fmCond._parent = None #No parent
-            self.__fmCond._update_path() #updates the path
-            self.__fmCond._node.getparent().remove(self.__fmCond._node)
         XDT.mark_dirty(self.__fmCond, self)
 
     def new_FmCond(self, name: str=None) -> FMConditionByFeaturesAndAttributes:
@@ -246320,9 +244094,6 @@ class DiagnosticJ1939SwMapping(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'ComponentInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swComponentPrototype is not None:
             self.__swComponentPrototype = None
-            self.__swComponentPrototype._parent = None #No parent
-            self.__swComponentPrototype._update_path() #updates the path
-            self.__swComponentPrototype._node.getparent().remove(self.__swComponentPrototype._node)
         XDT.mark_dirty(self.__swComponentPrototype, self)
 
     def new_SwComponentPrototype(self, name: str=None) -> ComponentInCompositionInstanceRef:
@@ -246519,9 +244290,6 @@ class DiagnosticDataElement(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -246547,9 +244315,6 @@ class DiagnosticDataElement(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SwDataDefProps(self, name: str=None) -> SwDataDefProps:
@@ -246782,9 +244547,6 @@ class DiagnosticDataIdentifier(DiagnosticAbstractDataIdentifier):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticSupportInfoByte_@' + str(len(self.get_children()))) #updates the path
         elif self.__supportInfoByte is not None:
             self.__supportInfoByte = None
-            self.__supportInfoByte._parent = None #No parent
-            self.__supportInfoByte._update_path() #updates the path
-            self.__supportInfoByte._node.getparent().remove(self.__supportInfoByte._node)
         XDT.mark_dirty(self.__supportInfoByte, self)
 
     def new_SupportInfoByte(self, name: str=None) -> DiagnosticSupportInfoByte:
@@ -247092,9 +244854,6 @@ class DiagnosticParameter(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticParameterSupportInfo_@' + str(len(self.get_children()))) #updates the path
         elif self.__supportInfo is not None:
             self.__supportInfo = None
-            self.__supportInfo._parent = None #No parent
-            self.__supportInfo._update_path() #updates the path
-            self.__supportInfo._node.getparent().remove(self.__supportInfo._node)
         XDT.mark_dirty(self.__supportInfo, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -247120,9 +244879,6 @@ class DiagnosticParameter(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_SupportInfo(self, name: str=None) -> DiagnosticParameterSupportInfo:
@@ -247619,9 +245375,6 @@ class DiagnosticParameterIdentifier(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticSupportInfoByte_@' + str(len(self.get_children()))) #updates the path
         elif self.__supportInfoByte is not None:
             self.__supportInfoByte = None
-            self.__supportInfoByte._parent = None #No parent
-            self.__supportInfoByte._update_path() #updates the path
-            self.__supportInfoByte._node.getparent().remove(self.__supportInfoByte._node)
         XDT.mark_dirty(self.__supportInfoByte, self)
 
     def new_SupportInfoByte(self, name: str=None) -> DiagnosticSupportInfoByte:
@@ -248011,9 +245764,6 @@ class DiagnosticRoutine(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__id is not None:
             self.__id = None
-            self.__id._parent = None #No parent
-            self.__id._update_path() #updates the path
-            self.__id._node.getparent().remove(self.__id._node)
         XDT.mark_dirty(self.__id, self)
 
     def get_requestResult(self) -> DiagnosticRequestRoutineResults:
@@ -248039,9 +245789,6 @@ class DiagnosticRoutine(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticRequestRoutineResults_@' + str(len(self.get_children()))) #updates the path
         elif self.__requestResult is not None:
             self.__requestResult = None
-            self.__requestResult._parent = None #No parent
-            self.__requestResult._update_path() #updates the path
-            self.__requestResult._node.getparent().remove(self.__requestResult._node)
         XDT.mark_dirty(self.__requestResult, self)
 
     def get_start(self) -> DiagnosticStartRoutine:
@@ -248067,9 +245814,6 @@ class DiagnosticRoutine(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticStartRoutine_@' + str(len(self.get_children()))) #updates the path
         elif self.__start is not None:
             self.__start = None
-            self.__start._parent = None #No parent
-            self.__start._update_path() #updates the path
-            self.__start._node.getparent().remove(self.__start._node)
         XDT.mark_dirty(self.__start, self)
 
     def get_stop(self) -> DiagnosticStopRoutine:
@@ -248095,9 +245839,6 @@ class DiagnosticRoutine(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticStopRoutine_@' + str(len(self.get_children()))) #updates the path
         elif self.__stop is not None:
             self.__stop = None
-            self.__stop._parent = None #No parent
-            self.__stop._update_path() #updates the path
-            self.__stop._node.getparent().remove(self.__stop._node)
         XDT.mark_dirty(self.__stop, self)
 
     def new_Id(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -248758,9 +246499,6 @@ class DiagnosticCommonElementRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -251263,9 +249001,6 @@ class DiagnosticEnvBswModeElement(DiagnosticEnvModeElement):
                 value._build_path(elementNameIfShortNameMissing = 'ModeInBswModuleDescriptionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mode is not None:
             self.__mode = None
-            self.__mode._parent = None #No parent
-            self.__mode._update_path() #updates the path
-            self.__mode._node.getparent().remove(self.__mode._node)
         XDT.mark_dirty(self.__mode, self)
 
     def new_Mode(self, name: str=None) -> ModeInBswModuleDescriptionInstanceRef:
@@ -251676,9 +249411,6 @@ class DiagnosticEnvDataCondition(DiagnosticEnvCompareCondition):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__compareValue is not None:
             self.__compareValue = None
-            self.__compareValue._parent = None #No parent
-            self.__compareValue._update_path() #updates the path
-            self.__compareValue._node.getparent().remove(self.__compareValue._node)
         XDT.mark_dirty(self.__compareValue, self)
 
     def get_dataElement(self) -> DiagnosticDataElement:
@@ -251984,9 +249716,6 @@ class DiagnosticEnvironmentalCondition(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticEnvConditionFormula_@' + str(len(self.get_children()))) #updates the path
         elif self.__formula is not None:
             self.__formula = None
-            self.__formula._parent = None #No parent
-            self.__formula._update_path() #updates the path
-            self.__formula._node.getparent().remove(self.__formula._node)
         XDT.mark_dirty(self.__formula, self)
 
     def get_modeElements(self) -> list[DiagnosticEnvModeElement]:
@@ -252267,9 +249996,6 @@ class DiagnosticEnvSwcModeElement(DiagnosticEnvModeElement):
                 value._build_path(elementNameIfShortNameMissing = 'PModeInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mode is not None:
             self.__mode = None
-            self.__mode._parent = None #No parent
-            self.__mode._update_path() #updates the path
-            self.__mode._node.getparent().remove(self.__mode._node)
         XDT.mark_dirty(self.__mode, self)
 
     def new_Mode(self, name: str=None) -> PModeInSystemInstanceRef:
@@ -258327,9 +256053,6 @@ class DiagnosticDebounceAlgorithmProps(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'DiagEventDebounceAlgorithm_@' + str(len(self.get_children()))) #updates the path
         elif self.__debounceAlgorithm is not None:
             self.__debounceAlgorithm = None
-            self.__debounceAlgorithm._parent = None #No parent
-            self.__debounceAlgorithm._update_path() #updates the path
-            self.__debounceAlgorithm._node.getparent().remove(self.__debounceAlgorithm._node)
         XDT.mark_dirty(self.__debounceAlgorithm, self)
 
     def new_DiagEventDebounceMonitorInternal(self, name: str=None) -> DiagEventDebounceMonitorInternal:
@@ -258634,9 +256357,6 @@ class DiagnosticEnableConditionPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInExecutable is not None:
             self.__swcServiceDependencyInExecutable = None
-            self.__swcServiceDependencyInExecutable._parent = None #No parent
-            self.__swcServiceDependencyInExecutable._update_path() #updates the path
-            self.__swcServiceDependencyInExecutable._node.getparent().remove(self.__swcServiceDependencyInExecutable._node)
         XDT.mark_dirty(self.__swcServiceDependencyInExecutable, self)
 
     def get_swcServiceDependencyInSystem(self) -> SwcServiceDependencyInSystemInstanceRef:
@@ -258662,9 +256382,6 @@ class DiagnosticEnableConditionPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInSystem is not None:
             self.__swcServiceDependencyInSystem = None
-            self.__swcServiceDependencyInSystem._parent = None #No parent
-            self.__swcServiceDependencyInSystem._update_path() #updates the path
-            self.__swcServiceDependencyInSystem._node.getparent().remove(self.__swcServiceDependencyInSystem._node)
         XDT.mark_dirty(self.__swcServiceDependencyInSystem, self)
 
     def get_swcServiceDependency(self) -> SwcServiceDependencyInCompositionInstanceRef:
@@ -258690,9 +256407,6 @@ class DiagnosticEnableConditionPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependency is not None:
             self.__swcServiceDependency = None
-            self.__swcServiceDependency._parent = None #No parent
-            self.__swcServiceDependency._update_path() #updates the path
-            self.__swcServiceDependency._node.getparent().remove(self.__swcServiceDependency._node)
         XDT.mark_dirty(self.__swcServiceDependency, self)
 
     def new_SwcServiceDependencyInSystem(self, name: str=None) -> SwcServiceDependencyInSystemInstanceRef:
@@ -259041,9 +256755,6 @@ class DiagnosticEventPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInExecutable is not None:
             self.__swcServiceDependencyInExecutable = None
-            self.__swcServiceDependencyInExecutable._parent = None #No parent
-            self.__swcServiceDependencyInExecutable._update_path() #updates the path
-            self.__swcServiceDependencyInExecutable._node.getparent().remove(self.__swcServiceDependencyInExecutable._node)
         XDT.mark_dirty(self.__swcServiceDependencyInExecutable, self)
 
     def get_swcServiceDependencyInSystem(self) -> SwcServiceDependencyInSystemInstanceRef:
@@ -259069,9 +256780,6 @@ class DiagnosticEventPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInSystem is not None:
             self.__swcServiceDependencyInSystem = None
-            self.__swcServiceDependencyInSystem._parent = None #No parent
-            self.__swcServiceDependencyInSystem._update_path() #updates the path
-            self.__swcServiceDependencyInSystem._node.getparent().remove(self.__swcServiceDependencyInSystem._node)
         XDT.mark_dirty(self.__swcServiceDependencyInSystem, self)
 
     def get_swcServiceDependency(self) -> SwcServiceDependencyInCompositionInstanceRef:
@@ -259097,9 +256805,6 @@ class DiagnosticEventPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependency is not None:
             self.__swcServiceDependency = None
-            self.__swcServiceDependency._parent = None #No parent
-            self.__swcServiceDependency._update_path() #updates the path
-            self.__swcServiceDependency._node.getparent().remove(self.__swcServiceDependency._node)
         XDT.mark_dirty(self.__swcServiceDependency, self)
 
     def new_SwcServiceDependencyInSystem(self, name: str=None) -> SwcServiceDependencyInSystemInstanceRef:
@@ -260059,9 +257764,6 @@ class DiagnosticOperationCyclePortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInExecutable is not None:
             self.__swcServiceDependencyInExecutable = None
-            self.__swcServiceDependencyInExecutable._parent = None #No parent
-            self.__swcServiceDependencyInExecutable._update_path() #updates the path
-            self.__swcServiceDependencyInExecutable._node.getparent().remove(self.__swcServiceDependencyInExecutable._node)
         XDT.mark_dirty(self.__swcServiceDependencyInExecutable, self)
 
     def get_swcServiceDependencyInSystem(self) -> SwcServiceDependencyInSystemInstanceRef:
@@ -260087,9 +257789,6 @@ class DiagnosticOperationCyclePortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInSystem is not None:
             self.__swcServiceDependencyInSystem = None
-            self.__swcServiceDependencyInSystem._parent = None #No parent
-            self.__swcServiceDependencyInSystem._update_path() #updates the path
-            self.__swcServiceDependencyInSystem._node.getparent().remove(self.__swcServiceDependencyInSystem._node)
         XDT.mark_dirty(self.__swcServiceDependencyInSystem, self)
 
     def get_swcServiceDependency(self) -> SwcServiceDependencyInCompositionInstanceRef:
@@ -260115,9 +257814,6 @@ class DiagnosticOperationCyclePortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependency is not None:
             self.__swcServiceDependency = None
-            self.__swcServiceDependency._parent = None #No parent
-            self.__swcServiceDependency._update_path() #updates the path
-            self.__swcServiceDependency._node.getparent().remove(self.__swcServiceDependency._node)
         XDT.mark_dirty(self.__swcServiceDependency, self)
 
     def new_SwcServiceDependencyInSystem(self, name: str=None) -> SwcServiceDependencyInSystemInstanceRef:
@@ -260429,9 +258125,6 @@ class DiagnosticStorageConditionPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInExecutable is not None:
             self.__swcServiceDependencyInExecutable = None
-            self.__swcServiceDependencyInExecutable._parent = None #No parent
-            self.__swcServiceDependencyInExecutable._update_path() #updates the path
-            self.__swcServiceDependencyInExecutable._node.getparent().remove(self.__swcServiceDependencyInExecutable._node)
         XDT.mark_dirty(self.__swcServiceDependencyInExecutable, self)
 
     def get_swcServiceDependencyInSystem(self) -> SwcServiceDependencyInSystemInstanceRef:
@@ -260457,9 +258150,6 @@ class DiagnosticStorageConditionPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependencyInSystem is not None:
             self.__swcServiceDependencyInSystem = None
-            self.__swcServiceDependencyInSystem._parent = None #No parent
-            self.__swcServiceDependencyInSystem._update_path() #updates the path
-            self.__swcServiceDependencyInSystem._node.getparent().remove(self.__swcServiceDependencyInSystem._node)
         XDT.mark_dirty(self.__swcServiceDependencyInSystem, self)
 
     def get_swcServiceDependency(self) -> SwcServiceDependencyInCompositionInstanceRef:
@@ -260485,9 +258175,6 @@ class DiagnosticStorageConditionPortMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__swcServiceDependency is not None:
             self.__swcServiceDependency = None
-            self.__swcServiceDependency._parent = None #No parent
-            self.__swcServiceDependency._update_path() #updates the path
-            self.__swcServiceDependency._node.getparent().remove(self.__swcServiceDependency._node)
         XDT.mark_dirty(self.__swcServiceDependency, self)
 
     def new_SwcServiceDependencyInSystem(self, name: str=None) -> SwcServiceDependencyInSystemInstanceRef:
@@ -260921,9 +258608,6 @@ class DiagnosticEnableConditionRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -261075,9 +258759,6 @@ class DiagnosticStorageConditionRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -261335,9 +259016,6 @@ class DiagnosticConnectedIndicator(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -262047,9 +259725,6 @@ class DiagnosticEvent(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__eventFailureCycleCounterThreshold is not None:
             self.__eventFailureCycleCounterThreshold = None
-            self.__eventFailureCycleCounterThreshold._parent = None #No parent
-            self.__eventFailureCycleCounterThreshold._update_path() #updates the path
-            self.__eventFailureCycleCounterThreshold._node.getparent().remove(self.__eventFailureCycleCounterThreshold._node)
         XDT.mark_dirty(self.__eventFailureCycleCounterThreshold, self)
 
     def new_ConnectedIndicator(self, name: str=None) -> DiagnosticConnectedIndicator:
@@ -262243,9 +259918,6 @@ class DiagnosticIndicator(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__healingCycleCounterThreshold is not None:
             self.__healingCycleCounterThreshold = None
-            self.__healingCycleCounterThreshold._parent = None #No parent
-            self.__healingCycleCounterThreshold._update_path() #updates the path
-            self.__healingCycleCounterThreshold._node.getparent().remove(self.__healingCycleCounterThreshold._node)
         XDT.mark_dirty(self.__healingCycleCounterThreshold, self)
 
     def new_HealingCycleCounterThreshold(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -262397,9 +260069,6 @@ class DiagnosticOperationCycleRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -263266,9 +260935,6 @@ class DiagnosticTroubleCodeGroup(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__groupNumber is not None:
             self.__groupNumber = None
-            self.__groupNumber._parent = None #No parent
-            self.__groupNumber._update_path() #updates the path
-            self.__groupNumber._node.getparent().remove(self.__groupNumber._node)
         XDT.mark_dirty(self.__groupNumber, self)
 
     def new_GroupNumber(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -263442,9 +261108,6 @@ class DiagnosticTroubleCodeRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -263650,9 +261313,6 @@ class DiagnosticTroubleCodeJ1939(DiagnosticTroubleCode):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__j1939DtcValue is not None:
             self.__j1939DtcValue = None
-            self.__j1939DtcValue._parent = None #No parent
-            self.__j1939DtcValue._update_path() #updates the path
-            self.__j1939DtcValue._node.getparent().remove(self.__j1939DtcValue._node)
         XDT.mark_dirty(self.__j1939DtcValue, self)
 
     def get_node(self) -> DiagnosticJ1939Node:
@@ -264383,9 +262043,6 @@ class DiagnosticTroubleCodeObd(DiagnosticTroubleCode):
                 value._build_path(elementNameIfShortNameMissing = 'BooleanValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__considerPtoStatus is not None:
             self.__considerPtoStatus = None
-            self.__considerPtoStatus._parent = None #No parent
-            self.__considerPtoStatus._update_path() #updates the path
-            self.__considerPtoStatus._node.getparent().remove(self.__considerPtoStatus._node)
         XDT.mark_dirty(self.__considerPtoStatus, self)
 
     def get_dtcProps(self) -> DiagnosticTroubleCodeProps:
@@ -264433,9 +262090,6 @@ class DiagnosticTroubleCodeObd(DiagnosticTroubleCode):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__obdDTCValue is not None:
             self.__obdDTCValue = None
-            self.__obdDTCValue._parent = None #No parent
-            self.__obdDTCValue._update_path() #updates the path
-            self.__obdDTCValue._node.getparent().remove(self.__obdDTCValue._node)
         XDT.mark_dirty(self.__obdDTCValue, self)
 
     def new_ObdDTCValue(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -265023,9 +262677,6 @@ class DiagnosticExtendedDataRecordRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -265161,9 +262812,6 @@ class DiagnosticFreezeFrame(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__recordNumber is not None:
             self.__recordNumber = None
-            self.__recordNumber._parent = None #No parent
-            self.__recordNumber._update_path() #updates the path
-            self.__recordNumber._node.getparent().remove(self.__recordNumber._node)
         XDT.mark_dirty(self.__recordNumber, self)
 
     def new_RecordNumber(self, name: str=None) -> PositiveIntegerValueVariationPoint:
@@ -265323,9 +262971,6 @@ class DiagnosticFreezeFrameRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -265499,9 +263144,6 @@ class DiagnosticAging(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__threshold is not None:
             self.__threshold = None
-            self.__threshold._parent = None #No parent
-            self.__threshold._update_path() #updates the path
-            self.__threshold._node.getparent().remove(self.__threshold._node)
         XDT.mark_dirty(self.__threshold, self)
 
     def new_AgingCycle(self, name: str=None) -> DiagnosticOperationCycleRefConditional:
@@ -265858,9 +263500,6 @@ class DiagnosticTestResult(DiagnosticCommonElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticTestIdentifier_@' + str(len(self.get_children()))) #updates the path
         elif self.__testIdentifier is not None:
             self.__testIdentifier = None
-            self.__testIdentifier._parent = None #No parent
-            self.__testIdentifier._update_path() #updates the path
-            self.__testIdentifier._node.getparent().remove(self.__testIdentifier._node)
         XDT.mark_dirty(self.__testIdentifier, self)
 
     def new_TestIdentifier(self, name: str=None) -> DiagnosticTestIdentifier:
@@ -266606,9 +264245,6 @@ class DiagnosticCommonPropsConditional(DiagnosticCommonPropsContent):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -267279,9 +264915,6 @@ class DiagnosticServiceTableRefConditional(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -267708,9 +265341,6 @@ class DiagnosticContributionSet(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'DiagnosticCommonProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__commonProperties is not None:
             self.__commonProperties = None
-            self.__commonProperties._parent = None #No parent
-            self.__commonProperties._update_path() #updates the path
-            self.__commonProperties._node.getparent().remove(self.__commonProperties._node)
         XDT.mark_dirty(self.__commonProperties, self)
 
     def get_ecuInstances(self) -> list[EcuInstance]:
@@ -269149,9 +266779,6 @@ class DiagnosticFimFunctionMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mappedSwcServiceDependency is not None:
             self.__mappedSwcServiceDependency = None
-            self.__mappedSwcServiceDependency._parent = None #No parent
-            self.__mappedSwcServiceDependency._update_path() #updates the path
-            self.__mappedSwcServiceDependency._node.getparent().remove(self.__mappedSwcServiceDependency._node)
         XDT.mark_dirty(self.__mappedSwcServiceDependency, self)
 
     def new_MappedSwcServiceDependency(self, name: str=None) -> SwcServiceDependencyInSystemInstanceRef:
@@ -269342,9 +266969,6 @@ class DiagnosticServiceDataMapping(DiagnosticMapping):
                 value._build_path(elementNameIfShortNameMissing = 'DataPrototypeInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mappedApDataElement is not None:
             self.__mappedApDataElement = None
-            self.__mappedApDataElement._parent = None #No parent
-            self.__mappedApDataElement._update_path() #updates the path
-            self.__mappedApDataElement._node.getparent().remove(self.__mappedApDataElement._node)
         XDT.mark_dirty(self.__mappedApDataElement, self)
 
     def get_mappedDataElement(self) -> DataPrototypeInSystemInstanceRef:
@@ -269370,9 +266994,6 @@ class DiagnosticServiceDataMapping(DiagnosticMapping):
                 value._build_path(elementNameIfShortNameMissing = 'DataPrototypeInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mappedDataElement is not None:
             self.__mappedDataElement = None
-            self.__mappedDataElement._parent = None #No parent
-            self.__mappedDataElement._update_path() #updates the path
-            self.__mappedDataElement._node.getparent().remove(self.__mappedDataElement._node)
         XDT.mark_dirty(self.__mappedDataElement, self)
 
     def get_process(self) -> ProcessDesign:
@@ -269701,9 +267322,6 @@ class DiagnosticServiceSwMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mappedSwcServiceDependencyInExecutable is not None:
             self.__mappedSwcServiceDependencyInExecutable = None
-            self.__mappedSwcServiceDependencyInExecutable._parent = None #No parent
-            self.__mappedSwcServiceDependencyInExecutable._update_path() #updates the path
-            self.__mappedSwcServiceDependencyInExecutable._node.getparent().remove(self.__mappedSwcServiceDependencyInExecutable._node)
         XDT.mark_dirty(self.__mappedSwcServiceDependencyInExecutable, self)
 
     def get_mappedSwcServiceDependencyInSystem(self) -> SwcServiceDependencyInSystemInstanceRef:
@@ -269729,9 +267347,6 @@ class DiagnosticServiceSwMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInSystemInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mappedSwcServiceDependencyInSystem is not None:
             self.__mappedSwcServiceDependencyInSystem = None
-            self.__mappedSwcServiceDependencyInSystem._parent = None #No parent
-            self.__mappedSwcServiceDependencyInSystem._update_path() #updates the path
-            self.__mappedSwcServiceDependencyInSystem._node.getparent().remove(self.__mappedSwcServiceDependencyInSystem._node)
         XDT.mark_dirty(self.__mappedSwcServiceDependencyInSystem, self)
 
     def get_mappedSwcServiceDependency(self) -> SwcServiceDependencyInCompositionInstanceRef:
@@ -269757,9 +267372,6 @@ class DiagnosticServiceSwMapping(DiagnosticSwMapping):
                 value._build_path(elementNameIfShortNameMissing = 'SwcServiceDependencyInCompositionInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__mappedSwcServiceDependency is not None:
             self.__mappedSwcServiceDependency = None
-            self.__mappedSwcServiceDependency._parent = None #No parent
-            self.__mappedSwcServiceDependency._update_path() #updates the path
-            self.__mappedSwcServiceDependency._node.getparent().remove(self.__mappedSwcServiceDependency._node)
         XDT.mark_dirty(self.__mappedSwcServiceDependency, self)
 
     def get_process(self) -> ProcessDesign:
@@ -270094,9 +267706,6 @@ class CppImplementationDataType(AbstractImplementationDataType):
                 value._build_path(elementNameIfShortNameMissing = 'PositiveIntegerValueVariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__arraySize is not None:
             self.__arraySize = None
-            self.__arraySize._parent = None #No parent
-            self.__arraySize._update_path() #updates the path
-            self.__arraySize._node.getparent().remove(self.__arraySize._node)
         XDT.mark_dirty(self.__arraySize, self)
 
     def get_namespaces(self) -> list[SymbolProps]:
@@ -270719,9 +268328,6 @@ class CppImplementationDataTypeElement(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__swDataDefProps is not None:
             self.__swDataDefProps = None
-            self.__swDataDefProps._parent = None #No parent
-            self.__swDataDefProps._update_path() #updates the path
-            self.__swDataDefProps._node.getparent().remove(self.__swDataDefProps._node)
         XDT.mark_dirty(self.__swDataDefProps, self)
 
     def get_typeReference(self) -> CppImplementationDataTypeElementQualifier:
@@ -270747,9 +268353,6 @@ class CppImplementationDataTypeElement(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'CppImplementationDataTypeElementQualifier_@' + str(len(self.get_children()))) #updates the path
         elif self.__typeReference is not None:
             self.__typeReference = None
-            self.__typeReference._parent = None #No parent
-            self.__typeReference._update_path() #updates the path
-            self.__typeReference._node.getparent().remove(self.__typeReference._node)
         XDT.mark_dirty(self.__typeReference, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -270775,9 +268378,6 @@ class CppImplementationDataTypeElement(AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_TypeReference(self, name: str=None) -> CppImplementationDataTypeElementQualifier:
@@ -271124,9 +268724,6 @@ class AdaptiveSwcInternalBehavior(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -271449,9 +269046,6 @@ class Executable(ARElement,AtpClassifier):
                 value._build_path(elementNameIfShortNameMissing = 'RootSwComponentPrototype_@' + str(len(self.get_children()))) #updates the path
         elif self.__rootSwComponentPrototype is not None:
             self.__rootSwComponentPrototype = None
-            self.__rootSwComponentPrototype._parent = None #No parent
-            self.__rootSwComponentPrototype._update_path() #updates the path
-            self.__rootSwComponentPrototype._node.getparent().remove(self.__rootSwComponentPrototype._node)
         XDT.mark_dirty(self.__rootSwComponentPrototype, self)
 
     def get_transformationPropsMappingSet(self) -> TransformationPropsToServiceInterfaceElementMappingSet:
@@ -272488,9 +270082,6 @@ class Field(AutosarDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -272516,9 +270107,6 @@ class Field(AutosarDataPrototype):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -274919,9 +272507,6 @@ class RestEndpointArgument(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RestAbstractPropertyDef_@' + str(len(self.get_children()))) #updates the path
         elif self.__parameter is not None:
             self.__parameter = None
-            self.__parameter._parent = None #No parent
-            self.__parameter._update_path() #updates the path
-            self.__parameter._node.getparent().remove(self.__parameter._node)
         XDT.mark_dirty(self.__parameter, self)
 
     def new_RestIntegerPropertyDef(self, name: str=None) -> RestIntegerPropertyDef:
@@ -275275,9 +272860,6 @@ class RestArrayPropertyDef(RestAbstractPropertyDef):
                 value._build_path(elementNameIfShortNameMissing = 'RestPrimitivePropertyDef_@' + str(len(self.get_children()))) #updates the path
         elif self.__element is not None:
             self.__element = None
-            self.__element._parent = None #No parent
-            self.__element._update_path() #updates the path
-            self.__element._node.getparent().remove(self.__element._node)
         XDT.mark_dirty(self.__element, self)
 
     def new_RestIntegerPropertyDef(self, name: str=None) -> RestIntegerPropertyDef:
@@ -277611,9 +275193,6 @@ class ServiceInterfaceSubElement(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationRecordElementInClientServerOperationInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__optAppRecordElementInMethod is not None:
             self.__optAppRecordElementInMethod = None
-            self.__optAppRecordElementInMethod._parent = None #No parent
-            self.__optAppRecordElementInMethod._update_path() #updates the path
-            self.__optAppRecordElementInMethod._node.getparent().remove(self.__optAppRecordElementInMethod._node)
         XDT.mark_dirty(self.__optAppRecordElementInMethod, self)
 
     def get_optAppRecordElementInServiceInterface(self) -> ApplicationRecordElementInServiceInterfaceInstanceRef:
@@ -277639,9 +275218,6 @@ class ServiceInterfaceSubElement(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationRecordElementInServiceInterfaceInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__optAppRecordElementInServiceInterface is not None:
             self.__optAppRecordElementInServiceInterface = None
-            self.__optAppRecordElementInServiceInterface._parent = None #No parent
-            self.__optAppRecordElementInServiceInterface._update_path() #updates the path
-            self.__optAppRecordElementInServiceInterface._node.getparent().remove(self.__optAppRecordElementInServiceInterface._node)
         XDT.mark_dirty(self.__optAppRecordElementInServiceInterface, self)
 
     def get_optArgument(self) -> ArgumentDataPrototype:
@@ -277689,9 +275265,6 @@ class ServiceInterfaceSubElement(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ImplementationDataTypeElementInAutosarDataPrototypeRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__optImplRecordElement is not None:
             self.__optImplRecordElement = None
-            self.__optImplRecordElement._parent = None #No parent
-            self.__optImplRecordElement._update_path() #updates the path
-            self.__optImplRecordElement._node.getparent().remove(self.__optImplRecordElement._node)
         XDT.mark_dirty(self.__optImplRecordElement, self)
 
     def get_variationPoint(self) -> VariationPoint:
@@ -277717,9 +275290,6 @@ class ServiceInterfaceSubElement(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_VariationPoint(self, name: str=None) -> VariationPoint:
@@ -277976,9 +275546,6 @@ class PersistencyDataProvidedComSpec(PPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -278307,9 +275874,6 @@ class PersistencyDataRequiredComSpec(RPortComSpec):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -279540,9 +277104,6 @@ class ApplicationAssocMapDataType(ApplicationCompositeDataType):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationAssocMapElement_@' + str(len(self.get_children()))) #updates the path
         elif self.__key is not None:
             self.__key = None
-            self.__key._parent = None #No parent
-            self.__key._update_path() #updates the path
-            self.__key._node.getparent().remove(self.__key._node)
         XDT.mark_dirty(self.__key, self)
 
     def get_value(self) -> ApplicationAssocMapElement:
@@ -279568,9 +277129,6 @@ class ApplicationAssocMapDataType(ApplicationCompositeDataType):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationAssocMapElement_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_Key(self, name: str=None) -> ApplicationAssocMapElement:
@@ -279762,9 +277320,6 @@ class ApplicationAssocMapElementValueSpecification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__key is not None:
             self.__key = None
-            self.__key._parent = None #No parent
-            self.__key._update_path() #updates the path
-            self.__key._node.getparent().remove(self.__key._node)
         XDT.mark_dirty(self.__key, self)
 
     def get_value(self) -> ValueSpecification:
@@ -279790,9 +277345,6 @@ class ApplicationAssocMapElementValueSpecification(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__value is not None:
             self.__value = None
-            self.__value._parent = None #No parent
-            self.__value._update_path() #updates the path
-            self.__value._node.getparent().remove(self.__value._node)
         XDT.mark_dirty(self.__value, self)
 
     def new_ApplicationRuleBasedValueSpecification(self, name: str=None) -> ApplicationRuleBasedValueSpecification:
@@ -280849,9 +278401,6 @@ class RestHttpPortPrototypeMapping(UploadablePackageElement):
                 value._build_path(elementNameIfShortNameMissing = 'PortPrototypeInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__portPrototype is not None:
             self.__portPrototype = None
-            self.__portPrototype._parent = None #No parent
-            self.__portPrototype._update_path() #updates the path
-            self.__portPrototype._node.getparent().remove(self.__portPrototype._node)
         XDT.mark_dirty(self.__portPrototype, self)
 
     def get_process(self) -> Process:
@@ -281069,9 +278618,6 @@ class ExecutionDependency(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ModeInProcessInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__applicationMode is not None:
             self.__applicationMode = None
-            self.__applicationMode._parent = None #No parent
-            self.__applicationMode._update_path() #updates the path
-            self.__applicationMode._node.getparent().remove(self.__applicationMode._node)
         XDT.mark_dirty(self.__applicationMode, self)
 
     def new_ApplicationMode(self, name: str=None) -> ModeInProcessInstanceRef:
@@ -281278,9 +278824,6 @@ class Process(ARElement,AtpClassifier):
                 value._build_path(elementNameIfShortNameMissing = 'ModeDeclarationGroupPrototype_@' + str(len(self.get_children()))) #updates the path
         elif self.__applicationModeMachine is not None:
             self.__applicationModeMachine = None
-            self.__applicationModeMachine._parent = None #No parent
-            self.__applicationModeMachine._update_path() #updates the path
-            self.__applicationModeMachine._node.getparent().remove(self.__applicationModeMachine._node)
         XDT.mark_dirty(self.__applicationModeMachine, self)
 
     def get_design(self) -> ProcessDesign:
@@ -282923,9 +280466,6 @@ class PerStateTimeout(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'EnterExitTimeout_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeout is not None:
             self.__timeout = None
-            self.__timeout._parent = None #No parent
-            self.__timeout._update_path() #updates the path
-            self.__timeout._node.getparent().remove(self.__timeout._node)
         XDT.mark_dirty(self.__timeout, self)
 
     def new_Timeout(self, name: str=None) -> EnterExitTimeout:
@@ -283453,9 +280993,6 @@ class ProcessToMachineMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'EnterExitTimeout_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeout is not None:
             self.__timeout = None
-            self.__timeout._parent = None #No parent
-            self.__timeout._update_path() #updates the path
-            self.__timeout._node.getparent().remove(self.__timeout._node)
         XDT.mark_dirty(self.__timeout, self)
 
     def new_Timeout(self, name: str=None) -> EnterExitTimeout:
@@ -283873,9 +281410,6 @@ class Machine(ARElement,AtpStructureElement):
                 value._build_path(elementNameIfShortNameMissing = 'EnterExitTimeout_@' + str(len(self.get_children()))) #updates the path
         elif self.__defaultApplicationTimeout is not None:
             self.__defaultApplicationTimeout = None
-            self.__defaultApplicationTimeout._parent = None #No parent
-            self.__defaultApplicationTimeout._update_path() #updates the path
-            self.__defaultApplicationTimeout._node.getparent().remove(self.__defaultApplicationTimeout._node)
         XDT.mark_dirty(self.__defaultApplicationTimeout, self)
 
     def get_functionGroups(self) -> list[ModeDeclarationGroupPrototype]:
@@ -286108,9 +283642,6 @@ class TlsCipherSuite(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'PresharedKeyIdentity_@' + str(len(self.get_children()))) #updates the path
         elif self.__pskIdentity is not None:
             self.__pskIdentity = None
-            self.__pskIdentity._parent = None #No parent
-            self.__pskIdentity._update_path() #updates the path
-            self.__pskIdentity._node.getparent().remove(self.__pskIdentity._node)
         XDT.mark_dirty(self.__pskIdentity, self)
 
     def new_PskIdentity(self, name: str=None) -> PresharedKeyIdentity:
@@ -286778,9 +284309,6 @@ class CryptoDriver(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'CryptoPrimitive_@' + str(len(self.get_children()))) #updates the path
         elif self.__primitive is not None:
             self.__primitive = None
-            self.__primitive._parent = None #No parent
-            self.__primitive._update_path() #updates the path
-            self.__primitive._node.getparent().remove(self.__primitive._node)
         XDT.mark_dirty(self.__primitive, self)
 
     def new_Primitive(self, name: str=None) -> CryptoPrimitive:
@@ -287146,9 +284674,6 @@ class CryptoJob(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'CryptoPrimitive_@' + str(len(self.get_children()))) #updates the path
         elif self.__primitive is not None:
             self.__primitive = None
-            self.__primitive._parent = None #No parent
-            self.__primitive._update_path() #updates the path
-            self.__primitive._node.getparent().remove(self.__primitive._node)
         XDT.mark_dirty(self.__primitive, self)
 
     def new_Primitive(self, name: str=None) -> CryptoPrimitive:
@@ -289453,9 +286978,6 @@ class SomeipFieldDeployment(ServiceFieldDeployment):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipMethodDeployment_@' + str(len(self.get_children()))) #updates the path
         elif self.__get is not None:
             self.__get = None
-            self.__get._parent = None #No parent
-            self.__get._update_path() #updates the path
-            self.__get._node.getparent().remove(self.__get._node)
         XDT.mark_dirty(self.__get, self)
 
     def get_notifier(self) -> SomeipEventDeployment:
@@ -289481,9 +287003,6 @@ class SomeipFieldDeployment(ServiceFieldDeployment):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipEventDeployment_@' + str(len(self.get_children()))) #updates the path
         elif self.__notifier is not None:
             self.__notifier = None
-            self.__notifier._parent = None #No parent
-            self.__notifier._update_path() #updates the path
-            self.__notifier._node.getparent().remove(self.__notifier._node)
         XDT.mark_dirty(self.__notifier, self)
 
     def get_set(self) -> SomeipMethodDeployment:
@@ -289509,9 +287028,6 @@ class SomeipFieldDeployment(ServiceFieldDeployment):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipMethodDeployment_@' + str(len(self.get_children()))) #updates the path
         elif self.__set is not None:
             self.__set = None
-            self.__set._parent = None #No parent
-            self.__set._update_path() #updates the path
-            self.__set._node.getparent().remove(self.__set._node)
         XDT.mark_dirty(self.__set, self)
 
     def new_Set(self, name: str=None) -> SomeipMethodDeployment:
@@ -289959,9 +287475,6 @@ class SomeipServiceInterfaceDeployment(ServiceInterfaceDeployment):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipServiceInterfaceVersion_@' + str(len(self.get_children()))) #updates the path
         elif self.__serviceInterfaceVersion is not None:
             self.__serviceInterfaceVersion = None
-            self.__serviceInterfaceVersion._parent = None #No parent
-            self.__serviceInterfaceVersion._update_path() #updates the path
-            self.__serviceInterfaceVersion._node.getparent().remove(self.__serviceInterfaceVersion._node)
         XDT.mark_dirty(self.__serviceInterfaceVersion, self)
 
     def new_ServiceInterfaceVersion(self, name: str=None) -> SomeipServiceInterfaceVersion:
@@ -290148,9 +287661,6 @@ class UserDefinedFieldDeployment(ServiceFieldDeployment):
                 value._build_path(elementNameIfShortNameMissing = 'UserDefinedMethodDeployment_@' + str(len(self.get_children()))) #updates the path
         elif self.__get is not None:
             self.__get = None
-            self.__get._parent = None #No parent
-            self.__get._update_path() #updates the path
-            self.__get._node.getparent().remove(self.__get._node)
         XDT.mark_dirty(self.__get, self)
 
     def get_notifier(self) -> UserDefinedEventDeployment:
@@ -290176,9 +287686,6 @@ class UserDefinedFieldDeployment(ServiceFieldDeployment):
                 value._build_path(elementNameIfShortNameMissing = 'UserDefinedEventDeployment_@' + str(len(self.get_children()))) #updates the path
         elif self.__notifier is not None:
             self.__notifier = None
-            self.__notifier._parent = None #No parent
-            self.__notifier._update_path() #updates the path
-            self.__notifier._node.getparent().remove(self.__notifier._node)
         XDT.mark_dirty(self.__notifier, self)
 
     def get_set(self) -> UserDefinedMethodDeployment:
@@ -290204,9 +287711,6 @@ class UserDefinedFieldDeployment(ServiceFieldDeployment):
                 value._build_path(elementNameIfShortNameMissing = 'UserDefinedMethodDeployment_@' + str(len(self.get_children()))) #updates the path
         elif self.__set is not None:
             self.__set = None
-            self.__set._parent = None #No parent
-            self.__set._update_path() #updates the path
-            self.__set._node.getparent().remove(self.__set._node)
         XDT.mark_dirty(self.__set, self)
 
     def new_Set(self, name: str=None) -> UserDefinedMethodDeployment:
@@ -291233,9 +288737,6 @@ class ProvidedSomeipServiceInstance(ProvidedApServiceInstance):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipSdServerServiceInstanceConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdServerConfig is not None:
             self.__sdServerConfig = None
-            self.__sdServerConfig._parent = None #No parent
-            self.__sdServerConfig._update_path() #updates the path
-            self.__sdServerConfig._node.getparent().remove(self.__sdServerConfig._node)
         XDT.mark_dirty(self.__sdServerConfig, self)
 
     def new_MethodResponseProp(self, name: str=None) -> SomeipMethodProps:
@@ -291499,9 +289000,6 @@ class SomeipProvidedEventGroup(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipSdServerEventTimingConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdServerEventConfig is not None:
             self.__sdServerEventConfig = None
-            self.__sdServerEventConfig._parent = None #No parent
-            self.__sdServerEventConfig._update_path() #updates the path
-            self.__sdServerEventConfig._node.getparent().remove(self.__sdServerEventConfig._node)
         XDT.mark_dirty(self.__sdServerEventConfig, self)
 
     def new_SdServerEventConfig(self, name: str=None) -> SomeipSdServerEventTimingConfig:
@@ -291619,9 +289117,6 @@ class SomeipSdServerEventTimingConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RequestResponseDelay_@' + str(len(self.get_children()))) #updates the path
         elif self.__requestResponseDelay is not None:
             self.__requestResponseDelay = None
-            self.__requestResponseDelay._parent = None #No parent
-            self.__requestResponseDelay._update_path() #updates the path
-            self.__requestResponseDelay._node.getparent().remove(self.__requestResponseDelay._node)
         XDT.mark_dirty(self.__requestResponseDelay, self)
 
     def new_RequestResponseDelay(self, name: str=None) -> RequestResponseDelay:
@@ -291763,9 +289258,6 @@ class SomeipMethodProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipTimingProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__timingProps is not None:
             self.__timingProps = None
-            self.__timingProps._parent = None #No parent
-            self.__timingProps._update_path() #updates the path
-            self.__timingProps._node.getparent().remove(self.__timingProps._node)
         XDT.mark_dirty(self.__timingProps, self)
 
     def new_TimingProps(self, name: str=None) -> SomeipTimingProps:
@@ -291991,9 +289483,6 @@ class SomeipEventProps(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipTimingProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__timingProps is not None:
             self.__timingProps = None
-            self.__timingProps._parent = None #No parent
-            self.__timingProps._update_path() #updates the path
-            self.__timingProps._node.getparent().remove(self.__timingProps._node)
         XDT.mark_dirty(self.__timingProps, self)
 
     def new_TimingProps(self, name: str=None) -> SomeipTimingProps:
@@ -292197,9 +289686,6 @@ class SomeipSdServerServiceInstanceConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'InitialSdDelayConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__initialOfferBehavior is not None:
             self.__initialOfferBehavior = None
-            self.__initialOfferBehavior._parent = None #No parent
-            self.__initialOfferBehavior._update_path() #updates the path
-            self.__initialOfferBehavior._node.getparent().remove(self.__initialOfferBehavior._node)
         XDT.mark_dirty(self.__initialOfferBehavior, self)
 
     def get_requestResponseDelay(self) -> RequestResponseDelay:
@@ -292225,9 +289711,6 @@ class SomeipSdServerServiceInstanceConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RequestResponseDelay_@' + str(len(self.get_children()))) #updates the path
         elif self.__requestResponseDelay is not None:
             self.__requestResponseDelay = None
-            self.__requestResponseDelay._parent = None #No parent
-            self.__requestResponseDelay._update_path() #updates the path
-            self.__requestResponseDelay._node.getparent().remove(self.__requestResponseDelay._node)
         XDT.mark_dirty(self.__requestResponseDelay, self)
 
     def new_CapabilityRecord(self, name: str=None) -> TagWithOptionalValue:
@@ -292896,9 +290379,6 @@ class RequiredSomeipServiceInstance(RequiredApServiceInstance):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipServiceInterfaceVersion_@' + str(len(self.get_children()))) #updates the path
         elif self.__requiredServiceVersion is not None:
             self.__requiredServiceVersion = None
-            self.__requiredServiceVersion._parent = None #No parent
-            self.__requiredServiceVersion._update_path() #updates the path
-            self.__requiredServiceVersion._node.getparent().remove(self.__requiredServiceVersion._node)
         XDT.mark_dirty(self.__requiredServiceVersion, self)
 
     def get_sdClientConfig(self) -> SomeipSdClientServiceInstanceConfig:
@@ -292924,9 +290404,6 @@ class RequiredSomeipServiceInstance(RequiredApServiceInstance):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipSdClientServiceInstanceConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdClientConfig is not None:
             self.__sdClientConfig = None
-            self.__sdClientConfig._parent = None #No parent
-            self.__sdClientConfig._update_path() #updates the path
-            self.__sdClientConfig._node.getparent().remove(self.__sdClientConfig._node)
         XDT.mark_dirty(self.__sdClientConfig, self)
 
     def new_RequiredServiceVersion(self, name: str=None) -> SomeipServiceInterfaceVersion:
@@ -293272,9 +290749,6 @@ class SomeipSdClientServiceInstanceConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'InitialSdDelayConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__initialFindBehavior is not None:
             self.__initialFindBehavior = None
-            self.__initialFindBehavior._parent = None #No parent
-            self.__initialFindBehavior._update_path() #updates the path
-            self.__initialFindBehavior._node.getparent().remove(self.__initialFindBehavior._node)
         XDT.mark_dirty(self.__initialFindBehavior, self)
 
     def new_CapabilityRecord(self, name: str=None) -> TagWithOptionalValue:
@@ -293449,9 +290923,6 @@ class SomeipRequiredEventGroup(Referrable):
                 value._build_path(elementNameIfShortNameMissing = 'SomeipSdClientEventGroupTimingConfig_@' + str(len(self.get_children()))) #updates the path
         elif self.__sdClientEventTimingConfig is not None:
             self.__sdClientEventTimingConfig = None
-            self.__sdClientEventTimingConfig._parent = None #No parent
-            self.__sdClientEventTimingConfig._update_path() #updates the path
-            self.__sdClientEventTimingConfig._node.getparent().remove(self.__sdClientEventTimingConfig._node)
         XDT.mark_dirty(self.__sdClientEventTimingConfig, self)
 
     def new_SdClientEventTimingConfig(self, name: str=None) -> SomeipSdClientEventGroupTimingConfig:
@@ -293573,9 +291044,6 @@ class SomeipSdClientEventGroupTimingConfig(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'RequestResponseDelay_@' + str(len(self.get_children()))) #updates the path
         elif self.__requestResponseDelay is not None:
             self.__requestResponseDelay = None
-            self.__requestResponseDelay._parent = None #No parent
-            self.__requestResponseDelay._update_path() #updates the path
-            self.__requestResponseDelay._node.getparent().remove(self.__requestResponseDelay._node)
         XDT.mark_dirty(self.__requestResponseDelay, self)
 
     def new_RequestResponseDelay(self, name: str=None) -> RequestResponseDelay:
@@ -294552,9 +292020,6 @@ class ServiceInstanceToPortPrototypeMapping(UploadablePackageElement):
                 value._build_path(elementNameIfShortNameMissing = 'PortPrototypeInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__portPrototype is not None:
             self.__portPrototype = None
-            self.__portPrototype._parent = None #No parent
-            self.__portPrototype._update_path() #updates the path
-            self.__portPrototype._node.getparent().remove(self.__portPrototype._node)
         XDT.mark_dirty(self.__portPrototype, self)
 
     def get_process(self) -> Process:
@@ -295498,9 +292963,6 @@ class SupervisionCheckpoint(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'PhmCheckpointInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__phmCheckpoint is not None:
             self.__phmCheckpoint = None
-            self.__phmCheckpoint._parent = None #No parent
-            self.__phmCheckpoint._update_path() #updates the path
-            self.__phmCheckpoint._node.getparent().remove(self.__phmCheckpoint._node)
         XDT.mark_dirty(self.__phmCheckpoint, self)
 
     def new_PhmCheckpoint(self, name: str=None) -> PhmCheckpointInExecutableInstanceRef:
@@ -297434,9 +294896,6 @@ class HealthChannelExternalStatus(HealthChannel):
                 value._build_path(elementNameIfShortNameMissing = 'PhmHealthChannelStatusInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__status is not None:
             self.__status = None
-            self.__status._parent = None #No parent
-            self.__status._update_path() #updates the path
-            self.__status._node.getparent().remove(self.__status._node)
         XDT.mark_dirty(self.__status, self)
 
     def new_Status(self, name: str=None) -> PhmHealthChannelStatusInExecutableInstanceRef:
@@ -299043,9 +296502,6 @@ class SynchronizedMasterTimeBase(TimeBaseResource):
                 value._build_path(elementNameIfShortNameMissing = 'TimeSyncCorrection_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeSyncCorrection is not None:
             self.__timeSyncCorrection = None
-            self.__timeSyncCorrection._parent = None #No parent
-            self.__timeSyncCorrection._update_path() #updates the path
-            self.__timeSyncCorrection._node.getparent().remove(self.__timeSyncCorrection._node)
         XDT.mark_dirty(self.__timeSyncCorrection, self)
 
     def new_TimeSyncCorrection(self, name: str=None) -> TimeSyncCorrection:
@@ -299613,9 +297069,6 @@ class TimeSyncPortPrototypeToTimeBaseMapping(UploadablePackageElement):
                 value._build_path(elementNameIfShortNameMissing = 'RPortPrototypeInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__timeSyncPortPrototype is not None:
             self.__timeSyncPortPrototype = None
-            self.__timeSyncPortPrototype._parent = None #No parent
-            self.__timeSyncPortPrototype._update_path() #updates the path
-            self.__timeSyncPortPrototype._node.getparent().remove(self.__timeSyncPortPrototype._node)
         XDT.mark_dirty(self.__timeSyncPortPrototype, self)
 
     def new_TimeSyncPortPrototype(self, name: str=None) -> RPortPrototypeInExecutableInstanceRef:
@@ -300419,9 +297872,6 @@ class PersistencyKeyValuePair(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'ValueSpecification_@' + str(len(self.get_children()))) #updates the path
         elif self.__initValue is not None:
             self.__initValue = None
-            self.__initValue._parent = None #No parent
-            self.__initValue._update_path() #updates the path
-            self.__initValue._node.getparent().remove(self.__initValue._node)
         XDT.mark_dirty(self.__initValue, self)
 
     def get_valueDataType(self) -> ImplementationDataType:
@@ -300775,9 +298225,6 @@ class PersistencyPortPrototypeToFileArrayMapping(UploadablePackageElement):
                 value._build_path(elementNameIfShortNameMissing = 'PortPrototypeInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__portPrototype is not None:
             self.__portPrototype = None
-            self.__portPrototype._parent = None #No parent
-            self.__portPrototype._update_path() #updates the path
-            self.__portPrototype._node.getparent().remove(self.__portPrototype._node)
         XDT.mark_dirty(self.__portPrototype, self)
 
     def get_process(self) -> Process:
@@ -300974,9 +298421,6 @@ class PersistencyPortPrototypeToKeyValueDatabaseMapping(UploadablePackageElement
                 value._build_path(elementNameIfShortNameMissing = 'PortPrototypeInExecutableInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__portPrototype is not None:
             self.__portPrototype = None
-            self.__portPrototype._parent = None #No parent
-            self.__portPrototype._update_path() #updates the path
-            self.__portPrototype._node.getparent().remove(self.__portPrototype._node)
         XDT.mark_dirty(self.__portPrototype, self)
 
     def get_process(self) -> Process:
@@ -302050,9 +299494,6 @@ class CompositionDataPrototypeRef(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'DataPrototypeInSwComponentTypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__dataPrototype is not None:
             self.__dataPrototype = None
-            self.__dataPrototype._parent = None #No parent
-            self.__dataPrototype._update_path() #updates the path
-            self.__dataPrototype._node.getparent().remove(self.__dataPrototype._node)
         XDT.mark_dirty(self.__dataPrototype, self)
 
     def get_elementInImplDatatype(self) -> ElementInImplementationDatatypeInstanceRef:
@@ -302078,9 +299519,6 @@ class CompositionDataPrototypeRef(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ElementInImplementationDatatypeInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__elementInImplDatatype is not None:
             self.__elementInImplDatatype = None
-            self.__elementInImplDatatype._parent = None #No parent
-            self.__elementInImplDatatype._update_path() #updates the path
-            self.__elementInImplDatatype._node.getparent().remove(self.__elementInImplDatatype._node)
         XDT.mark_dirty(self.__elementInImplDatatype, self)
 
     def new_DataPrototype(self, name: str=None) -> DataPrototypeInSwComponentTypeInstanceRef:
@@ -303633,9 +301071,6 @@ class SomeipDataPrototypeTransformationProps(ARElement):
                 value._build_path(elementNameIfShortNameMissing = 'SwDataDefProps_@' + str(len(self.get_children()))) #updates the path
         elif self.__networkRepresentation is not None:
             self.__networkRepresentation = None
-            self.__networkRepresentation._parent = None #No parent
-            self.__networkRepresentation._update_path() #updates the path
-            self.__networkRepresentation._node.getparent().remove(self.__networkRepresentation._node)
         XDT.mark_dirty(self.__networkRepresentation, self)
 
     def get_someipTransformationProps(self) -> ApSomeipTransformationProps:
@@ -303845,9 +301280,6 @@ class TlvDataIdDefinition(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationRecordElementInClientServerOperationInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__tlvAppRecordElementInMethod is not None:
             self.__tlvAppRecordElementInMethod = None
-            self.__tlvAppRecordElementInMethod._parent = None #No parent
-            self.__tlvAppRecordElementInMethod._update_path() #updates the path
-            self.__tlvAppRecordElementInMethod._node.getparent().remove(self.__tlvAppRecordElementInMethod._node)
         XDT.mark_dirty(self.__tlvAppRecordElementInMethod, self)
 
     def get_tlvAppRecordElementInServiceInterface(self) -> ApplicationRecordElementInServiceInterfaceInstanceRef:
@@ -303873,9 +301305,6 @@ class TlvDataIdDefinition(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ApplicationRecordElementInServiceInterfaceInstanceRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__tlvAppRecordElementInServiceInterface is not None:
             self.__tlvAppRecordElementInServiceInterface = None
-            self.__tlvAppRecordElementInServiceInterface._parent = None #No parent
-            self.__tlvAppRecordElementInServiceInterface._update_path() #updates the path
-            self.__tlvAppRecordElementInServiceInterface._node.getparent().remove(self.__tlvAppRecordElementInServiceInterface._node)
         XDT.mark_dirty(self.__tlvAppRecordElementInServiceInterface, self)
 
     def get_tlvArgument(self) -> ArgumentDataPrototype:
@@ -303923,9 +301352,6 @@ class TlvDataIdDefinition(ARObject):
                 value._build_path(elementNameIfShortNameMissing = 'ImplementationDataTypeElementInAutosarDataPrototypeRef_@' + str(len(self.get_children()))) #updates the path
         elif self.__tlvImplRecordElement is not None:
             self.__tlvImplRecordElement = None
-            self.__tlvImplRecordElement._parent = None #No parent
-            self.__tlvImplRecordElement._update_path() #updates the path
-            self.__tlvImplRecordElement._node.getparent().remove(self.__tlvImplRecordElement._node)
         XDT.mark_dirty(self.__tlvImplRecordElement, self)
 
     def new_TlvAppRecordElementInServiceInterface(self, name: str=None) -> ApplicationRecordElementInServiceInterfaceInstanceRef:
@@ -306079,9 +303505,6 @@ class ServiceInstanceToSignalMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'SignalBasedMethodToISignalTriggeringMapping_@' + str(len(self.get_children()))) #updates the path
         elif self.__methodMapping is not None:
             self.__methodMapping = None
-            self.__methodMapping._parent = None #No parent
-            self.__methodMapping._update_path() #updates the path
-            self.__methodMapping._node.getparent().remove(self.__methodMapping._node)
         XDT.mark_dirty(self.__methodMapping, self)
 
     def get_serviceInstance(self) -> ServiceInstanceToPortPrototypeMapping:
@@ -307759,9 +305182,6 @@ class InterfaceMapping(Identifiable):
                 value._build_path(elementNameIfShortNameMissing = 'VariationPoint_@' + str(len(self.get_children()))) #updates the path
         elif self.__variationPoint is not None:
             self.__variationPoint = None
-            self.__variationPoint._parent = None #No parent
-            self.__variationPoint._update_path() #updates the path
-            self.__variationPoint._node.getparent().remove(self.__variationPoint._node)
         XDT.mark_dirty(self.__variationPoint, self)
 
     def new_EventMapping(self, name: str=None) -> EventMapping:
